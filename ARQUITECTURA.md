@@ -55,21 +55,39 @@ La nueva arquitectura transforma el sistema monolítico actual en una arquitectu
 ### Nueva Arquitectura (Basada en Dominios)
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                    FLIGHT ORCHESTRATOR                           │
-│  - Crea FUID (identificador único permanente)                   │
-│  - Matching flexible de vuelos usando los 6 campos              │
-│  - Gestión de precedencias                                      │
-│  - Enrutamiento a dominios con FUID                             │
-│                                                                  │
-│  DB: flights (FUID + 6 campos) + message_log                    │
-└───────┬──────────┬──────────┬──────────┬───────────┬───────────┘
-        ↓          ↓          ↓          ↓           ↓
-    ┌────────┐ ┌────────┐ ┌──────┐ ┌──────────┐ ┌─────────┐
-    │PASSENGERS│BAGGAGE│ │ FUEL │ │OPERATIONS│ │SCHEDULES│
-    │          │        │ │      │ │          │ │         │
-    │ DB propia│DB propia│DB propia│DB propia  │DB propia │
-    └────────┘ └────────┘ └──────┘ └──────────┘ └─────────┘
+                    ┌─────────────────────────────────────────┐
+                    │      FLIGHT ORCHESTRATOR (FUID)         │
+                    │  - Extrae FUID + 6 campos               │
+                    │  - Matching flexible                    │
+                    │  - Precedencias por campo               │
+                    │  - Enrutamiento a 13 dominios           │
+                    └──────────────┬──────────────────────────┘
+                                   │
+        ┌──────────────────────────┴────────────────────────────┐
+        │                                                        │
+   ┌────▼────┐  ┌─────────┐  ┌────────┐  ┌────────┐  ┌───────┐
+   │RESOURCES│  │TIMELINE │  │ DELAYS │  │  CREW  │  │ALERTS │
+   │ (gates, │  │(tiempos)│  │(causas)│  │(tripul)│  │(desvío│
+   │ stands) │  │         │  │        │  │        │  │  s)   │
+   └─────────┘  └─────────┘  └────────┘  └────────┘  └───────┘
+
+   ┌─────────┐  ┌─────────┐  ┌────────┐  ┌────────┐  ┌───────┐
+   │PASSENGERS│ │ BAGGAGE │  │  FUEL  │  │AIRCRAFT│  │SCHEDUL│
+   │  (pax,  │  │(equipaj)│  │(uplift)│  │ (tail, │  │  ES   │
+   │ cabinas)│  │         │  │        │  │  type) │  │       │
+   └─────────┘  └─────────┘  └────────┘  └────────┘  └───────┘
+
+   ┌─────────┐  ┌─────────┐  ┌────────┐
+   │ ONWARD  │  │CODESHARE│  │EVENT   │
+   │ FLIGHTS │  │ (vuelos │  │PUBLISH │
+   │(conexio)│  │ compart)│  │  ER    │
+   └─────────┘  └─────────┘  └────────┘
+
+   Cada dominio:
+   ✓ Base de datos propia (PostgreSQL)
+   ✓ Guarda FUID + 6 campos en cada tabla
+   ✓ Aplica precedencias por campo
+   ✓ Publica eventos a Event Publisher
 ```
 
 **Beneficios**:
