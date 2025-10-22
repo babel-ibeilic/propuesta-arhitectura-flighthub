@@ -1,0 +1,31 @@
+graph LR
+    subgraph Scenario["Escenario: Vuelo IB347 despega 2 veces (Return to Base)"]
+        E1["Primer Despegue<br/>08:30 MAD→BCN"]
+        E2["Return to Base<br/>10:00 BCN→MAD<br/>(problemas técnicos)"]
+        E3["Segundo Despegue<br/>14:00 MAD→BCN"]
+    end
+
+    subgraph OrchDB["orchestrator.flights"]
+        F1["FUID: 01HQZ8X9...<br/>-----------<br/>airline_designator: IB<br/>flight_designator: 347<br/>operation_date: 2025-01-14<br/>departure_airport: MAD<br/>departure_number: 1<br/>active: true"]
+
+        F2["FUID: 01HQZ8X9... (mismo)<br/>-----------<br/>airline_designator: IB<br/>flight_designator: 347<br/>operation_date: 2025-01-14<br/>departure_airport: MAD<br/>departure_number: 2<br/>active: true<br/>fuid_flight_principal: 01HQZ8X9..."]
+    end
+
+    subgraph OnwardFlights["fh_onward_flight"]
+        OF1["id: uuid-1<br/>-----------<br/>inbound_fuid: 01HQZ8X9...<br/>onward_airline: IB<br/>onward_flight: 347<br/>onward_date: 2025-01-14<br/>connection_type: RETURN_TO_BASE<br/>turnaround_time: 330 min"]
+    end
+
+    subgraph Events["Eventos Publicados a EventBridge"]
+        EV1["Event 1:<br/>flightIdentifier:<br/>  departureNumber: 1<br/>eventType: flight.departed"]
+
+        EV2["Event 2:<br/>flightIdentifier:<br/>  departureNumber: 2<br/>eventType: flight.departed"]
+    end
+
+    E1 --> F1
+    F1 --> EV1
+    F1 --> OF1
+
+    E2 --> F2
+    F2 --> EV2
+
+    F1 -.->|mismo vuelo| F2

@@ -1,0 +1,64 @@
+sequenceDiagram
+    participant SRC as SITA Network
+    participant TIN as telex-in
+    participant TPARSER as telex-parser
+    participant TELMSGDB as fh_telex_messages DB
+    participant TELDB as fh_telex DB
+    participant ORCHQ as orchestrator_queue.fifo
+    participant ORC as Flight Orchestrator
+    participant DB as fh_orchestrator
+    participant Q1 as passengers_events.fifo
+    participant Q2 as fuel_events.fifo
+    participant Q3 as onward_events.fifo
+    participant PAX as Passengers Service
+    participant FUEL as Fuel Service
+    participant ONWARD as Onward Flights Service
+    participant PUB as Event Publisher
+    participant EB as AWS EventBridge
+
+    SRC->>TIN: Telex Message (raw)
+    Note over TIN: Recibe mensaje raw
+    TIN->>TELMSGDB: Guarda mensaje raw<br/>en fh_telex_messages
+    TELMSGDB-->>TIN: Message ID
+    TIN->>TPARSER: Notifica nuevo mensaje
+
+    Note over TPARSER: 1. Lee mensaje de fh_telex_messages
+    TELMSGDB->>TPARSER: Mensaje raw
+    Note over TPARSER: 2. Detecta tipo/subtipo<br/>usando regex patterns<br/>type='MVT', subtype='AA'
+    Note over TPARSER: 3. Parsea el mensaje MVT-AA<br/>Extrae todos los campos
+    TPARSER->>TELDB: Guarda datos parseados<br/>en fh_telex
+    TELDB-->>TPARSER: UUID generado
+    Note over TPARSER: 4. Genera AnchorKey<br/>y envuelve en CloudEvents
+    TPARSER->>ORCHQ: CloudEvent<br/>{type:'MVT', subtype:'AA',<br/>parsedData: {...}}<br/>MessageGroupId=AnchorKey
+
+    ORCHQ->>ORC: Consume (FIFO by AnchorKey)
+
+    Note over ORC: Recibe datos parseados<br/>Extrae FUID + 6 campos<br/>según tipo de mensaje MVT
+    ORC->>DB: Verificar/Guardar FUID + 6 campos
+    DB-->>ORC: FUID confirmado
+
+    Note over ORC: Extract domain data from MVT
+    Note over ORC: MVT contains:<br/>* Passengers: 180<br/>* Fuel: 12500 kg<br/>* Times: ATD 08:30
+
+    ORC->>Q1: PassengerEvent (FUID + 6 campos + data)
+    ORC->>Q2: FuelEvent (FUID + 6 campos + data)
+    ORC->>Q3: OnwardFlightEvent (FUID + 6 campos + data)
+
+    Q1->>PAX: Consume
+    Note over PAX: UPSERT passenger_summary<br/>SET fuid = '01HQZ8X9...',<br/>operationDate = '2025-01-14',<br/>flightDesignator = '347',<br/>airlineDesignator = 'IB',<br/>...
+    PAX->>PUB: passengers.updated (FUID + 6 campos)
+
+    Q2->>FUEL: Consume
+    Note over FUEL: UPSERT fuel_summary<br/>Guarda FUID + 6 campos + data
+    FUEL->>PUB: fuel.updated (FUID + 6 campos)
+
+    Q3->>ONWARD: Consume
+    Note over ONWARD: UPSERT fh_onward_flight<br/>Guarda FUID + 6 campos + data
+    ONWARD->>PUB: onward_flight.updated (FUID + 6 campos)
+
+    Note over PUB: Los 6 campos ya vienen<br/>en cada evento de dominio.<br/>FUID NO se publica a EventBridge
+
+    Note over PUB: Build external payload<br/>SOLO con los 6 campos<br/>(sin FUID)
+
+    PUB->>EB: Publish external event
+    Note over EB: Topic: flight.updated<br/>Payload includes:<br/>flightIdentifier (6 campos)<br/>passengers, fuel, times<br/>(NO incluye FUID)

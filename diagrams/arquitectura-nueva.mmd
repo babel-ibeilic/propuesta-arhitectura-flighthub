@@ -1,0 +1,277 @@
+graph TB
+    subgraph Fuentes["Fuentes Externas"]
+        SITA["Red SITA<br/>Telex Messages"]
+        AENA["AENA CDM"]
+        SFTP["SFTP"]
+        CKI["Check-in"]
+        NIMBUS["Nimbus"]
+    end
+
+    subgraph InServices["Servicios IN"]
+        TELEX_IN["telex-in<br/>Recibe SITA"]
+        NIMBUS_IN["nimbus-in<br/>Recibe Nimbus"]
+        AENA_IN["aena-in<br/>Recibe CDM"]
+        CKI_IN["cki-in<br/>Recibe GAUD"]
+        SSIM_IN["ssim-in<br/>Recibe SSIM"]
+    end
+
+    subgraph Parsers["Parsers (con BD propia)"]
+        subgraph TELEXP["Telex Parser"]
+            TELEX_P["telex-parser<br/>21 tipos de mensajes"]
+            TELEX_MSG_DB[("fh_telex_messages<br/>raw messages")]
+            TELEX_DB[("fh_telex<br/>parsed data")]
+        end
+        subgraph NIMBUSP["Nimbus Parser"]
+            NIMBUS_P["nimbus-parser<br/>Fuel data"]
+            NIMBUS_MSG_DB[("fh_nimbus_messages<br/>raw messages")]
+            NIMBUS_DB[("fh_nimbus<br/>parsed data")]
+        end
+        subgraph AENAP["AENA Parser"]
+            AENA_P["aena-parser<br/>CDM"]
+            AENA_MSG_DB[("fh_aena_messages<br/>raw messages")]
+            AENA_DB[("fh_aena<br/>parsed data")]
+        end
+        subgraph CKIP["CKI Parser"]
+            CKI_P["cki-parser<br/>GAUD"]
+            CKI_MSG_DB[("fh_cki_messages<br/>raw messages")]
+            CKI_DB[("fh_cki<br/>parsed data")]
+        end
+        subgraph SSIMP["SSIM Parser"]
+            SSIM_P["ssim-parser<br/>Schedules"]
+            SSIM_MSG_DB[("fh_ssim_messages<br/>raw messages")]
+            SSIM_DB[("fh_ssim<br/>parsed data")]
+        end
+    end
+
+    subgraph OrchQueue["Orchestrator Queue"]
+        ORCH_Q["orchestrator_queue.fifo<br/>Orden FIFO garantizado por SQS"]
+    end
+
+    subgraph Orchestrator["Flight Orchestrator"]
+        ORCH["Flight Orchestrator<br/>-----------<br/>* Recibe datos parseados<br/>* Extrae FUID + 6 campos<br/>* Entrada específica por tipo<br/>* Flexible matching<br/>* Precedence management<br/>* Domain routing"]
+        ORCH_DB[("fh_orchestrator<br/>-----------<br/>flights (identifiers)<br/>message_log (audit)")]
+    end
+
+    subgraph DomainQueues["Domain Event Queues (FIFO) - 13 Dominios"]
+        Q_RES["resources_events.fifo"]
+        Q_TIME["timeline_events.fifo"]
+        Q_DELAY["delays_events.fifo"]
+        Q_CREW["crew_events.fifo"]
+        Q_ALERT["alerts_events.fifo"]
+        Q_PAX["passengers_events.fifo"]
+        Q_BAG["baggage_events.fifo"]
+        Q_FUEL["fuel_events.fifo"]
+        Q_AIR["aircraft_events.fifo"]
+        Q_SCH["schedules_events.fifo"]
+        Q_ONWARD["onward_events.fifo"]
+        Q_CODE["codeshare_events.fifo"]
+    end
+
+    subgraph Domains["Dominios de Negocio (13 Dominios)"]
+        subgraph Resources["Resources Domain"]
+            RES_SVC["Resources Service"]
+            RES_DB[("fh_resource")]
+        end
+
+        subgraph Timeline["Timeline Domain"]
+            TIME_SVC["Timeline Service"]
+            TIME_DB[("fh_timeline")]
+        end
+
+        subgraph Delays["Delays Domain"]
+            DELAY_SVC["Delays Service"]
+            DELAY_DB[("fh_delay")]
+        end
+
+        subgraph Crew["Crew Domain"]
+            CREW_SVC["Crew Service"]
+            CREW_DB[("fh_crew")]
+        end
+
+        subgraph Alerts["Alerts Domain"]
+            ALERT_SVC["Alerts Service"]
+            ALERT_DB[("fh_alert")]
+        end
+
+        subgraph Passengers["Passengers Domain"]
+            PAX_SVC["Passengers Service"]
+            PAX_DB[("fh_pax")]
+        end
+
+        subgraph Baggage["Baggage Domain"]
+            BAG_SVC["Baggage Service"]
+            BAG_DB[("fh_bag")]
+        end
+
+        subgraph Fuel["Fuel Domain"]
+            FUEL_SVC["Fuel Service"]
+            FUEL_DB[("fh_fuel")]
+        end
+
+        subgraph Aircraft["Aircraft Domain"]
+            AIR_SVC["Aircraft Service"]
+            AIR_DB[("fh_aircraft")]
+        end
+
+        subgraph Schedules["Schedules Domain"]
+            SCH_SVC["Schedules Service"]
+            SCH_DB[("fh_schedule")]
+        end
+
+        subgraph OnwardFlights["Onward Flights Domain"]
+            ONWARD_SVC["Onward Flights Service"]
+            ONWARD_DB[("fh_onward")]
+        end
+
+        subgraph Codeshare["Codeshare Domain"]
+            CODE_SVC["Codeshare Service"]
+            CODE_DB[("fh_codeshare")]
+        end
+    end
+
+    subgraph Publisher["Event Publisher"]
+        PUB_SVC["Event Publisher<br/>-----------<br/>* FUID → External ID<br/>* 6 campos únicos<br/>* Payload adaptation<br/>* EventBridge publishing"]
+        PUB_CACHE[("Redis Cache<br/>Flight mappings")]
+    end
+
+    subgraph External["Sistemas Externos"]
+        SNS["AWS EventBridge<br/>flight-events-bus"]
+        CONSUMERS["Consumers<br/>Mobile Apps<br/>Web<br/>Partners"]
+    end
+
+    SITA --> TELEX_IN
+    NIMBUS --> NIMBUS_IN
+    AENA --> AENA_IN
+    CKI --> CKI_IN
+    SFTP --> SSIM_IN
+
+    TELEX_IN --> TELEX_MSG_DB
+    TELEX_MSG_DB --> TELEX_IN
+    TELEX_IN --> TELEX_P
+    TELEX_P --> TELEX_MSG_DB
+    TELEX_MSG_DB --> TELEX_P
+    TELEX_P --> TELEX_DB
+    TELEX_DB --> TELEX_P
+
+    NIMBUS_IN --> NIMBUS_MSG_DB
+    NIMBUS_MSG_DB --> NIMBUS_IN
+    NIMBUS_IN --> NIMBUS_P
+    NIMBUS_P --> NIMBUS_MSG_DB
+    NIMBUS_MSG_DB --> NIMBUS_P
+    NIMBUS_P --> NIMBUS_DB
+    NIMBUS_DB --> NIMBUS_P
+
+    AENA_IN --> AENA_MSG_DB
+    AENA_MSG_DB --> AENA_IN
+    AENA_IN --> AENA_P
+    AENA_P --> AENA_MSG_DB
+    AENA_MSG_DB --> AENA_P
+    AENA_P --> AENA_DB
+    AENA_DB --> AENA_P
+
+    CKI_IN --> CKI_MSG_DB
+    CKI_MSG_DB --> CKI_IN
+    CKI_IN --> CKI_P
+    CKI_P --> CKI_MSG_DB
+    CKI_MSG_DB --> CKI_P
+    CKI_P --> CKI_DB
+    CKI_DB --> CKI_P
+
+    SSIM_IN --> SSIM_MSG_DB
+    SSIM_MSG_DB --> SSIM_IN
+    SSIM_IN --> SSIM_P
+    SSIM_P --> SSIM_MSG_DB
+    SSIM_MSG_DB --> SSIM_P
+    SSIM_P --> SSIM_DB
+    SSIM_DB --> SSIM_P
+
+    TELEX_P --> ORCH_Q
+    NIMBUS_P --> ORCH_Q
+    AENA_P --> ORCH_Q
+    CKI_P --> ORCH_Q
+    SSIM_P --> ORCH_Q
+
+    ORCH_Q --> ORCH
+    ORCH --> ORCH_DB
+    ORCH_DB --> ORCH
+
+    ORCH --> Q_RES
+    ORCH --> Q_TIME
+    ORCH --> Q_DELAY
+    ORCH --> Q_CREW
+    ORCH --> Q_ALERT
+    ORCH --> Q_PAX
+    ORCH --> Q_BAG
+    ORCH --> Q_FUEL
+    ORCH --> Q_AIR
+    ORCH --> Q_SCH
+    ORCH --> Q_ONWARD
+    ORCH --> Q_CODE
+
+    Q_RES --> RES_SVC
+    RES_SVC --> RES_DB
+    RES_DB --> RES_SVC
+
+    Q_TIME --> TIME_SVC
+    TIME_SVC --> TIME_DB
+    TIME_DB --> TIME_SVC
+
+    Q_DELAY --> DELAY_SVC
+    DELAY_SVC --> DELAY_DB
+    DELAY_DB --> DELAY_SVC
+
+    Q_CREW --> CREW_SVC
+    CREW_SVC --> CREW_DB
+    CREW_DB --> CREW_SVC
+
+    Q_ALERT --> ALERT_SVC
+    ALERT_SVC --> ALERT_DB
+    ALERT_DB --> ALERT_SVC
+
+    Q_PAX --> PAX_SVC
+    PAX_SVC --> PAX_DB
+    PAX_DB --> PAX_SVC
+
+    Q_BAG --> BAG_SVC
+    BAG_SVC --> BAG_DB
+    BAG_DB --> BAG_SVC
+
+    Q_FUEL --> FUEL_SVC
+    FUEL_SVC --> FUEL_DB
+    FUEL_DB --> FUEL_SVC
+
+    Q_AIR --> AIR_SVC
+    AIR_SVC --> AIR_DB
+    AIR_DB --> AIR_SVC
+
+    Q_SCH --> SCH_SVC
+    SCH_SVC --> SCH_DB
+    SCH_DB --> SCH_SVC
+
+    Q_ONWARD --> ONWARD_SVC
+    ONWARD_SVC --> ONWARD_DB
+    ONWARD_DB --> ONWARD_SVC
+
+    Q_CODE --> CODE_SVC
+    CODE_SVC --> CODE_DB
+    CODE_DB --> CODE_SVC
+
+    RES_SVC --> PUB_SVC
+    TIME_SVC --> PUB_SVC
+    DELAY_SVC --> PUB_SVC
+    CREW_SVC --> PUB_SVC
+    ALERT_SVC --> PUB_SVC
+    PAX_SVC --> PUB_SVC
+    BAG_SVC --> PUB_SVC
+    FUEL_SVC --> PUB_SVC
+    AIR_SVC --> PUB_SVC
+    SCH_SVC --> PUB_SVC
+    ONWARD_SVC --> PUB_SVC
+    CODE_SVC --> PUB_SVC
+
+    PUB_SVC --> PUB_CACHE
+    PUB_CACHE --> PUB_SVC
+    ORCH_DB -.->|Lookup FUID| PUB_SVC
+
+    PUB_SVC --> SNS
+    SNS --> CONSUMERS

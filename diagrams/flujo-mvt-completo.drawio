@@ -1,0 +1,247 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="28.2.7">
+  <diagram name="Page-1" id="MShjVqua6dN76zL4H0p4">
+    <mxGraphModel dx="2476" dy="1120" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Yt73LQbdyz496-idZjtG-209" value="SITA Network" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="20" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-210" value="telex-in" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="239" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-211" value="telex-parser" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="478" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-212" value="fh_telex_messages DB" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="678" y="1090" width="186" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-213" value="fh_telex DB" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="914" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-214" value="orchestrator_queue.fifo" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1114" y="1090" width="190" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-215" value="Flight Orchestrator" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1424" y="1090" width="157" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-216" value="fh_orchestrator" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1749" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-217" value="passengers_events.fifo" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="1949" y="1090" width="187" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-218" value="fuel_events.fifo" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="2186" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-219" value="turnaround_events.fifo" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="2386" y="1090" width="184" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-220" value="Passengers Service" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="2620" y="1090" width="162" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-221" value="Fuel Service" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="2832" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-222" value="Turnaround Service" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="3032" y="1090" width="162" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-223" value="Event Publisher" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="3394" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-224" value="AWS EventBridge" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=65;" vertex="1" parent="1">
+          <mxGeometry x="3623" y="1090" width="150" height="2358" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-225" value="Telex Message (raw)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-209" target="Yt73LQbdyz496-idZjtG-210">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="213" y="1191" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-226" value="Guarda mensaje raw&#xa;en fh_telex_messages" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-210" target="Yt73LQbdyz496-idZjtG-212">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="551" y="1304" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-227" value="Message ID" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-212" target="Yt73LQbdyz496-idZjtG-210">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="554" y="1350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-228" value="Notifica nuevo mensaje" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-210" target="Yt73LQbdyz496-idZjtG-211">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="442" y="1396" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-229" value="Mensaje raw" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-212" target="Yt73LQbdyz496-idZjtG-211">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="674" y="1491" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-230" value="Guarda datos parseados&#xa;en fh_telex" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-211" target="Yt73LQbdyz496-idZjtG-213">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="780" y="1710" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-231" value="UUID generado" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-213" target="Yt73LQbdyz496-idZjtG-211">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="783" y="1756" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-232" value="CloudEvent&#xa;{type:&#39;MVT&#39;, subtype:&#39;AA&#39;,&#xa;parsedData: {...}}&#xa;MessageGroupId=AnchorKey" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-211" target="Yt73LQbdyz496-idZjtG-214">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="890" y="1924" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-233" value="Consume (FIFO by AnchorKey)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-214" target="Yt73LQbdyz496-idZjtG-215">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1364" y="1970" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-234" value="Verificar/Guardar FUID + 6 campos" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-215" target="Yt73LQbdyz496-idZjtG-216">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1672" y="2103" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-235" value="FUID confirmado" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;dashed=1;dashPattern=2 3;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-216" target="Yt73LQbdyz496-idZjtG-215">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1675" y="2149" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-236" value="PassengerEvent (FUID + 6 campos + data)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-215" target="Yt73LQbdyz496-idZjtG-217">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1781" y="2350" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-237" value="FuelEvent (FUID + 6 campos + data)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-215" target="Yt73LQbdyz496-idZjtG-218">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1890" y="2396" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-238" value="TurnaroundEvent (FUID + 6 campos + data)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-215" target="Yt73LQbdyz496-idZjtG-219">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1999" y="2442" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-239" value="Consume" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-217" target="Yt73LQbdyz496-idZjtG-220">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2380" y="2488" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-240" value="passengers.updated (FUID + 6 campos)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-220" target="Yt73LQbdyz496-idZjtG-223">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3094" y="2678" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-241" value="Consume" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-218" target="Yt73LQbdyz496-idZjtG-221">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2593" y="2724" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-242" value="fuel.updated (FUID + 6 campos)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-221" target="Yt73LQbdyz496-idZjtG-223">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3197" y="2838" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-243" value="Consume" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-219" target="Yt73LQbdyz496-idZjtG-222">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="2804" y="2884" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-244" value="turnaround.updated (FUID + 6 campos)" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-222" target="Yt73LQbdyz496-idZjtG-223">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3300" y="2998" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-245" value="Publish external event" style="verticalAlign=bottom;edgeStyle=elbowEdgeStyle;elbow=vertical;curved=0;rounded=0;endArrow=block;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-223" target="Yt73LQbdyz496-idZjtG-224">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="3592" y="3218" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-246" value="Recibe mensaje raw" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="232" y="1211" width="164" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-247" value="1. Lee mensaje de fh_telex_messages" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="407" y="1416" width="293" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-248" value="2. Detecta tipo/subtipo&#xa;usando regex patterns&#xa;type=&#39;MVT&#39;, subtype=&#39;AA&#39;" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="449" y="1511" width="208" height="87" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-249" value="3. Parsea el mensaje MVT-AA&#xa;Extrae todos los campos" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="437" y="1598" width="233" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-250" value="4. Genera AnchorKey&#xa;y envuelve en CloudEvents" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="446" y="1776" width="214" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-251" value="Recibe datos parseados&#xa;Extrae FUID + 6 campos&#xa;según tipo de mensaje MVT" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="1391" y="1990" width="222" height="87" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-252" value="Extract domain data from MVT" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="1382" y="2169" width="241" height="49" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-253" value="MVT contains:&#xa;* Passengers: 180&#xa;* Fuel: 12500 kg&#xa;* Times: ATD 08:30" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="1421" y="2218" width="162" height="106" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-254" value="UPSERT passenger_summary&#xa;SET fuid = &#39;01HQZ8X9...&#39;,&#xa;operationDate = &#39;2025-01-14&#39;,&#xa;flightDesignator = &#39;347&#39;,&#xa;airlineDesignator = &#39;IB&#39;,&#xa;..." style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="2581" y="2508" width="240" height="144" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-255" value="UPSERT fuel_summary&#xa;Guarda FUID + 6 campos + data" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="2781" y="2744" width="252" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-256" value="UPSERT movement_times&#xa;Guarda FUID + 6 campos + data" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="2987" y="2904" width="252" height="68" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-257" value="Los 6 campos ya vienen&#xa;en cada evento de dominio.&#xa;FUID NO se publica a EventBridge" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="3336" y="3018" width="266" height="87" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-258" value="Build external payload&#xa;SOLO con los 6 campos&#xa;(sin FUID)" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="3372" y="3105" width="194" height="87" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-259" value="Topic: flight.updated&#xa;Payload includes:&#xa;flightIdentifier (6 campos)&#xa;passengers, fuel, times&#xa;(NO incluye FUID)" style="fillColor=#ffff88;strokeColor=#9E916F;" vertex="1" parent="1">
+          <mxGeometry x="3594" y="3238" width="208" height="125" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

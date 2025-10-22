@@ -1,0 +1,86 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36" version="28.2.7">
+  <diagram name="Page-1" id="MShjVqua6dN76zL4H0p4">
+    <mxGraphModel dx="1371" dy="882" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Yt73LQbdyz496-idZjtG-471" value="Eventos Publicados a EventBridge" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1118" y="389" width="303" height="372" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-472" value="fh_onward_flight" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="758" y="20" width="310" height="316" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-473" value="orchestrator.flights" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="330" y="356" width="738" height="477" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-474" value="Escenario: Vuelo IB347 despega 2 veces (Return to Base)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="20" y="428" width="260" height="465" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-475" value="Primer Despegue&#xa;08:30 MAD→BCN" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="60" y="463" width="180" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-476" value="Return to Base&#xa;10:00 BCN→MAD&#xa;(problemas técnicos)" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="45" y="628" width="210" height="102" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-477" value="Segundo Despegue&#xa;14:00 MAD→BCN" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="54" y="780" width="192" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-478" value="FUID: 01HQZ8X9...&#xa;-----------&#xa;airline_designator: IB&#xa;flight_designator: 347&#xa;operation_date: 2025-01-14&#xa;departure_airport: MAD&#xa;departure_number: 1&#xa;active: true" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="355" y="391" width="259" height="222" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-479" value="FUID: 01HQZ8X9... (mismo)&#xa;-----------&#xa;airline_designator: IB&#xa;flight_designator: 347&#xa;operation_date: 2025-01-14&#xa;departure_airport: MAD&#xa;departure_number: 2&#xa;active: true&#xa;fuid_flight_principal: 01HQZ8X9..." style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="783" y="528" width="260" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-480" value="id: uuid-1&#xa;-----------&#xa;inbound_fuid: 01HQZ8X9...&#xa;onward_airline: IB&#xa;onward_flight: 347&#xa;onward_date: 2025-01-14&#xa;connection_type: RETURN_TO_BASE&#xa;turnaround_time: 330 min" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="783" y="55" width="260" height="246" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-481" value="Event 1:&#xa;flightIdentifier:&#xa;  departureNumber: 1&#xa;eventType: flight.departed" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1143" y="424" width="253" height="126" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-482" value="Event 2:&#xa;flightIdentifier:&#xa;  departureNumber: 2&#xa;eventType: flight.departed" style="whiteSpace=wrap;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="1143" y="600" width="253" height="126" as="geometry" />
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-483" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-475" target="Yt73LQbdyz496-idZjtG-478">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-484" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.46;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-478" target="Yt73LQbdyz496-idZjtG-481">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="686" y="487" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-485" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.29;entryX=0.21;entryY=1;rounded=0;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-478" target="Yt73LQbdyz496-idZjtG-480">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="686" y="429" />
+              <mxPoint x="758" y="429" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-486" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.55;rounded=0;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-476" target="Yt73LQbdyz496-idZjtG-479">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="758" y="679" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-487" value="" style="curved=1;startArrow=none;endArrow=block;exitX=1;exitY=0.5;entryX=0;entryY=0.5;rounded=0;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-479" target="Yt73LQbdyz496-idZjtG-482">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Yt73LQbdyz496-idZjtG-488" value="mismo vuelo" style="curved=1;dashed=1;dashPattern=2 3;startArrow=none;endArrow=block;exitX=1;exitY=0.76;entryX=0;entryY=0.28;rounded=0;" edge="1" parent="1" source="Yt73LQbdyz496-idZjtG-478" target="Yt73LQbdyz496-idZjtG-479">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="686" y="591" />
+              <mxPoint x="758" y="591" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

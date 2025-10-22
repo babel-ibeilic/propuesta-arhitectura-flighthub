@@ -1,0 +1,128 @@
+graph TB
+    subgraph TelexParsing4["TELEX PARSING"]
+        TIN4["telex-in<br/>Recibe SITA"]
+        TPARSER4["telex-parser<br/>-----------<br/>Detecta tipo/subtipo (21+)<br/>Parsea mensaje<br/>Guarda en fh_telex_messages y fh_telex"]
+        TELEX_MSG_DB4[("fh_telex_messages<br/>raw")]
+        TELEX_DB4[("fh_telex<br/>parsed")]
+    end
+
+    subgraph NimbusParsing4["NIMBUS PARSING"]
+        NIN4["nimbus-in<br/>Recibe Nimbus"]
+        NPARSER4["nimbus-parser<br/>Parsea fuel data"]
+        NIMBUS_MSG_DB4[("fh_nimbus_messages<br/>raw")]
+        NIMBUS_DB4[("fh_nimbus<br/>parsed")]
+    end
+
+    subgraph AenaParsing4["AENA PARSING"]
+        AIN4["aena-in<br/>Recibe CDM"]
+        AENA_P4["aena-parser<br/>Parsea CDM data"]
+        AENA_MSG_DB4[("fh_aena_messages<br/>raw")]
+        AENA_DB4[("fh_aena<br/>parsed")]
+    end
+
+    subgraph CkiParsing4["CKI PARSING"]
+        CIN4["cki-in<br/>Recibe GAUD"]
+        CKI_P4["cki-parser<br/>Parsea GAUD data"]
+        CKI_MSG_DB4[("fh_cki_messages<br/>raw")]
+        CKI_DB4[("fh_cki<br/>parsed")]
+    end
+
+    subgraph SsimParsing4["SSIM PARSING"]
+        SIN4["ssim-in<br/>Recibe SSIM"]
+        SSIM_P4["ssim-parser<br/>Parsea schedule data"]
+        SSIM_MSG_DB4[("fh_ssim_messages<br/>raw")]
+        SSIM_DB4[("fh_ssim<br/>parsed")]
+    end
+
+    subgraph OrchQueue4["ORCHESTRATOR QUEUE"]
+        ORCHQ4["orchestrator_queue.fifo<br/>Recibe de TODOS los parsers"]
+    end
+
+    subgraph Orchestrator["ORCHESTRATOR (Extracción)"]
+        ORCH_EXT["Flight Orchestrator<br/>-----------<br/>Extrae del mensaje:<br/>* FUID (de DB o nuevo ULID)<br/>* operationDate<br/>* flightDesignator<br/>* operationalSuffix<br/>* airlineDesignator<br/>* departureAirport<br/>* departureNumber<br/><br/>Entrada específica por tipo"]
+    end
+
+    subgraph Internal["USO INTERNO (Dominios)"]
+        FUID["FUID (ULID)<br/>-----------<br/>01HQZ8X9Y1K2M3N4P5Q6R7S8T9<br/><br/>* Único en todo el sistema<br/>* Inmutable<br/>* 26 caracteres<br/>* Ordenable<br/>* Extraído por Orchestrator"]
+
+        CAMPOS["6 Campos de Identificación<br/>-----------<br/>operationDate: 2025-01-14<br/>flightDesignator: 347<br/>operationalSuffix: (empty)<br/>airlineDesignator: IB<br/>departureAirport: MAD<br/>departureNumber: 1<br/><br/>* Se guardan en CADA tabla<br/>* Permiten queries sin joins"]
+
+        ORCH_INT["Flight Orchestrator<br/>extrae y envía FUID + 6 campos"]
+        RES_INT["Resources Service<br/>guarda FUID + 6 campos"]
+        TIME_INT["Timeline Service<br/>guarda FUID + 6 campos"]
+        PAX_INT["Passengers Service<br/>guarda FUID + 6 campos"]
+        FUEL_INT["Fuel Service<br/>guarda FUID + 6 campos"]
+
+        FUID --> ORCH_INT
+        CAMPOS --> ORCH_INT
+        ORCH_INT --> RES_INT
+        ORCH_INT --> TIME_INT
+        ORCH_INT --> PAX_INT
+        ORCH_INT --> FUEL_INT
+    end
+
+    subgraph External["PUBLICACIÓN EXTERNA"]
+        PUB_MAP["Event Publisher<br/>-----------<br/>Los 6 campos YA VIENEN<br/>en cada evento de dominio.<br/>Solo necesita formatear."]
+
+        EXT_ID["External ID (6 campos)<br/>-----------<br/>airlineDesignator: IB<br/>flightDesignator: 347<br/>operationalSuffix: (empty)<br/>departureAirport: MAD<br/>operationDate: 2025-01-14<br/>departureNumber: 1<br/><br/>* NO incluye FUID<br/>* Estándar aeronáutico<br/>* Compatible con externos"]
+
+        EB_EXT["AWS EventBridge<br/>-----------<br/>flight-events-bus<br/><br/>Consumidores se suscriben:<br/>* Mobile Apps<br/>* Web Dashboard<br/>* Partner Systems"]
+
+        EXT_ID --> EB_EXT
+    end
+
+    TIN4 --> TELEX_MSG_DB4
+    TELEX_MSG_DB4 --> TIN4
+    TIN4 --> TPARSER4
+    TPARSER4 --> TELEX_MSG_DB4
+    TELEX_MSG_DB4 --> TPARSER4
+    TPARSER4 --> TELEX_DB4
+    TELEX_DB4 --> TPARSER4
+
+    NIN4 --> NIMBUS_MSG_DB4
+    NIMBUS_MSG_DB4 --> NIN4
+    NIN4 --> NPARSER4
+    NPARSER4 --> NIMBUS_MSG_DB4
+    NIMBUS_MSG_DB4 --> NPARSER4
+    NPARSER4 --> NIMBUS_DB4
+    NIMBUS_DB4 --> NPARSER4
+
+    AIN4 --> AENA_MSG_DB4
+    AENA_MSG_DB4 --> AIN4
+    AIN4 --> AENA_P4
+    AENA_P4 --> AENA_MSG_DB4
+    AENA_MSG_DB4 --> AENA_P4
+    AENA_P4 --> AENA_DB4
+    AENA_DB4 --> AENA_P4
+
+    CIN4 --> CKI_MSG_DB4
+    CKI_MSG_DB4 --> CIN4
+    CIN4 --> CKI_P4
+    CKI_P4 --> CKI_MSG_DB4
+    CKI_MSG_DB4 --> CKI_P4
+    CKI_P4 --> CKI_DB4
+    CKI_DB4 --> CKI_P4
+
+    SIN4 --> SSIM_MSG_DB4
+    SSIM_MSG_DB4 --> SIN4
+    SIN4 --> SSIM_P4
+    SSIM_P4 --> SSIM_MSG_DB4
+    SSIM_MSG_DB4 --> SSIM_P4
+    SSIM_P4 --> SSIM_DB4
+    SSIM_DB4 --> SSIM_P4
+
+    TPARSER4 --> ORCHQ4
+    NPARSER4 --> ORCHQ4
+    AENA_P4 --> ORCHQ4
+    CKI_P4 --> ORCHQ4
+    SSIM_P4 --> ORCHQ4
+
+    ORCHQ4 --> ORCH_EXT
+    ORCH_EXT --> ORCH_INT
+
+    RES_INT --> PUB_MAP
+    TIME_INT --> PUB_MAP
+    PAX_INT --> PUB_MAP
+    FUEL_INT --> PUB_MAP
+
+    PUB_MAP --> EXT_ID
