@@ -1,0 +1,2918 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ARQUITECTURA.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="flight-hub---arquitectura-basada-en-dominios">Flight Hub - Arquitectura Basada en Dominios</h1>
+<h2 id="%C3%ADndice">Índice</h2>
+<ol>
+<li><a href="#visi%C3%B3n-general">Visión General</a></li>
+<li><a href="#arquitectura-actual-vs-nueva">Arquitectura Actual vs Nueva</a></li>
+<li><a href="#componentes-core">Componentes Core</a></li>
+<li><a href="#identificaci%C3%B3n-de-vuelos">Identificación de Vuelos</a></li>
+<li><a href="#modelo-de-base-de-datos-por-dominios">Modelo de Base de Datos por Dominios</a></li>
+<li><a href="#flujo-de-datos">Flujo de Datos</a></li>
+<li><a href="#precedencias">Precedencias</a></li>
+<li><a href="#stack-tecnol%C3%B3gico">Stack Tecnológico</a></li>
+</ol>
+<hr>
+<h2 id="visi%C3%B3n-general">Visión General</h2>
+<p>La nueva arquitectura transforma el sistema monolítico actual en una arquitectura basada en <strong>dominios de negocio</strong> independientes, cada uno con su propia base de datos, siguiendo los principios de microservicios y Domain-Driven Design (DDD).</p>
+<h3 id="principios-fundamentales">Principios Fundamentales</h3>
+<ol>
+<li><strong>Un dominio, una base de datos</strong>: Cada microservicio solo escribe en su propia base de datos</li>
+<li><strong>Comunicación por eventos</strong>: Las integraciones entre dominios se hacen SOLO mediante eventos</li>
+<li><strong>FUID como identificador único</strong>: Reemplaza los múltiples formatos de Flight ID actuales</li>
+<li><strong>Matching flexible</strong>: Identificación de vuelos usando múltiples criterios (IATA/ICAO, diferentes campos)</li>
+<li><strong>Precedencias por campo</strong>: Cada campo tiene sus propias reglas de precedencia por fuente</li>
+</ol>
+<hr>
+<h2 id="arquitectura-actual-vs-nueva">Arquitectura Actual vs Nueva</h2>
+<h3 id="arquitectura-actual-monol%C3%ADtica">Arquitectura Actual (Monolítica)</h3>
+<pre class="hljs"><code><div>┌─────────────────────────────────────────────────────────────┐
+│                    FLIGHT-WORKER                             │
+│  - 25+ tablas en una sola base de datos                     │
+│  - Lógica de negocio mezclada                               │
+│  - 7 formatos diferentes de Flight ID                       │
+│  - Acoplamiento fuerte entre dominios                       │
+│  - Escalado vertical únicamente                             │
+└─────────────────────────────────────────────────────────────┘
+          ↑                    ↑                    ↑
+     TELEX (21)            AENA CDM              CKI GAUD
+</div></code></pre>
+<p><strong>Problemas</strong>:</p>
+<ul>
+<li>❌ Imposible escalar dominios independientemente</li>
+<li>❌ Deploys riesgosos (todo o nada)</li>
+<li>❌ Tabla <code>flight_departure_info</code> con 100+ campos mezclando 4 dominios</li>
+<li>❌ 7 formatos de Flight ID incompatibles entre servicios</li>
+<li>❌ Precedencias hardcodeadas y difíciles de mantener</li>
+</ul>
+<h3 id="nueva-arquitectura-basada-en-dominios">Nueva Arquitectura (Basada en Dominios)</h3>
+<pre class="hljs"><code><div>                    ┌─────────────────────────────────────────┐
+                    │      FLIGHT ORCHESTRATOR (FUID)         │
+                    │  - Extrae FUID + 6 campos               │
+                    │  - Matching flexible                    │
+                    │  - Precedencias por campo               │
+                    │  - Enrutamiento a 13 dominios           │
+                    └──────────────┬──────────────────────────┘
+                                   │
+        ┌──────────────────────────┴────────────────────────────┐
+        │                                                        │
+   ┌────▼────┐  ┌─────────┐  ┌────────┐  ┌────────┐  ┌───────┐
+   │RESOURCES│  │TIMELINE │  │ DELAYS │  │  CREW  │  │ALERTS │
+   │ (gates, │  │(tiempos)│  │(causas)│  │(tripul)│  │(desvío│
+   │ stands) │  │         │  │        │  │        │  │  s)   │
+   └─────────┘  └─────────┘  └────────┘  └────────┘  └───────┘
+
+   ┌─────────┐  ┌─────────┐  ┌────────┐  ┌────────┐  ┌───────┐
+   │PASSENGERS│ │ BAGGAGE │  │  FUEL  │  │AIRCRAFT│  │SCHEDUL│
+   │  (pax,  │  │(equipaj)│  │(uplift)│  │ (tail, │  │  ES   │
+   │ cabinas)│  │         │  │        │  │  type) │  │       │
+   └─────────┘  └─────────┘  └────────┘  └────────┘  └───────┘
+
+   ┌─────────┐  ┌─────────┐  ┌────────┐
+   │ ONWARD  │  │CODESHARE│  │EVENT   │
+   │ FLIGHTS │  │ (vuelos │  │PUBLISH │
+   │(conexio)│  │ compart)│  │  ER    │
+   └─────────┘  └─────────┘  └────────┘
+
+   Cada dominio:
+   ✓ Base de datos propia (PostgreSQL)
+   ✓ Guarda FUID + 6 campos en cada tabla
+   ✓ Aplica precedencias por campo
+   ✓ Publica eventos a Event Publisher
+</div></code></pre>
+<p><strong>Beneficios</strong>:</p>
+<ul>
+<li>✅ Escalado independiente por dominio</li>
+<li>✅ Deploys independientes</li>
+<li>✅ FUID único en todo el sistema</li>
+<li>✅ Matching flexible (IATA/ICAO, múltiples campos)</li>
+<li>✅ Precedencias configurables por campo</li>
+<li>✅ Ownership claro de datos</li>
+</ul>
+<hr>
+<h2 id="componentes-core">Componentes Core</h2>
+<h3 id="1-servicios-in-y-parsers">1. Servicios IN y Parsers</h3>
+<p>La arquitectura sigue un patrón <strong>IN → Parser → Orchestrator</strong> donde cada fuente de datos tiene:</p>
+<ol>
+<li>Un servicio <strong>IN</strong> que recibe mensajes raw</li>
+<li>Un <strong>Parser</strong> que parsea y guarda en su BD</li>
+<li>Publica a la <strong>cola del Orchestrator</strong></li>
+</ol>
+<h4 id="11-telex-in-%E2%86%92-telex-parser">1.1 Telex-In → Telex Parser</h4>
+<p><strong>Servicio IN</strong>: <code>telex-in</code> recibe mensajes raw desde SITA</p>
+<p><strong>Parser</strong>: <code>telex-parser</code> procesa 21+ tipos de mensajes telex</p>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ TELEX-IN: Recibir mensaje raw desde SITA                                 ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN receiveTelexMessage(rawTelex)
+
+  // 1. Guardar mensaje raw en telex_in_messages
+  messageId ← GUARDAR_EN_DB(telex_in_messages, {
+    rawMessage: rawTelex,
+    source: 'SITA',
+    receivedAt: AHORA()
+  })
+
+  // 2. Publicar CloudEvent a parser queue (formato text/plain)
+  PUBLICAR_A_COLA(
+    cola: 'telex_parser_queue.fifo',
+    messageGroupId: 'telex-parser',  // Procesar en orden
+    mensaje: {
+      specversion: &quot;1.0&quot;,
+      type: &quot;com.iberia.flighthub.telex_in&quot;,
+      source: &quot;FlightHub.TelexIn&quot;,
+      subject: &quot;TELEX RAW&quot;,
+      id: messageId,
+      time: ISO_TIMESTAMP(AHORA()),
+      datacontenttype: &quot;text/plain&quot;,
+      data: rawTelex  // ← Raw telex text
+    }
+  )
+
+FIN FUNCIÓN
+
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║ TELEX-PARSER: Procesar mensaje CloudEvent                                ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN parse(cloudEvent)
+
+  rawTelex ← cloudEvent.data  // Extraer raw text
+
+  // 1. Detectar tipo y subtipo usando regex patterns
+  detección ← DETECTAR_TIPO_TELEX(rawTelex)
+  // Ejemplo: { type: 'MVT', subtype: 'AD' }
+
+  // 2. Parsear mensaje según tipo/subtipo
+  parsedData ← PARSEAR_POR_TIPO(rawTelex, detección.type, detección.subtype)
+
+  // 3. Guardar en telex_parser (tabla del parser con datos parseados)
+  telexId ← GUARDAR_EN_DB(telex_parser, {
+    messageId: cloudEvent.id,
+    rawMessage: rawTelex,
+    type: detección.type,
+    subtype: detección.subtype,
+    parsedData: parsedData,
+    source: 'SITA'
+  })
+
+  // 4. Publicar CloudEvent a orchestrator queue
+  PUBLICAR_A_COLA(
+    cola: 'orchestrator_queue.fifo',
+    messageGroupId: 'telex-parser',  // ← Procesamiento secuencial del parser
+    mensaje: {
+      specversion: &quot;1.0&quot;,
+      type: &quot;com.iberia.flighthub.telex.&quot; + detección.type,
+      source: &quot;FlightHub.TelexParser&quot;,
+      subject: detección.type + &quot; &quot; + detección.subtype,
+      id: telexId,
+      time: ISO_TIMESTAMP(AHORA()),
+      datacontenttype: &quot;application/json&quot;,
+      data: parsedData  // ← Solo datos parseados (NO FUID, NO AnchorKey)
+    }
+  )
+
+FIN FUNCIÓN
+</div></code></pre>
+<p><strong>Tipos soportados</strong> (21+ tipos):</p>
+<ul>
+<li><strong>MVT</strong>, <strong>ASM</strong>, <strong>LDM</strong>, <strong>CPM</strong>, <strong>PSM</strong>, <strong>WAB</strong>, <strong>SAM</strong>, <strong>SRM</strong>, <strong>SLC</strong>, <strong>ARR</strong>, <strong>DEP</strong>, <strong>M11-M14</strong>, <strong>MER</strong>, <strong>AME</strong></li>
+</ul>
+<h4 id="12-nimbus-in-%E2%86%92-nimbus-parser">1.2 Nimbus-In → Nimbus Parser</h4>
+<p><strong>Servicio IN</strong>: <code>nimbus-in</code> recibe mensajes de Nimbus (fuel data)</p>
+<p><strong>Parser</strong>: <code>nimbus-parser</code> procesa y guarda en <code>fh_nimbus</code></p>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ NIMBUS-IN: Recibir mensaje desde Nimbus (XML/JSON)                      ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN receiveNimbusMessage(rawMessage, contentType)
+
+  // 1. Guardar mensaje raw en nimbus_in_messages
+  messageId ← GUARDAR_EN_DB(nimbus_in_messages, {
+    rawMessage: rawMessage,
+    source: 'NIMBUS',
+    receivedAt: AHORA()
+  })
+
+  // 2. Publicar CloudEvent a parser queue (formato XML o JSON)
+  PUBLICAR_A_COLA(
+    cola: 'nimbus_parser_queue.fifo',
+    messageGroupId: 'nimbus-parser',
+    mensaje: {
+      specversion: &quot;1.0&quot;,
+      type: &quot;com.iberia.flighthub.nimbus_in&quot;,
+      source: &quot;FlightHub.NimbusIn&quot;,
+      subject: &quot;FUEL DATA&quot;,
+      id: messageId,
+      time: ISO_TIMESTAMP(AHORA()),
+      datacontenttype: contentType,  // &quot;application/xml&quot; o &quot;application/json&quot;
+      data: rawMessage
+    }
+  )
+
+FIN FUNCIÓN
+
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║ NIMBUS-PARSER: Procesar mensaje CloudEvent                               ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN parse(cloudEvent)
+
+  rawMessage ← cloudEvent.data
+
+  // 1. Parsear según content type
+  SI cloudEvent.datacontenttype == &quot;application/xml&quot; ENTONCES
+    parsedData ← PARSEAR_FUEL_XML(rawMessage)
+  SINO
+    parsedData ← PARSEAR_FUEL_JSON(rawMessage)
+  FIN SI
+
+  // 2. Guardar en nimbus_parser (tabla del parser con datos parseados)
+  nimbusId ← GUARDAR_EN_DB(nimbus_parser, {
+    messageId: cloudEvent.id,
+    rawMessage: rawMessage,
+    parsedData: parsedData,
+    source: 'NIMBUS'
+  })
+
+  // 3. Publicar CloudEvent a orchestrator queue
+  PUBLICAR_A_COLA(
+    cola: 'orchestrator_queue.fifo',
+    messageGroupId: 'nimbus-parser',  // ← Procesamiento secuencial del parser
+    mensaje: {
+      specversion: &quot;1.0&quot;,
+      type: &quot;com.iberia.flighthub.fuel.nimbus&quot;,
+      source: &quot;FlightHub.NimbusParser&quot;,
+      subject: &quot;FUEL UPDATE&quot;,
+      id: nimbusId,
+      time: ISO_TIMESTAMP(AHORA()),
+      datacontenttype: &quot;application/json&quot;,
+      data: parsedData  // ← Solo datos parseados (NO FUID, NO AnchorKey)
+    }
+  )
+
+FIN FUNCIÓN
+</div></code></pre>
+<p><strong>Arquitectura y Tablas por Servicio</strong>:</p>
+<pre class="hljs"><code><div>SITA → telex-in (guarda en telex_in_messages) → telex-parser (parsea y guarda en telex_parser) → orchestrator_queue.fifo
+
+NIMBUS → nimbus-in (guarda en nimbus_in_messages) → nimbus-parser (parsea y guarda en nimbus_parser) → orchestrator_queue.fifo
+
+AENA → aena-in (guarda en aena_in_messages) → aena-parser (parsea y guarda en aena_parser) → orchestrator_queue.fifo
+
+CKI → cki-in (guarda en cki_in_messages) → cki-parser (parsea y guarda en cki_parser) → orchestrator_queue.fifo
+
+SSIM → ssim-in (guarda en ssim_in_messages) → ssim-parser (parsea y guarda en ssim_parser) → orchestrator_queue.fifo
+</div></code></pre>
+<p><strong>Patrón de nombrado de tablas</strong>:</p>
+<ul>
+<li><code>{servicio}_in_messages</code> - Servicios IN guardan mensajes raw</li>
+<li><code>{servicio}_parser</code> - Parsers guardan datos parseados</li>
+<li>Orchestrator añade FUID y enruta a dominios</li>
+<li>Workers guardan en tablas con prefijo <code>fh_{dominio}_</code></li>
+</ul>
+<h3 id="2-fuid-identificador-%C3%BAnico-de-vuelo">2. FUID: Identificador Único de Vuelo</h3>
+<p><strong>FUID (Flight Unique Identifier)</strong> es el identificador interno permanente del vuelo:</p>
+<h4 id="caracter%C3%ADsticas-del-fuid">Características del FUID</h4>
+<ul>
+<li><strong>Generado por</strong>: Orchestrator (solo para ASM NEW y SSIM NEW)</li>
+<li><strong>Formato</strong>: ULID (26 caracteres) - Ejemplo: <code>01HQZ8X9Y1K2M3N4P5Q6R7S8T9</code></li>
+<li><strong>Propósito</strong>: Vincular todos los datos del mismo vuelo, incluso cuando cambian los identificadores externos (aeropuerto, departure_number, etc.)</li>
+<li><strong>Inmutable</strong>: Una vez creado, nunca cambia</li>
+<li><strong>Alcance</strong>: Orchestrator → Domain Workers → Event Publisher</li>
+<li><strong>NO se publica</strong> a EventBridge (solo los 6 campos externos)</li>
+</ul>
+<h4 id="flujo-completo-del-fuid">Flujo Completo del FUID</h4>
+<pre class="hljs"><code><div>Parser:
+  - Parsea mensaje
+  - NO genera ningún identificador
+  - Publica a orchestrator_queue.fifo
+  - Incluye solo datos parseados (NO FUID)
+  - FIFO garantizado por la cola SQS
+
+Orchestrator:
+  - Recibe mensaje parseado del Parser
+  - Extrae los 6 campos del mensaje
+  - Busca/crea FUID usando los 6 campos
+  - Guarda FUID en flights y message_log
+  - Publica a domain queues
+  - Incluye FUID + 6 campos en cloudEvent.data
+  - FIFO garantizado por las colas SQS FIFO
+
+Domain Workers:
+  - Reciben FUID + 6 campos
+  - Guardan en BD con FUID + 6 campos (para vincular datos)
+  - Publican a Event Publisher con FUID + 6 campos
+  - FIFO garantizado por las colas SQS FIFO
+
+Event Publisher:
+  - Recibe FUID + 6 campos
+  - Publica a EventBridge solo los 6 campos (NO FUID)
+</div></code></pre>
+<p><strong>Ejemplo de vinculación con FUID</strong>:</p>
+<pre class="hljs"><code><div>Vuelo IB347 MAD-BCN:
+- Primer intento: departure_number = 1, FUID = 01HQZ8X9...
+- Return to base por problema técnico
+- Segundo intento: departure_number = 2, MISMO FUID = 01HQZ8X9...
+
+→ El FUID vincula ambos intentos como el mismo vuelo operacional
+</div></code></pre>
+<h3 id="3-flight-orchestrator">3. Flight Orchestrator</h3>
+<p><strong>Responsabilidad</strong>: Recibir mensajes parseados desde los Parsers, extraer FUID + 6 campos con entrada específica por tipo de dato, gestionar precedencias, y enrutar a dominios.</p>
+<p><strong>Base de Datos</strong>:</p>
+<h4 id="tabla-flights-identificadores">Tabla <code>flights</code> (Identificadores)</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> flights (
+  <span class="hljs-comment">-- Identificador único permanente</span>
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) PRIMARY <span class="hljs-keyword">KEY</span>,
+
+  <span class="hljs-comment">-- Los 6 campos de identificación (para matching)</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Códigos ICAO adicionales para matching flexible</span>
+  airline_designator_icao <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">4</span>),
+  flight_designator_atc <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  departure_airport_icao <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">4</span>),
+  arrival_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>),
+  arrival_airport_icao <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">4</span>),
+
+  <span class="hljs-comment">-- Control de estado</span>
+  active <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">true</span>,
+  principal <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">true</span>,
+  fuid_new_flight <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>),
+  fuid_flight_principal <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>),
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Índice compuesto único para los 6 campos</span>
+  <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">INDEX</span> idx_6_campos (
+    operation_date,
+    flight_designator,
+    operational_suffix,
+    airline_designator,
+    departure_airport,
+    departure_number
+  ),
+
+  <span class="hljs-comment">-- Índices para búsquedas</span>
+  <span class="hljs-keyword">INDEX</span> idx_operation_date (operation_date),
+  <span class="hljs-keyword">INDEX</span> idx_airline (airline_designator),
+  <span class="hljs-keyword">INDEX</span> idx_flight_designator (flight_designator),
+  <span class="hljs-keyword">INDEX</span> idx_departure_airport (departure_airport),
+  <span class="hljs-keyword">INDEX</span> idx_active (active),
+  <span class="hljs-keyword">INDEX</span> idx_principal (principal)
+);
+</div></code></pre>
+<h4 id="tabla-messagelog-auditor%C3%ADa-completa">Tabla <code>message_log</code> (Auditoría Completa)</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> message_log (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,             <span class="hljs-comment">-- "TELEX", "AENA", "CKI", etc.</span>
+  message_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,       <span class="hljs-comment">-- "MVT", "ASM", "CDM", etc.</span>
+  message_subtype <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),             <span class="hljs-comment">-- "NEW", "UPDATE", "CANCEL"</span>
+
+  raw_message JSONB <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,              <span class="hljs-comment">-- Mensaje original completo</span>
+  parsed_message JSONB,                    <span class="hljs-comment">-- Mensaje parseado</span>
+
+  processing_status <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),           <span class="hljs-comment">-- PENDING, PROCESSED, FAILED</span>
+  processed_at <span class="hljs-built_in">TIMESTAMP</span>,
+  error_message <span class="hljs-built_in">TEXT</span>,
+
+  received_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_source_type (<span class="hljs-keyword">source</span>, message_type),
+  <span class="hljs-keyword">INDEX</span> idx_status (processing_status)
+);
+</div></code></pre>
+<p><strong>Extracción de FUID + 6 Campos</strong>:</p>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ ORCHESTRATOR: Extractores específicos por tipo de mensaje                ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+// Extractor para mensajes TELEX (21+ tipos)
+FUNCIÓN extractTelexIdentifiers(parsedData, messageType)
+
+  // El telex-parser ya parseó el mensaje, solo extraemos identificadores
+  RETORNAR {
+    operationDate: parsedData.flightDate O parsedData.operationDate,
+    flightDesignator: parsedData.flightNumber,
+    operationalSuffix: parsedData.suffix O &quot;&quot;,
+    airlineDesignator: parsedData.airline,
+    departureAirport: parsedData.departureAirport,
+    departureNumber: parsedData.departureNumber O 1
+  }
+
+FIN FUNCIÓN
+
+
+// Extractor para mensajes NIMBUS
+FUNCIÓN extractNimbusIdentifiers(parsedData)
+
+  // El nimbus-parser ya parseó los datos de fuel
+  RETORNAR {
+    operationDate: parsedData.operationDate,
+    flightDesignator: parsedData.flightNumber,
+    operationalSuffix: parsedData.suffix O &quot;&quot;,
+    airlineDesignator: parsedData.airline,
+    departureAirport: parsedData.departureAirport,
+    departureNumber: 1
+  }
+
+FIN FUNCIÓN
+
+
+// Extractor para mensajes AENA CDM
+FUNCIÓN extractAENAIdentifiers(parsedData)
+
+  // El aena-parser ya parseó el mensaje CDM
+  RETORNAR {
+    operationDate: parsedData.operationDate,
+    flightDesignator: parsedData.flightId,
+    operationalSuffix: parsedData.operationalSuffix O &quot;&quot;,
+    airlineDesignator: parsedData.airlineIATA,
+    departureAirport: parsedData.adep,
+    departureNumber: 1
+  }
+
+FIN FUNCIÓN
+
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║ ORCHESTRATOR SERVICE: Procesamiento principal                            ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN processMessage(cloudEvent)
+
+  // 1. Seleccionar extractor según el tipo de mensaje
+  SI cloudEvent.type CONTIENE &quot;telex&quot; ENTONCES
+    identifiers ← extractTelexIdentifiers(cloudEvent.data, cloudEvent.subject)
+  SINO SI cloudEvent.type CONTIENE &quot;nimbus&quot; ENTONCES
+    identifiers ← extractNimbusIdentifiers(cloudEvent.data)
+  SINO SI cloudEvent.type CONTIENE &quot;aena&quot; ENTONCES
+    identifiers ← extractAENAIdentifiers(cloudEvent.data)
+  // ... otros extractores
+  FIN SI
+
+  // 2. Buscar o crear FUID usando los 6 campos
+  fuid ← findOrCreateFUID(identifiers, cloudEvent)
+
+  // 3. Guardar identificadores en orchestrator.flights
+  GUARDAR_IDENTIFICADORES(fuid, identifiers)
+
+  // 4. Guardar mensaje completo en orchestrator.message_log (auditoría)
+  GUARDAR_EN_DB(message_log, {
+    fuid: fuid,
+    source: cloudEvent.source,
+    messageType: cloudEvent.type,
+    rawMessage: cloudEvent,
+    processedAt: AHORA()
+  })
+
+  // 5. Enrutar a dominios con FUID + 6 campos
+  routeToDomains(fuid, identifiers, cloudEvent)
+
+FIN FUNCIÓN
+</div></code></pre>
+<p><strong>Matching Flexible</strong>:</p>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ MATCHING FLEXIBLE: Buscar candidatos de vuelo                            ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN findFlightCandidates(identifiers)
+
+  // Buscar vuelos que coincidan con los 6 campos (flexible matching)
+  candidatos ← CONSULTAR_DB(flights, DONDE {
+
+    // 1. Aerolínea (IATA O ICAO)
+    (airline_designator = identifiers.airlineDesignator
+     O airline_designator_icao = identifiers.airlineDesignator)
+
+    Y
+    // 2. Flight number (normal O ATC)
+    (flight_designator = identifiers.flightDesignator
+     O flight_designator_atc = identifiers.flightDesignator)
+
+    Y
+    // 3. Aeropuertos (departure IATA O ICAO)
+    (departure_airport = identifiers.departureAirport
+     O departure_airport_icao = identifiers.departureAirport)
+
+    Y
+    // 4. Fechas (UTC O local)
+    (operation_date = identifiers.operationDate
+     O local_operation_date = identifiers.operationDate)
+
+    Y
+    // 5. Operational suffix
+    operational_suffix = identifiers.operationalSuffix
+
+    Y
+    // 6. Departure number
+    departure_number = identifiers.departureNumber
+  })
+
+  RETORNAR candidatos
+
+FIN FUNCIÓN
+</div></code></pre>
+<p><strong>Creación de FUID</strong>:</p>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ VALIDACIÓN: Verificar si puede crear FUID                                ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN canCreateFUID(cloudEvent)
+
+  // SOLO ASM NEW y SSIM NEW pueden crear FUID
+  SI cloudEvent.source CONTIENE &quot;TelexParser&quot; ENTONCES
+    // Verificar si es ASM NEW
+    RETORNAR cloudEvent.subject CONTIENE &quot;ASM&quot; Y cloudEvent.subject CONTIENE &quot;NEW&quot;
+  FIN SI
+
+  SI cloudEvent.source CONTIENE &quot;SSIMParser&quot; ENTONCES
+    // Verificar si es SSIM NEW
+    RETORNAR cloudEvent.type CONTIENE &quot;NEW&quot;
+  FIN SI
+
+  RETORNAR FALSO  // Otros tipos no pueden crear FUID
+
+FIN FUNCIÓN
+
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║ CREAR VUELO: Generar nuevo FUID y guardar identificadores                ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN createFlight(identifiers, cloudEvent)
+
+  // 1. Generar FUID único (ULID)
+  fuid ← GENERAR_ULID()
+  // Ejemplo: &quot;01HQZ8X9Y1K2M3N4P5Q6R7S8T9&quot;
+
+  // 2. Extraer datos del mensaje parseado
+  parsedData ← cloudEvent.data
+
+  // 3. Guardar en orchestrator.flights
+  GUARDAR_EN_DB(flights, {
+    fuid: fuid,
+
+    // Los 6 campos de identificación
+    airline_designator: identifiers.airlineDesignator,
+    airline_designator_icao: BUSCAR_ICAO(identifiers.airlineDesignator),
+    flight_designator: identifiers.flightDesignator,
+    operational_suffix: identifiers.operationalSuffix,
+    operation_date: identifiers.operationDate,
+    departure_airport: identifiers.departureAirport,
+    departure_airport_icao: BUSCAR_ICAO_AIRPORT(identifiers.departureAirport),
+    departure_number: identifiers.departureNumber,
+
+    // Datos adicionales
+    arrival_airport: EXTRAER(parsedData, 'arrivalAirport'),
+    scheduled_departure_time: EXTRAER(parsedData, 'scheduledDeparture'),
+    scheduled_arrival_time: EXTRAER(parsedData, 'scheduledArrival'),
+
+    // Metadata
+    created_by: cloudEvent.type,
+    created_at: AHORA(),
+    updated_at: AHORA()
+  })
+
+  RETORNAR fuid
+
+FIN FUNCIÓN
+</div></code></pre>
+<p><strong>Enrutamiento a Dominios</strong>:</p>
+<p>El Orchestrator enruta mensajes parseados a los dominios correspondientes. Un mensaje puede ir a <strong>múltiples dominios</strong> simultáneamente.</p>
+<p><strong>Concepto</strong>: El Orchestrator extrae datos específicos de cada dominio y publica eventos CloudEvents 1.0 a las colas FIFO de cada dominio. El orden está garantizado por las colas SQS FIFO.</p>
+<p><strong>Ver ejemplo completo</strong> en la sección <a href="#flujo-de-datos">Flujo de Datos</a> que muestra cómo un mensaje MVT se enruta a 3 dominios (Timeline, Passengers, Fuel) con formato CloudEvents completo.</p>
+<h3 id="4-event-publisher-publicaci%C3%B3n-externa">4. Event Publisher (Publicación Externa)</h3>
+<p><strong>Responsabilidad</strong>: Agregar cambios de dominios y publicar eventos a sistemas externos con el formato de identificación apropiado.</p>
+<p><strong>Importante</strong>: El FUID es para uso <strong>interno</strong> del sistema. Para publicar a sistemas externos, se usan los <strong>6 campos de identificación</strong> que son estándar en la industria aeronáutica. <strong>El FUID NO se publica a EventBridge</strong>.</p>
+<h4 id="campos-de-identificaci%C3%B3n-externa">Campos de Identificación Externa</h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">interface</span> ExternalFlightIdentifier {
+  operationDate: <span class="hljs-built_in">Date</span>; <span class="hljs-comment">// Fecha de operación UTC</span>
+  flightDesignator: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Número de vuelo: "347"</span>
+  operationalSuffix: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Sufijo operacional: "A", "B", ""</span>
+  airlineDesignator: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Aerolínea IATA: "IB"</span>
+  departureAirport: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// Aeropuerto de salida IATA: "MAD"</span>
+  departureNumber: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// Número de intento de despegue: 1, 2, 3...</span>
+}
+</div></code></pre>
+<p><strong>Explicación de Campos</strong>:</p>
+<ol>
+<li><strong>operationDate</strong>: Fecha UTC de operación del vuelo</li>
+<li><strong>flightDesignator</strong>: Número de vuelo (sin prefijo de aerolínea)</li>
+<li><strong>operationalSuffix</strong>: Sufijo usado en casos de vuelos duplicados programados (&quot;A&quot;, &quot;B&quot;, o vacío)</li>
+<li><strong>airlineDesignator</strong>: Código IATA de la aerolínea (2-3 caracteres)</li>
+<li><strong>departureAirport</strong>: Código IATA del aeropuerto de salida</li>
+<li><strong>departureNumber</strong>: Número incremental para vuelos turnaround (cuando el mismo vuelo despega múltiples veces)</li>
+</ol>
+<p><strong>Relación FUID ↔ External Identifier</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">interface</span> FlightMapping {
+  <span class="hljs-comment">// Identificador interno (único, inmutable)</span>
+  fuid: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// "01HQZ8X9Y1K2M3N4P5Q6R7S8T9"</span>
+
+  <span class="hljs-comment">// Identificadores externos (pueden cambiar con turnarounds)</span>
+  externalId: ExternalFlightIdentifier;
+
+  <span class="hljs-comment">// Referencia al anterior (para turnarounds)</span>
+  previousDepartureNumber?: <span class="hljs-built_in">number</span>;
+}
+</div></code></pre>
+<p><strong>Tabla en Flight Orchestrator</strong>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> flights (
+  <span class="hljs-comment">-- Identificador único permanente</span>
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) PRIMARY <span class="hljs-keyword">KEY</span>,
+
+  <span class="hljs-comment">-- Los 6 campos de identificación (para matching)</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Códigos ICAO adicionales para matching flexible</span>
+  airline_designator_icao <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">4</span>),
+  flight_designator_atc <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  departure_airport_icao <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">4</span>),
+  arrival_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>),
+  arrival_airport_icao <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">4</span>),
+
+  <span class="hljs-comment">-- Control de estado</span>
+  active <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">true</span>,
+  principal <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">true</span>,
+  fuid_new_flight <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>),
+  fuid_flight_principal <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>),
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Índice compuesto único para los 6 campos</span>
+  <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">INDEX</span> idx_6_campos (
+    operation_date,
+    flight_designator,
+    operational_suffix,
+    airline_designator,
+    departure_airport,
+    departure_number
+  ),
+
+  <span class="hljs-comment">-- Índices para búsquedas</span>
+  <span class="hljs-keyword">INDEX</span> idx_operation_date (operation_date),
+  <span class="hljs-keyword">INDEX</span> idx_airline (airline_designator),
+  <span class="hljs-keyword">INDEX</span> idx_flight_designator (flight_designator),
+  <span class="hljs-keyword">INDEX</span> idx_departure_airport (departure_airport),
+  <span class="hljs-keyword">INDEX</span> idx_active (active),
+  <span class="hljs-keyword">INDEX</span> idx_principal (principal)
+);
+</div></code></pre>
+<h4 id="event-publisher-uso-de-los-6-campos-sin-fuid">Event Publisher: Uso de los 6 Campos (Sin FUID)</h4>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ EVENT PUBLISHER: Recibir evento de dominio y publicar a EventBridge      ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN publishDomainEvent(cloudEvent)
+
+  // 1. Extraer los 6 campos que ya vienen en el evento
+  // NO se usa FUID en publicación externa
+  externalId ← {
+    operationDate: cloudEvent.data.operationDate,
+    flightDesignator: cloudEvent.data.flightDesignator,
+    operationalSuffix: cloudEvent.data.operationalSuffix O &quot;&quot;,
+    airlineDesignator: cloudEvent.data.airlineDesignator,
+    departureAirport: cloudEvent.data.departureAirport,
+    departureNumber: cloudEvent.data.departureNumber
+  }
+
+  // 2. Extraer el campo &quot;changes&quot; (trigger de publicación)
+  // El Worker de dominio envía qué campos cambiaron
+  changes ← cloudEvent.data.changes
+  // Ejemplo: [&quot;totalPassengers&quot;, &quot;checkedInPassengers&quot;]
+
+  // 3. Construir payload para EventBridge (sin FUID)
+  payload ← buildPayload(cloudEvent, externalId, changes)
+
+  // 4. Publicar CloudEvent a EventBridge
+  PUBLICAR_A_EVENTBRIDGE({
+    EventBusName: &quot;flight-events-bus&quot;,
+    Source: &quot;com.iberia.flighthub&quot;,
+    DetailType: cloudEvent.type,
+    Detail: JSON_STRINGIFY(payload),
+    Resources: [
+      &quot;flight:&quot; + externalId.airlineDesignator + &quot;:&quot; + externalId.flightDesignator,
+      &quot;airport:&quot; + externalId.departureAirport,
+      &quot;date:&quot; + externalId.operationDate
+    ]
+  })
+
+FIN FUNCIÓN
+
+
+╔══════════════════════════════════════════════════════════════════════════╗
+║ BUILD PAYLOAD: Construir payload adaptado por dominio                    ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN buildPayload(cloudEvent, externalId, changes)
+
+  // Payload base (común a todos los dominios)
+  basePayload ← {
+    // Identificación externa con los 6 campos (NO incluye FUID)
+    flightIdentifier: externalId,
+
+    // Timestamp del cambio
+    timestamp: cloudEvent.time,
+
+    // Fuente del cambio
+    source: cloudEvent.source,
+
+    // Tipo de evento
+    eventType: cloudEvent.type,
+
+    // Campos que cambiaron (trigger)
+    changes: changes
+  }
+
+  // Agregar datos específicos del dominio
+  SI cloudEvent.type CONTIENE &quot;passengers&quot; ENTONCES
+    RETORNAR {
+      ...basePayload,
+      passengers: {
+        total: cloudEvent.data.total_passengers,
+        checkedIn: cloudEvent.data.checked_in_passengers,
+        boarded: cloudEvent.data.boarded_passengers,
+        cabins: cloudEvent.data.cabin_configurations
+      }
+    }
+
+  SINO SI cloudEvent.type CONTIENE &quot;fuel&quot; ENTONCES
+    RETORNAR {
+      ...basePayload,
+      fuel: {
+        uplift: cloudEvent.data.fuel_uplift,
+        planned: cloudEvent.data.fuel_planned,
+        remaining: cloudEvent.data.fuel_remaining
+      }
+    }
+
+  SINO SI cloudEvent.type CONTIENE &quot;timeline&quot; ENTONCES
+    RETORNAR {
+      ...basePayload,
+      times: {
+        scheduledDeparture: cloudEvent.data.scheduled_departure_time,
+        estimatedDeparture: cloudEvent.data.estimated_departure_time,
+        actualDeparture: cloudEvent.data.actual_departure_time,
+        gate: cloudEvent.data.departure_gate
+      }
+    }
+
+  // ... otros dominios siguen el mismo patrón
+
+  FIN SI
+
+FIN FUNCIÓN
+</div></code></pre>
+<h4 id="ejemplo-completo-domain-worker-%E2%86%92-event-publisher">Ejemplo Completo: Domain Worker → Event Publisher</h4>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ PASSENGERS SERVICE: Procesar evento de dominio                           ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN processPassengersEvent(cloudEvent)
+
+  // 1. Extraer datos del CloudEvent
+  fuid ← cloudEvent.data.fuid
+  identifiers ← EXTRAER_6_CAMPOS(cloudEvent.data)
+  newData ← cloudEvent.data
+
+  // 2. Leer datos actuales de la BD
+  currentData ← LEER_DB(fh_pax_summary, fuid)
+
+  // 3. Aplicar precedencias y detectar cambios
+  changes ← []
+  dataToUpdate ← {}
+
+  SI PUEDE_ACTUALIZAR(&quot;total_passengers&quot;, currentData.source, cloudEvent.source) ENTONCES
+    SI newData.total_passengers != currentData.total_passengers ENTONCES
+      dataToUpdate.total_passengers ← newData.total_passengers
+      AGREGAR(changes, &quot;total_passengers&quot;)
+    FIN SI
+  FIN SI
+
+  SI PUEDE_ACTUALIZAR(&quot;checked_in_passengers&quot;, currentData.source, cloudEvent.source) ENTONCES
+    SI newData.checked_in_passengers != currentData.checked_in_passengers ENTONCES
+      dataToUpdate.checked_in_passengers ← newData.checked_in_passengers
+      AGREGAR(changes, &quot;checked_in_passengers&quot;)
+    FIN SI
+  FIN SI
+
+  // 4. SI hubo cambios, actualizar BD
+  SI changes NO ESTÁ VACÍO ENTONCES
+    ACTUALIZAR_DB(fh_pax_summary, fuid, {
+      ...dataToUpdate,
+      source: cloudEvent.source,
+      updated_at: AHORA()
+    })
+
+    // 5. Publicar evento al Event Publisher CON campo &quot;changes&quot;
+    PUBLICAR_A_COLA(
+      cola: 'event_publisher_queue.fifo',
+      mensaje: {
+        specversion: &quot;1.0&quot;,
+        type: &quot;com.iberia.flighthub.passengers.updated&quot;,
+        source: &quot;FlightHub.PassengersService&quot;,
+        subject: &quot;PAX UPDATE&quot;,
+        id: GENERAR_ULID(),
+        time: ISO_TIMESTAMP(AHORA()),
+        datacontenttype: &quot;application/json&quot;,
+        data: {
+          // Los 6 campos (NO incluir FUID aquí para Event Publisher)
+          operationDate: identifiers.operationDate,
+          flightDesignator: identifiers.flightDesignator,
+          operationalSuffix: identifiers.operationalSuffix,
+          airlineDesignator: identifiers.airlineDesignator,
+          departureAirport: identifiers.departureAirport,
+          departureNumber: identifiers.departureNumber,
+
+          // Datos del dominio
+          total_passengers: dataToUpdate.total_passengers,
+          checked_in_passengers: dataToUpdate.checked_in_passengers,
+          boarded_passengers: currentData.boarded_passengers,
+
+          // Campo &quot;changes&quot; (trigger para Event Publisher)
+          changes: changes,  // [&quot;total_passengers&quot;, &quot;checked_in_passengers&quot;]
+
+          // Metadata
+          source: cloudEvent.source,
+          timestamp: ISO_TIMESTAMP(AHORA())
+        }
+      }
+    )
+  FIN SI
+
+FIN FUNCIÓN
+</div></code></pre>
+<p><strong>Evento publicado a EventBridge (sin FUID)</strong>:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"flightIdentifier"</span>: {
+    <span class="hljs-attr">"operationDate"</span>: <span class="hljs-string">"2025-01-14"</span>,
+    <span class="hljs-attr">"flightDesignator"</span>: <span class="hljs-string">"347"</span>,
+    <span class="hljs-attr">"operationalSuffix"</span>: <span class="hljs-string">""</span>,
+    <span class="hljs-attr">"airlineDesignator"</span>: <span class="hljs-string">"IB"</span>,
+    <span class="hljs-attr">"departureAirport"</span>: <span class="hljs-string">"MAD"</span>,
+    <span class="hljs-attr">"departureNumber"</span>: <span class="hljs-number">1</span>
+  },
+  <span class="hljs-attr">"eventType"</span>: <span class="hljs-string">"com.iberia.flighthub.passengers.updated"</span>,
+  <span class="hljs-attr">"timestamp"</span>: <span class="hljs-string">"2025-01-14T08:30:00Z"</span>,
+  <span class="hljs-attr">"source"</span>: <span class="hljs-string">"FlightHub.PassengersService"</span>,
+  <span class="hljs-attr">"changes"</span>: [<span class="hljs-string">"total_passengers"</span>, <span class="hljs-string">"checked_in_passengers"</span>],
+  <span class="hljs-attr">"passengers"</span>: {
+    <span class="hljs-attr">"total"</span>: <span class="hljs-number">180</span>,
+    <span class="hljs-attr">"checkedIn"</span>: <span class="hljs-number">150</span>,
+    <span class="hljs-attr">"boarded"</span>: <span class="hljs-number">0</span>
+  }
+}
+</div></code></pre>
+<p><strong>NOTA</strong>: El FUID NO se incluye en el evento externo (EventBridge). Solo se usan los 6 campos de identificación estándar.</p>
+<h4 id="manejo-de-turnarounds-departurenumber">Manejo de Turnarounds (departureNumber)</h4>
+<p>Cuando un vuelo despega múltiples veces en el mismo día:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// Primer despegue</span>
+{
+  fuid: <span class="hljs-string">"01HQZ8X9Y1K2M3N4P5Q6R7S8T9"</span>,
+  operationDate: <span class="hljs-string">"2025-01-14"</span>,
+  flightDesignator: <span class="hljs-string">"347"</span>,
+  airlineDesignator: <span class="hljs-string">"IB"</span>,
+  departureAirport: <span class="hljs-string">"MAD"</span>,
+  departureNumber: <span class="hljs-number">1</span>,  <span class="hljs-comment">// Primer intento</span>
+  previousDepartureNumber: <span class="hljs-literal">null</span>
+}
+
+<span class="hljs-comment">// Diversion/Return - segundo despegue</span>
+{
+  fuid: <span class="hljs-string">"01HQZ8X9Y1K2M3N4P5Q6R7S8T9"</span>,  <span class="hljs-comment">// Mismo FUID</span>
+  operationDate: <span class="hljs-string">"2025-01-14"</span>,
+  flightDesignator: <span class="hljs-string">"347"</span>,
+  airlineDesignator: <span class="hljs-string">"IB"</span>,
+  departureAirport: <span class="hljs-string">"MAD"</span>,
+  departureNumber: <span class="hljs-number">2</span>,  <span class="hljs-comment">// Segundo intento</span>
+  previousDepartureNumber: <span class="hljs-number">1</span>  <span class="hljs-comment">// Referencia al anterior</span>
+}
+</div></code></pre>
+<p><strong>Beneficios del Modelo Dual</strong>:</p>
+<ol>
+<li>✅ <strong>FUID interno</strong>: Simplicidad, inmutabilidad, performance (solo uso interno)</li>
+<li>✅ <strong>6 campos externos</strong>: Compatibilidad con estándares aeronáuticos</li>
+<li>✅ <strong>Trazabilidad</strong>: <code>departureNumber</code> mantiene relación entre intentos</li>
+<li>✅ <strong>Flexibilidad</strong>: Publisher adapta payloads según consumidor</li>
+<li>✅ <strong>Separación de concerns</strong>: Dominios trabajan con FUID + 6 campos, externos solo 6 campos</li>
+<li>✅ <strong>Sin FUID en EventBridge</strong>: Los sistemas externos no necesitan conocer el FUID interno</li>
+</ol>
+<hr>
+<h2 id="identificaci%C3%B3n-de-vuelos">Identificación de Vuelos</h2>
+<h3 id="fuid-identificador-%C3%BAnico-permanente">FUID (Identificador Único Permanente)</h3>
+<p><strong>FUID</strong> es el identificador interno permanente del vuelo en FlightHub.</p>
+<p><strong>Formato</strong>: ULID (26 caracteres)</p>
+<p><strong>Ejemplo</strong>: <code>01HQZ8X9Y1K2M3N4P5Q6R7S8T9</code></p>
+<p><strong>Características</strong>:</p>
+<ul>
+<li>✅ Único en todo el sistema</li>
+<li>✅ Ordenable cronológicamente</li>
+<li>✅ Compatible con UUIDs</li>
+<li>✅ Inmutable (no cambia durante vida del vuelo)</li>
+<li>✅ Creado SOLO por el Flight Orchestrator (usando ASM NEW o SSIM NEW)</li>
+<li>✅ <strong>Propósito</strong>: Vincular todos los datos del mismo vuelo, incluso cuando cambian los identificadores externos</li>
+<li>✅ <strong>NO se publica a EventBridge</strong> (solo para uso interno)</li>
+<li>✅ <strong>NO se usa para FIFO</strong> (las colas SQS FIFO ya garantizan orden)</li>
+</ul>
+<h3 id="6-campos-de-identificaci%C3%B3n-externa">6 Campos de Identificación Externa</h3>
+<p>Para publicación externa (EventBridge) y matching de vuelos:</p>
+<ol>
+<li><strong>operation_date</strong> - Fecha UTC de operación</li>
+<li><strong>flight_designator</strong> - Número de vuelo (ej: &quot;347&quot;)</li>
+<li><strong>operational_suffix</strong> - Sufijo operacional (&quot;A&quot;, &quot;B&quot;, o &quot;&quot;)</li>
+<li><strong>airline_designator</strong> - Código IATA de aerolínea (ej: &quot;IB&quot;)</li>
+<li><strong>departure_airport</strong> - Código IATA del aeropuerto (ej: &quot;MAD&quot;)</li>
+<li><strong>departure_number</strong> - Número de intento de despegue (1, 2, 3...)</li>
+</ol>
+<h3 id="comparaci%C3%B3n-con-sistema-actual">Comparación con Sistema Actual</h3>
+<table>
+<thead>
+<tr>
+<th>Servicio</th>
+<th>Formato Actual</th>
+<th>FUID Nueva</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>telex-worker</td>
+<td><code>IB034720250114MAD</code></td>
+<td><code>01HQZ8X9Y1K2M3N4P5Q6R7S8T9</code></td>
+</tr>
+<tr>
+<td>aena-worker</td>
+<td><code>IB  0347 20250114MAD</code></td>
+<td><code>01HQZ8X9Y1K2M3N4P5Q6R7S8T9</code></td>
+</tr>
+<tr>
+<td>etlb-worker</td>
+<td><code>IB  0347 20250114MAD</code></td>
+<td><code>01HQZ8X9Y1K2M3N4P5Q6R7S8T9</code></td>
+</tr>
+<tr>
+<td>cki-worker</td>
+<td>UUID variable</td>
+<td><code>01HQZ8X9Y1K2M3N4P5Q6R7S8T9</code></td>
+</tr>
+<tr>
+<td>ssim-worker</td>
+<td><code>IB0347-20250114-MAD</code></td>
+<td><code>01HQZ8X9Y1K2M3N4P5Q6R7S8T9</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Beneficio</strong>: Un solo identificador (FUID) en toda la nueva arquitectura.</p>
+<hr>
+<h2 id="modelo-de-base-de-datos-por-dominios">Modelo de Base de Datos por Dominios</h2>
+<p>Basado en el schema actual (CloudEvents v1), se descomponen las tablas actuales en <strong>13 dominios granulares</strong> con prefijos consistentes.</p>
+<h3 id="dominios-de-la-nueva-arquitectura">Dominios de la Nueva Arquitectura</h3>
+<ol>
+<li><strong>🎯 Flight Orchestrator</strong> - Identificación y enrutamiento</li>
+<li><strong>📍 Resources</strong> - Recursos aeroportuarios</li>
+<li><strong>⏰ Timeline</strong> - Tiempos operacionales</li>
+<li><strong>⚠️ Delays</strong> - Retrasos</li>
+<li><strong>👨‍✈️ Crew</strong> - Tripulación</li>
+<li><strong>🚨 Alerts</strong> - Alarmas y desvíos</li>
+<li><strong>👥 Passengers</strong> - Pasajeros y cabinas</li>
+<li><strong>🎒 Baggage</strong> - Equipaje y carga</li>
+<li><strong>⛽ Fuel</strong> - Combustible</li>
+<li><strong>✈️ Aircraft</strong> - Aeronaves</li>
+<li><strong>📅 Schedules</strong> - Programación</li>
+<li><strong>🔄 Onward Flights</strong> - Vuelos de continuación</li>
+<li><strong>🤝 Codeshare</strong> - Vuelos compartidos</li>
+</ol>
+<hr>
+<h3 id="%F0%9F%8E%AF-dominio-flight-orchestrator">🎯 DOMINIO: Flight Orchestrator</h3>
+<p><strong>Responsabilidad</strong>: Identificación de vuelos, FUID, enrutamiento</p>
+<p><strong>Tablas</strong>:</p>
+<ul>
+<li><code>flights</code> (identificadores únicamente)</li>
+<li><code>message_log</code> (auditoría completa)</li>
+<li><code>precedence_rules</code> (configuración de precedencias)</li>
+</ul>
+<hr>
+<h3 id="%F0%9F%93%8D-dominio-resources">📍 DOMINIO: Resources</h3>
+<p><strong>Responsabilidad</strong>: Recursos aeroportuarios (gates, stands, runways, belts)</p>
+<p><strong>Prefijo</strong>: <code>fh_resource_</code></p>
+<h4 id="tabla-fhresourceairport">Tabla <code>fh_resource_airport</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_resource_airport (
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) PRIMARY <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Recursos de Salida</span>
+  departure_terminal_zone <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_terminal <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_stand <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_runway <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_checkin_counter_first <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_checkin_counter_last <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_checkin_counter_type <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_boarding_zone <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_boarding_gate <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_boarding_gate_2 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_bag_belt <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  departure_bag_belt_status <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Recursos de Llegada</span>
+  arrival_terminal_zone <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_terminal <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_stand <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_runway <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_hall <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_gate <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_bag_belt <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_bag_belt_2 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_bag_belt_status <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_bag_claim_unit_code <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  arrival_bag_claim_unit_status <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_departure_gate (departure_boarding_gate),
+  <span class="hljs-keyword">INDEX</span> idx_departure_stand (departure_stand),
+  <span class="hljs-keyword">INDEX</span> idx_arrival_gate (arrival_gate),
+  <span class="hljs-keyword">INDEX</span> idx_arrival_stand (arrival_stand)
+);
+</div></code></pre>
+<hr>
+<h3 id="%E2%8F%B0-dominio-timeline">⏰ DOMINIO: Timeline</h3>
+<p><strong>Responsabilidad</strong>: Todos los tiempos operacionales del vuelo</p>
+<p><strong>Prefijo</strong>: <code>fh_timeline_</code></p>
+<h4 id="tabla-fhtimelinedeparture">Tabla <code>fh_timeline_departure</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_timeline_departure (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Tiempos programados</span>
+  departure_time_scheduled <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Tiempos estimados</span>
+  departure_time_estimated <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  off_blocks_time_estimated <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  taxi_out_time_estimated <span class="hljs-built_in">NUMERIC</span> <span class="hljs-literal">NULL</span>,
+  takeoff_time_estimated <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Tiempos reales</span>
+  departure_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  off_blocks_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  taxi_out_time_actual <span class="hljs-built_in">NUMERIC</span> <span class="hljs-literal">NULL</span>,
+  takeoff_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid),
+  <span class="hljs-keyword">INDEX</span> idx_scheduled (departure_time_scheduled),
+  <span class="hljs-keyword">INDEX</span> idx_actual (departure_time_actual)
+);
+</div></code></pre>
+<h4 id="tabla-fhtimelinearrival">Tabla <code>fh_timeline_arrival</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_timeline_arrival (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Tiempos programados</span>
+  arrival_time_scheduled <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Tiempos estimados</span>
+  arrival_time_estimated <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  landing_time_estimated <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  on_blocks_time_estimated <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  taxi_in_time_estimated <span class="hljs-built_in">NUMERIC</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Tiempos reales</span>
+  arrival_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  landing_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  on_blocks_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  taxi_in_time_actual <span class="hljs-built_in">NUMERIC</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid),
+  <span class="hljs-keyword">INDEX</span> idx_scheduled (arrival_time_scheduled),
+  <span class="hljs-keyword">INDEX</span> idx_actual (arrival_time_actual)
+);
+</div></code></pre>
+<h4 id="tabla-fhtimelinecdm">Tabla <code>fh_timeline_cdm</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_timeline_cdm (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Off-Blocks Times (CDM)</span>
+  off_blocks_time_scheduled_cdm <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  off_blocks_time_estimated_cdm <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  off_blocks_time_target_cdm <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  off_blocks_time_actual_cdm <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Startup Times (CDM)</span>
+  startup_request_time_actual_cdm <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  startup_approval_time_target_cdm <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+  startup_approval_time_actual_cdm <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid),
+  <span class="hljs-keyword">INDEX</span> idx_tobt (off_blocks_time_target_cdm),
+  <span class="hljs-keyword">INDEX</span> idx_tsat (startup_approval_time_target_cdm)
+);
+</div></code></pre>
+<h4 id="tabla-fhtimelinecheckin">Tabla <code>fh_timeline_checkin</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_timeline_checkin (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Check-in CI (inicial)</span>
+  checkin_ci_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Check-in CL (intermedio)</span>
+  checkin_cl_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Check-in CC (final)</span>
+  checkin_cc_time_actual <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid)
+);
+</div></code></pre>
+<hr>
+<h3 id="%E2%9A%A0%EF%B8%8F-dominio-delays">⚠️ DOMINIO: Delays</h3>
+<p><strong>Responsabilidad</strong>: Códigos de retraso y tiempos de delay</p>
+<p><strong>Prefijo</strong>: <code>fh_delay_</code></p>
+<h4 id="tabla-fhdelay">Tabla <code>fh_delay</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_delay (
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) PRIMARY <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Retraso 1</span>
+  delay_type_1 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  delay_number_1 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  delay_code_1 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  delay_group_code_1 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  delay_mins_1 <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  delay_comments_1 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Retraso 2</span>
+  delay_type_2 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  delay_code_2 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  delay_mins_2 <span class="hljs-built_in">NUMERIC</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Retraso 3</span>
+  delay_type_3 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  delay_code_3 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  delay_mins_3 <span class="hljs-built_in">NUMERIC</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Retraso 4</span>
+  delay_type_4 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  delay_code_4 <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+  delay_mins_4 <span class="hljs-built_in">NUMERIC</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_delay_code_1 (delay_code_1),
+  <span class="hljs-keyword">INDEX</span> idx_delay_mins (delay_mins_1, delay_mins_2, delay_mins_3, delay_mins_4)
+);
+</div></code></pre>
+<hr>
+<h3 id="%F0%9F%91%A8%E2%80%8D%E2%9C%88%EF%B8%8F-dominio-crew">👨‍✈️ DOMINIO: Crew</h3>
+<p><strong>Responsabilidad</strong>: Asignación de tripulación técnica y de cabina</p>
+<p><strong>Prefijo</strong>: <code>fh_crew_</code></p>
+<h4 id="tabla-fhcrewassignment">Tabla <code>fh_crew_assignment</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_crew_assignment (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Información de tripulación técnica (Cockpit)</span>
+  cockpit_crew_count <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  cockpit_employer <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Información de tripulación de cabina</span>
+  cabin_crew_count <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  cabin_employer <span class="hljs-built_in">VARCHAR</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<hr>
+<h3 id="%F0%9F%9A%A8-dominio-alerts">🚨 DOMINIO: Alerts</h3>
+<p><strong>Responsabilidad</strong>: Alarmas operacionales y desvíos</p>
+<p><strong>Prefijo</strong>: <code>fh_alert_</code></p>
+<h4 id="tabla-fhalertalarm">Tabla <code>fh_alert_alarm</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_alert_alarm (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Información de la alarma</span>
+  alarm_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-literal">NULL</span>,
+  alarm_text <span class="hljs-built_in">TEXT</span> <span class="hljs-literal">NULL</span>,
+  alarm_severity <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_alarm_code (alarm_code),
+  <span class="hljs-keyword">INDEX</span> idx_severity (alarm_severity)
+);
+</div></code></pre>
+<h4 id="tabla-fhalertdiversion">Tabla <code>fh_alert_diversion</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_alert_diversion (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Información del desvío</span>
+  diversion_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-literal">NULL</span>,
+  diversion_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-literal">NULL</span>,
+  diversion_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_diversion_airport (diversion_airport)
+);
+</div></code></pre>
+<hr>
+<h3 id="%F0%9F%91%A5-dominio-passengers">👥 DOMINIO: Passengers</h3>
+<p><strong>Responsabilidad</strong>: Pasajeros, check-in, cabinas, contadores</p>
+<p><strong>Prefijo</strong>: <code>fh_pax_</code></p>
+<h4 id="tabla-fhpaxsummary">Tabla <code>fh_pax_summary</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_pax_summary (
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) PRIMARY <span class="hljs-keyword">KEY</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Totales generales</span>
+  config_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  capacity_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  availability_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  load_factor_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  booked_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  checked_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  boarded_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  forecast_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+
+  <span class="hljs-comment">-- Por conexión</span>
+  inbound_booked_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  outbound_booked_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+
+  <span class="hljs-comment">-- Por tipo de pasajero</span>
+  adult_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  male_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  female_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  no_gender_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  child_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  infant_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+
+  <span class="hljs-comment">-- Pasajeros especiales</span>
+  pad_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  dhc_pax_total <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Índices</span>
+  <span class="hljs-keyword">INDEX</span> idx_booked (booked_pax_total),
+  <span class="hljs-keyword">INDEX</span> idx_checked (checked_pax_total),
+  <span class="hljs-keyword">INDEX</span> idx_boarded (boarded_pax_total)
+);
+</div></code></pre>
+<h4 id="tabla-fhpaxcabin">Tabla <code>fh_pax_cabin</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_pax_cabin (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Identificación de cabina</span>
+  cabin_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,    <span class="hljs-comment">-- JC, W, Y</span>
+  cabin_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-literal">NULL</span>,        <span class="hljs-comment">-- Business, Premium, Turista</span>
+
+  <span class="hljs-comment">-- Configuración y capacidad</span>
+  config_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  capacity_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  availability_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  load_factor_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+
+  <span class="hljs-comment">-- Contadores de pasajeros</span>
+  booked_pax_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  checked_pax_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  boarded_pax_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  forecast_pax_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+
+  <span class="hljs-comment">-- Por tipo de pasajero</span>
+  adult_pax_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  child_pax_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+  infant_pax_cabin <span class="hljs-built_in">NUMERIC</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">0</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid, cabin_code),
+  <span class="hljs-keyword">INDEX</span> idx_cabin_code (cabin_code)
+);
+</div></code></pre>
+<h4 id="tabla-fhpaxspecial">Tabla <code>fh_pax_special</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_pax_special (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Categoría del pasajero especial</span>
+  category_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,    <span class="hljs-comment">-- WCHC, WCHR, WCHS, UM, etc.</span>
+  category_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>) <span class="hljs-literal">NULL</span>,
+  quantity <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_category (category_code)
+);
+</div></code></pre>
+<hr>
+<h3 id="%F0%9F%8E%92-dominio-baggage">🎒 DOMINIO: Baggage</h3>
+<p><strong>Responsabilidad</strong>: Equipaje, ULDs, peso, carga</p>
+<p><strong>Prefijo</strong>: <code>fh_bag_</code></p>
+<h4 id="tabla-fhbagsummary">Tabla <code>fh_bag_summary</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_bag_summary (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Información de equipaje</span>
+  total_bags <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  total_bag_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<h4 id="tabla-fhbagcargo">Tabla <code>fh_bag_cargo</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_bag_cargo (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Pesos de carga (kg)</span>
+  cargo_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  additional_cargo_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  total_cargo_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Pesos de correo (kg)</span>
+  mail_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  additional_mail_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  total_mail_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<h4 id="tabla-fhbagcargoitem">Tabla <code>fh_bag_cargo_item</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_bag_cargo_item (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Información del ítem</span>
+  item_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,   <span class="hljs-comment">-- AVI, DGR, HUM, etc.</span>
+  item_value <span class="hljs-built_in">NUMERIC</span> <span class="hljs-literal">NULL</span>,
+  item_unit <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>) <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_item_name (item_name)
+);
+</div></code></pre>
+<hr>
+<h3 id="%E2%9B%BD-dominio-fuel">⛽ DOMINIO: Fuel</h3>
+<p><strong>Responsabilidad</strong>: Combustible, repostaje</p>
+<p><strong>Prefijo</strong>: <code>fh_fuel_</code></p>
+<h4 id="tabla-fhfuelsummary">Tabla <code>fh_fuel_summary</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_fuel_summary (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Pesos de combustible (kg)</span>
+  total_fuel_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  taxi_fuel_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+  trip_fuel_weight_kg <span class="hljs-built_in">INTEGER</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<h4 id="tabla-fhfuelacceptaircraft">Tabla <code>fh_fuel_accept_aircraft</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fuel_accept_aircraft (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  arrival_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+  remaining_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+  fuel_tipping_kg <span class="hljs-built_in">INTEGER</span>,
+  depart_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+  calculated_planned_uplift_kg <span class="hljs-built_in">INTEGER</span>,
+  required_block_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  received_at <span class="hljs-built_in">TIMESTAMP</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid)
+);
+</div></code></pre>
+<h4 id="tabla-fuelcloseflight">Tabla <code>fuel_close_flight</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fuel_close_flight (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  arrival_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+  remaining_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+  fuel_tipping_kg <span class="hljs-built_in">INTEGER</span>,
+  depart_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+  calculated_planned_uplift_kg <span class="hljs-built_in">INTEGER</span>,
+  required_block_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  received_at <span class="hljs-built_in">TIMESTAMP</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid)
+);
+</div></code></pre>
+<h4 id="tabla-fuelingevents">Tabla <code>fueling_events</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fueling_events (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+  event_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),                 <span class="hljs-comment">-- "ACCEPT_AIRCRAFT", "CLOSE_FLIGHT"</span>
+
+  measurement_system <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),         <span class="hljs-comment">-- "metric", "imperial", "us"</span>
+  supplier <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>),
+  vendor <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>),
+  invoice_number <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+
+  fuel_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),                  <span class="hljs-comment">-- "JET A1"</span>
+  density <span class="hljs-built_in">NUMERIC</span>(<span class="hljs-number">10</span>, <span class="hljs-number">3</span>),
+  density_unit <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+
+  actual_uplift <span class="hljs-built_in">NUMERIC</span>(<span class="hljs-number">10</span>, <span class="hljs-number">2</span>),
+  actual_uplift_unit <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+
+  new_fuel_kg <span class="hljs-built_in">INTEGER</span>,
+  reason <span class="hljs-built_in">TEXT</span>,
+  reduce_note <span class="hljs-built_in">TEXT</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<hr>
+<h3 id="%E2%8F%B1%EF%B8%8F-dominio-operations">⏱️ DOMINIO: Operations</h3>
+<p><strong>Responsabilidad</strong>: Tiempos, gates, stands, delays, tripulación</p>
+<h4 id="tabla-departuretimes">Tabla <code>departure_times</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> departure_times (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- Scheduled</span>
+  scheduled_departure_time <span class="hljs-built_in">TIMESTAMP</span>,
+  scheduled_departure_time_aena <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Estimated</span>
+  estimated_departure_time <span class="hljs-built_in">TIMESTAMP</span>,
+  estimated_off_blocks_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Target</span>
+  target_off_blocks_time <span class="hljs-built_in">TIMESTAMP</span>,
+  target_startup_time <span class="hljs-built_in">TIMESTAMP</span>,
+  target_takeoff_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Actual</span>
+  actual_off_blocks_time <span class="hljs-built_in">TIMESTAMP</span>,
+  actual_off_blocks_time_acars <span class="hljs-built_in">TIMESTAMP</span>,
+  actual_takeoff_time <span class="hljs-built_in">TIMESTAMP</span>,
+  actual_takeoff_time_acars <span class="hljs-built_in">TIMESTAMP</span>,
+  actual_startup_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Confirmed</span>
+  confirmed_estimated_departure_time_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">1</span>),  <span class="hljs-comment">-- "E", "C"</span>
+  calculated_takeoff_time <span class="hljs-built_in">TIMESTAMP</span>,
+  new_information_departure_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Request times</span>
+  startup_request_time <span class="hljs-built_in">TIMESTAMP</span>,
+  aircraft_ready_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Door times</span>
+  door_close_time <span class="hljs-built_in">TIMESTAMP</span>,
+  passenger_door_close_time <span class="hljs-built_in">TIMESTAMP</span>,
+  cargo_door_close_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Return flight</span>
+  flight_return_land_time <span class="hljs-built_in">TIMESTAMP</span>,
+  flight_return_on_blocks_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Taxi</span>
+  taxi_minutes <span class="hljs-built_in">INTEGER</span>,
+
+  <span class="hljs-comment">-- Metadata</span>
+  target_off_blocks_time_status <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+  target_off_blocks_time_changes <span class="hljs-built_in">TEXT</span>,
+  target_startup_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  source_priority <span class="hljs-built_in">INTEGER</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid)
+);
+</div></code></pre>
+<h4 id="tabla-arrivaltimes">Tabla <code>arrival_times</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> arrival_times (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  <span class="hljs-comment">-- Scheduled</span>
+  scheduled_arrival_time <span class="hljs-built_in">TIMESTAMP</span>,
+  scheduled_arrival_time_aena <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Estimated</span>
+  estimated_arrival_time <span class="hljs-built_in">TIMESTAMP</span>,
+  estimated_on_blocks_time <span class="hljs-built_in">TIMESTAMP</span>,
+  estimated_land_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Actual</span>
+  actual_on_blocks_time <span class="hljs-built_in">TIMESTAMP</span>,
+  actual_on_blocks_time_acars <span class="hljs-built_in">TIMESTAMP</span>,
+  actual_land_time <span class="hljs-built_in">TIMESTAMP</span>,
+  land_time <span class="hljs-built_in">TIMESTAMP</span>,
+  land_time_acars <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Milestones</span>
+  ten_miles_out_time <span class="hljs-built_in">TIMESTAMP</span>,
+  arrival_runway_time <span class="hljs-built_in">TIMESTAMP</span>,
+  arrival_stand_time <span class="hljs-built_in">TIMESTAMP</span>,
+  arrival_hall_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  source_priority <span class="hljs-built_in">INTEGER</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">UNIQUE</span>(fuid)
+);
+</div></code></pre>
+<h4 id="tabla-gateassignments">Tabla <code>gate_assignments</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> gate_assignments (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  gate_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  gate_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),                  <span class="hljs-comment">-- "BOARDING", "ARRIVAL"</span>
+
+  terminal <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  terminal_programmed <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  terminal_zone <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+
+  start_time <span class="hljs-built_in">TIMESTAMP</span>,
+  end_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-comment">-- Estado</span>
+  <span class="hljs-keyword">status</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),                     <span class="hljs-comment">-- "ASSIGNED", "ACTIVE", "CLOSED"</span>
+  is_current <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">TRUE</span>,
+
+  <span class="hljs-comment">-- CKI variant</span>
+  is_from_cki <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">FALSE</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  assigned_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_gate (gate_code),
+  <span class="hljs-keyword">INDEX</span> idx_status (<span class="hljs-keyword">status</span>, is_current)
+);
+</div></code></pre>
+<h4 id="tabla-standassignments">Tabla <code>stand_assignments</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> stand_assignments (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  stand_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  stand_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),                 <span class="hljs-comment">-- "DEPARTURE", "ARRIVAL"</span>
+
+  start_time <span class="hljs-built_in">TIMESTAMP</span>,
+  end_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-keyword">status</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+  is_current <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">TRUE</span>,
+
+  <span class="hljs-comment">-- CKI variant</span>
+  is_from_cki <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">FALSE</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  assigned_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_stand (stand_code)
+);
+</div></code></pre>
+<h4 id="tabla-baggagebeltassignments">Tabla <code>baggage_belt_assignments</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> baggage_belt_assignments (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  belt_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  belt_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),                  <span class="hljs-comment">-- "DEPARTURE", "ARRIVAL", "CLAIM"</span>
+  belt_number <span class="hljs-built_in">INTEGER</span>,                    <span class="hljs-comment">-- 1, 2 (si hay secondary)</span>
+
+  start_time <span class="hljs-built_in">TIMESTAMP</span>,
+  end_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-keyword">status</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),                     <span class="hljs-comment">-- "ASSIGNED", "ACTIVE", "CLOSED"</span>
+  is_current <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">TRUE</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  assigned_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<h4 id="tabla-delays">Tabla <code>delays</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> delays (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  delay_sequence <span class="hljs-built_in">INTEGER</span>,                 <span class="hljs-comment">-- 1, 2, 3</span>
+  delay_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),                 <span class="hljs-comment">-- IATA delay codes</span>
+  delay_minutes <span class="hljs-built_in">INTEGER</span>,
+
+  extra_delay_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  extra_delay_minutes <span class="hljs-built_in">INTEGER</span>,
+
+  supplementary_information <span class="hljs-built_in">TEXT</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_delay_code (delay_code)
+);
+</div></code></pre>
+<h4 id="tabla-crewassignments">Tabla <code>crew_assignments</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> crew_assignments (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  event_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),                 <span class="hljs-comment">-- "ACCEPT_AIRCRAFT", "CLOSE_FLIGHT", "MANUAL"</span>
+
+  <span class="hljs-comment">-- Captain</span>
+  captain_id <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  captain_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>),
+  captain_landing_takeoff <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),    <span class="hljs-comment">-- "LANDING", "TAKEOFF", "BOTH"</span>
+  commander_a <span class="hljs-built_in">INTEGER</span>,
+
+  <span class="hljs-comment">-- First Officer</span>
+  first_officer_id <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  first_officer_landing_takeoff <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+  second_in_command_a <span class="hljs-built_in">INTEGER</span>,
+
+  <span class="hljs-comment">-- Cabin crew</span>
+  flight_attendant_a <span class="hljs-built_in">INTEGER</span>,
+  tcps_a <span class="hljs-built_in">INTEGER</span>,
+
+  <span class="hljs-comment">-- Links</span>
+  technical_crew_link_flight_id <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>),
+  auxiliar_crew_link_flight_id <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>),
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  received_at <span class="hljs-built_in">TIMESTAMP</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_captain (captain_id)
+);
+</div></code></pre>
+<h4 id="tabla-checkincounters">Tabla <code>checkin_counters</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> checkin_counters (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  counter_from <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  counter_to <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  counter_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+
+  start_time <span class="hljs-built_in">TIMESTAMP</span>,
+  end_time <span class="hljs-built_in">TIMESTAMP</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  assigned_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<h4 id="tabla-alarms">Tabla <code>alarms</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> alarms (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  alarm_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+  alarm_text <span class="hljs-built_in">TEXT</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<h4 id="tabla-diversions">Tabla <code>diversions</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> diversions (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  diversion_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>),
+  diversion_code <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid)
+);
+</div></code></pre>
+<hr>
+<h3 id="%F0%9F%93%85-dominio-schedules">📅 DOMINIO: Schedules</h3>
+<p><strong>Responsabilidad</strong>: SSIM, itinerarios, frecuencias</p>
+<h4 id="tabla-schedulerecords">Tabla <code>schedule_records</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> schedule_records (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>),                       <span class="hljs-comment">-- NULL para schedules futuros</span>
+
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>),
+
+  period_of_operation_from <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  period_of_operation_to <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  days_of_operation <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">7</span>),           <span class="hljs-comment">-- "1234567"</span>
+
+  departure_station <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  passenger_std <span class="hljs-built_in">TIME</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  arrival_station <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  passenger_sta <span class="hljs-built_in">TIME</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  aircraft_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  aircraft_configuration_version <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+  service_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">1</span>),                <span class="hljs-comment">-- "J"</span>
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_airline_flight (airline_designator, flight_designator),
+  <span class="hljs-keyword">INDEX</span> idx_period (period_of_operation_from, period_of_operation_to)
+);
+</div></code></pre>
+<hr>
+<h3 id="%E2%9C%88%EF%B8%8F-dominio-aircraft">✈️ DOMINIO: Aircraft</h3>
+<p><strong>Responsabilidad</strong>: Aeronaves, configuraciones</p>
+<h4 id="tabla-aircraftassignments">Tabla <code>aircraft_assignments</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> aircraft_assignments (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  tail_number <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  aircraft_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  aircraft_owner <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  aircraft_version <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+
+  assigned_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  is_current <span class="hljs-built_in">BOOLEAN</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-literal">TRUE</span>,
+
+  <span class="hljs-keyword">source</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_tail_number (tail_number)
+);
+</div></code></pre>
+<h4 id="tabla-aircraftregistry">Tabla <code>aircraft_registry</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> aircraft_registry (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  tail_number <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">UNIQUE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  aircraft_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  aircraft_subtype <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+  manufacturer <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+  serial_number <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>),
+
+  airline_owner <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>),
+  registration_country <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>),
+
+  operational_status <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),
+  in_service_date <span class="hljs-built_in">DATE</span>,
+  out_of_service_date <span class="hljs-built_in">DATE</span>,
+
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>()
+);
+</div></code></pre>
+<hr>
+<h3 id="%F0%9F%94%84-dominio-onward-flights">🔄 DOMINIO: Onward Flights</h3>
+<p><strong>Responsabilidad</strong>: Relación entre un vuelo de llegada (inbound) y sus vuelos de continuación (onward), ya sea para pasajeros en conexión o simplemente para mapear continuidad operacional.</p>
+<p><strong>Prefijo</strong>: <code>fh_onward_</code></p>
+<h4 id="tabla-fhonwardflight">Tabla <code>fh_onward_flight</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> fh_onward_flight (
+  <span class="hljs-comment">-- Identificador único</span>
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+
+  <span class="hljs-comment">-- Vuelo de llegada (inbound)</span>
+  inbound_fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">REFERENCES</span> fh_flight(fuid),
+
+  <span class="hljs-comment">-- 6 Campos de Identificación del vuelo inbound</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Vuelo siguiente / de continuación (onward)</span>
+  onward_airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  onward_flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  onward_operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  onward_operation_day <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">2</span>),
+
+  <span class="hljs-comment">-- Metadatos y clasificaciones</span>
+  connection_type <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),              <span class="hljs-comment">-- direct, interline, codeshare, etc.</span>
+  min_connection_time_minutes <span class="hljs-built_in">INTEGER</span>,      <span class="hljs-comment">-- MCT opcional, para planificación</span>
+  turnaround_time_minutes <span class="hljs-built_in">INTEGER</span>,          <span class="hljs-comment">-- opcional si se usa también para tiempos entre vuelos</span>
+
+  <span class="hljs-comment">-- Auditoría</span>
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  created_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  updated_by <span class="hljs-built_in">VARCHAR</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-keyword">INDEX</span> idx_inbound (inbound_fuid),
+  <span class="hljs-keyword">INDEX</span> idx_onward (onward_airline_designator, onward_flight_designator, onward_operation_date)
+);
+</div></code></pre>
+<p><strong>Notas</strong>:</p>
+<ul>
+<li><strong>Nombre</strong>: <code>fh_onward_flight</code> comunica claramente que son vuelos de continuación, no operaciones de turnaround</li>
+<li><strong>Relación</strong>: Cada registro vincula un vuelo entrante (inbound_fuid) con un vuelo &quot;siguiente&quot; definido por su código y fecha de operación</li>
+<li><strong>Extensible</strong>: Se pueden añadir tablas complementarias como <code>fh_onward_connection_log</code>, <code>fh_mct_rules</code> o <code>fh_onward_status</code> para gestión avanzada</li>
+</ul>
+<hr>
+<h3 id="%F0%9F%A4%9D-dominio-codeshare">🤝 DOMINIO: Codeshare</h3>
+<p><strong>Responsabilidad</strong>: Vuelos compartidos</p>
+<h4 id="tabla-codeshareflights">Tabla <code>codeshare_flights</code></h4>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> codeshare_flights (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+
+  principal_fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+  secondary_fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">REFERENCES</span> flights(fuid),
+
+  codeshare_indicator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">1</span>),         <span class="hljs-comment">-- "P", "S"</span>
+
+  principal_airline <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>),
+  principal_flight <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+
+  secondary_airline <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>),
+  secondary_flight <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>),
+
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">INDEX</span> idx_principal (principal_fuid),
+  <span class="hljs-keyword">INDEX</span> idx_secondary (secondary_fuid)
+);
+</div></code></pre>
+<hr>
+<h3 id="%F0%9F%8F%A2-dominio-infrastructure-compartido">🏢 DOMINIO: Infrastructure (Compartido)</h3>
+<p><strong>Responsabilidad</strong>: Aeropuertos, gates, stands (master data)</p>
+<p>Estas tablas permanecen en el servicio <code>airports-worker</code> como datos maestros compartidos.</p>
+<hr>
+<h2 id="flujo-de-datos">Flujo de Datos</h2>
+<h3 id="ejemplo-completo-mvt-con-m%C3%BAltiples-datos">Ejemplo Completo: MVT con Múltiples Datos</h3>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ FLUJO COMPLETO: Mensaje MVT → Orchestrator → Dominios → EventBridge     ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+// 1. TELEX-IN recibe MVT raw
+rawMVT ← &quot;MVT
+IB347/14
+MAD0845 ETD0842 ETO0850
+PAX150 FUEL15000&quot;
+
+// 2. TELEX-PARSER parsea el mensaje
+parsedMVT ← {
+  airline: 'IB',
+  flightNumber: '347',
+  date: '2025-01-14',
+  departure: 'MAD',
+  estimatedDeparture: '2025-01-14T08:45:00Z',
+  offBlocksTime: '2025-01-14T08:42:00Z',
+  takeoffTime: '2025-01-14T08:50:00Z',
+  totalPassengers: 150,
+  fuelOnboard: 15000
+}
+
+// 3. TELEX-PARSER publica a Orchestrator (sin FUID, sin AnchorKey)
+cloudEventFromParser ← {
+  specversion: &quot;1.0&quot;,
+  type: &quot;com.iberia.flighthub.telex.MVT&quot;,
+  source: &quot;FlightHub.TelexParser&quot;,
+  subject: &quot;MVT AD&quot;,
+  id: &quot;msg-12345&quot;,
+  time: &quot;2025-01-14T08:00:00Z&quot;,
+  datacontenttype: &quot;application/json&quot;,
+  data: parsedMVT  // ← Solo datos parseados
+}
+
+// 4. ORCHESTRATOR extrae identificadores de los datos parseados
+identifiers ← extractTelexIdentifiers(cloudEventFromParser.data)
+// {
+//   operationDate: '2025-01-14',
+//   flightDesignator: '347',
+//   operationalSuffix: '',
+//   airlineDesignator: 'IB',
+//   departureAirport: 'MAD',
+//   departureNumber: 1
+// }
+
+// 5. ORCHESTRATOR busca/crea FUID usando los 6 campos
+fuid ← findOrCreateFUID(identifiers, cloudEventFromParser)
+// fuid = &quot;01HQZ8X9Y1K2M3N4P5Q6R7S8T9&quot;
+
+// 7. ORCHESTRATOR extrae datos por dominio y publica 3 eventos
+// Los workers reciben: FUID + 6 campos + datos de dominio (NO AnchorKey)
+
+// → Timeline Domain
+PUBLICAR_A_COLA(
+  cola: 'timeline_events.fifo',
+  mensaje: {
+    specversion: &quot;1.0&quot;,
+    type: &quot;com.iberia.flighthub.timeline.updated&quot;,
+    source: &quot;FlightHub.Orchestrator&quot;,
+    subject: &quot;TIMELINE MVT&quot;,
+    id: GENERAR_ULID(),
+    time: ISO_TIMESTAMP(AHORA()),
+    datacontenttype: &quot;application/json&quot;,
+    data: {
+      fuid: fuid,                        // ← Solo FUID (NO AnchorKey)
+      operationDate: '2025-01-14',       // ← 6 campos
+      flightDesignator: '347',
+      operationalSuffix: '',
+      airlineDesignator: 'IB',
+      departureAirport: 'MAD',
+      departureNumber: 1,
+      estimatedDeparture: '2025-01-14T08:45:00Z',  // ← Datos de dominio
+      offBlocksTime: '2025-01-14T08:42:00Z',
+      takeoffTime: '2025-01-14T08:50:00Z',
+      source: 'TELEX_MVT'
+    }
+  }
+)
+
+// → Passengers Domain
+PUBLICAR_A_COLA(
+  cola: 'passengers_events.fifo',
+  mensaje: {
+    specversion: &quot;1.0&quot;,
+    type: &quot;com.iberia.flighthub.passengers.updated&quot;,
+    source: &quot;FlightHub.Orchestrator&quot;,
+    subject: &quot;PAX MVT&quot;,
+    id: GENERAR_ULID(),
+    time: ISO_TIMESTAMP(AHORA()),
+    datacontenttype: &quot;application/json&quot;,
+    data: {
+      fuid: fuid,                  // ← Solo FUID
+      operationDate: '2025-01-14', // ← 6 campos
+      flightDesignator: '347',
+      operationalSuffix: '',
+      airlineDesignator: 'IB',
+      departureAirport: 'MAD',
+      departureNumber: 1,
+      totalPassengers: 150,        // ← Datos de dominio
+      source: 'TELEX_MVT'
+    }
+  }
+)
+
+// → Fuel Domain
+PUBLICAR_A_COLA(
+  cola: 'fuel_events.fifo',
+  mensaje: {
+    specversion: &quot;1.0&quot;,
+    type: &quot;com.iberia.flighthub.fuel.updated&quot;,
+    source: &quot;FlightHub.Orchestrator&quot;,
+    subject: &quot;FUEL MVT&quot;,
+    id: GENERAR_ULID(),
+    time: ISO_TIMESTAMP(AHORA()),
+    datacontenttype: &quot;application/json&quot;,
+    data: {
+      fuid: fuid,                  // ← Solo FUID
+      operationDate: '2025-01-14', // ← 6 campos
+      flightDesignator: '347',
+      operationalSuffix: '',
+      airlineDesignator: 'IB',
+      departureAirport: 'MAD',
+      departureNumber: 1,
+      fuelOnboard: 15000,          // ← Datos de dominio
+      source: 'TELEX_MVT'
+    }
+  }
+)
+
+// 6. Cada DOMAIN SERVICE actualiza su BD con FUID + 6 campos
+
+// Timeline Service
+ACTUALIZAR_DB(fh_timeline_departure, fuid, {
+  fuid: fuid,
+  operation_date: '2025-01-14',
+  flight_designator: '347',
+  operational_suffix: '',
+  airline_designator: 'IB',
+  departure_airport: 'MAD',
+  departure_number: 1,
+  departure_time_estimated: '2025-01-14T08:45:00Z',
+  off_blocks_time_actual: '2025-01-14T08:42:00Z',
+  takeoff_time_actual: '2025-01-14T08:50:00Z',
+  created_by: 'TELEX_MVT',
+  updated_at: AHORA()
+})
+
+// Passengers Service
+ACTUALIZAR_DB(fh_pax_summary, fuid, {
+  fuid: fuid,
+  operation_date: '2025-01-14',
+  flight_designator: '347',
+  operational_suffix: '',
+  airline_designator: 'IB',
+  departure_airport: 'MAD',
+  departure_number: 1,
+  booked_pax_total: 150,
+  created_by: 'TELEX_MVT',
+  updated_at: AHORA()
+})
+
+// Fuel Service
+ACTUALIZAR_DB(fh_fuel_summary, fuid, {
+  fuid: fuid,
+  operation_date: '2025-01-14',
+  flight_designator: '347',
+  operational_suffix: '',
+  airline_designator: 'IB',
+  departure_airport: 'MAD',
+  departure_number: 1,
+  total_fuel_weight_kg: 15000,
+  created_by: 'TELEX_MVT',
+  updated_at: AHORA()
+})
+
+// 7. Cada servicio publica a EVENT PUBLISHER (con &quot;changes&quot;)
+// Ver ejemplo completo en sección &quot;Event Publisher&quot; arriba
+</div></code></pre>
+<hr>
+<h2 id="precedencias">Precedencias</h2>
+<h3 id="sistema-de-precedencias-por-campo">Sistema de Precedencias por Campo</h3>
+<p>Cada campo tiene sus propias reglas de precedencia según la fuente.</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> precedence_rules (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  field_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">100</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,       <span class="hljs-comment">-- "estimatedDeparture", "fuelOnboard"</span>
+  <span class="hljs-keyword">domain</span> <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">50</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,            <span class="hljs-comment">-- "operations", "fuel"</span>
+
+  source_priorities JSONB <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,       <span class="hljs-comment">-- {"AENA_CDM": 10, "TELEX_MVT": 8, "MANUAL": 5}</span>
+
+  created_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+  updated_at <span class="hljs-built_in">TIMESTAMP</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-keyword">NOW</span>(),
+
+  <span class="hljs-keyword">UNIQUE</span>(field_name, <span class="hljs-keyword">domain</span>)
+);
+</div></code></pre>
+<p><strong>Ejemplo de datos</strong>:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"field_name"</span>: <span class="hljs-string">"estimatedDepartureTime"</span>,
+  <span class="hljs-attr">"domain"</span>: <span class="hljs-string">"operations"</span>,
+  <span class="hljs-attr">"source_priorities"</span>: {
+    <span class="hljs-attr">"AENA_CDM"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">"TELEX_MVT"</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">"MANUAL"</span>: <span class="hljs-number">5</span>,
+    <span class="hljs-attr">"SSIM"</span>: <span class="hljs-number">3</span>
+  }
+}
+
+{
+  <span class="hljs-attr">"field_name"</span>: <span class="hljs-string">"fuelOnboard"</span>,
+  <span class="hljs-attr">"domain"</span>: <span class="hljs-string">"fuel"</span>,
+  <span class="hljs-attr">"source_priorities"</span>: {
+    <span class="hljs-attr">"ETLB"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">"NIMBUS"</span>: <span class="hljs-number">9</span>,
+    <span class="hljs-attr">"TELEX_MVT"</span>: <span class="hljs-number">7</span>,
+    <span class="hljs-attr">"MANUAL"</span>: <span class="hljs-number">5</span>
+  }
+}
+
+{
+  <span class="hljs-attr">"field_name"</span>: <span class="hljs-string">"totalPassengers"</span>,
+  <span class="hljs-attr">"domain"</span>: <span class="hljs-string">"passengers"</span>,
+  <span class="hljs-attr">"source_priorities"</span>: {
+    <span class="hljs-attr">"CKI"</span>: <span class="hljs-number">10</span>,
+    <span class="hljs-attr">"TELEX_MVT"</span>: <span class="hljs-number">8</span>,
+    <span class="hljs-attr">"TELEX_LDM"</span>: <span class="hljs-number">9</span>,
+    <span class="hljs-attr">"MANUAL"</span>: <span class="hljs-number">5</span>
+  }
+}
+</div></code></pre>
+<h3 id="l%C3%B3gica-de-precedencias">Lógica de Precedencias</h3>
+<pre class="hljs"><code><div>╔══════════════════════════════════════════════════════════════════════════╗
+║ PRECEDENCIAS: Verificar si se puede actualizar un campo                  ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+FUNCIÓN canUpdateField(fuid, fieldName, newSource, newValue)
+
+  // 1. Obtener valor actual del campo
+  current ← LEER_VALOR_ACTUAL(fuid, fieldName)
+
+  SI current NO EXISTE ENTONCES
+    RETORNAR VERDADERO  // No hay valor previo, siempre actualizar
+  FIN SI
+
+  // 2. Obtener regla de precedencia desde fh_orchestrator.precedence_rules
+  rule ← CONSULTAR_DB(precedence_rules, DONDE {
+    field_name = fieldName
+  })
+
+  // Ejemplo de rule.source_priorities:
+  // {
+  //   &quot;AENA_CDM&quot;: 10,
+  //   &quot;TELEX_MVT&quot;: 8,
+  //   &quot;MANUAL&quot;: 5,
+  //   &quot;SSIM&quot;: 3
+  // }
+
+  currentPriority ← rule.source_priorities[current.source] O 0
+  newPriority ← rule.source_priorities[newSource] O 0
+
+  // 3. Comparar prioridades
+  SI newPriority &gt; currentPriority ENTONCES
+    RETORNAR VERDADERO  // Nueva fuente tiene más prioridad
+  FIN SI
+
+  SI newPriority == currentPriority ENTONCES
+    // Misma prioridad: usar timestamp (más reciente gana)
+    RETORNAR AHORA() &gt; current.updated_at
+  FIN SI
+
+  RETORNAR FALSO  // Nueva fuente tiene menos prioridad, no actualizar
+
+FIN FUNCIÓN
+</div></code></pre>
+<hr>
+<h2 id="stack-tecnol%C3%B3gico">Stack Tecnológico</h2>
+<h3 id="messaging">Messaging</h3>
+<ul>
+<li><strong>AWS SQS FIFO</strong>: Colas FIFO para orden garantizado automáticamente</li>
+<li><strong>CloudEvents 1.0</strong>: Formato estándar de eventos</li>
+<li><strong>MessageDeduplicationId</strong>: Prevención de duplicados</li>
+</ul>
+<p><strong>Nota</strong>: El orden FIFO está garantizado por las colas SQS FIFO. No se usa <code>messageGroupId</code> con FUID para agrupación.</p>
+<h3 id="bases-de-datos">Bases de Datos</h3>
+<ul>
+<li><strong>PostgreSQL</strong>: Dominios transaccionales (Operations, Passengers, Fuel, etc.)</li>
+<li><strong>DynamoDB</strong>: Datos de alta frecuencia si aplica</li>
+<li><strong>Redis</strong>: Cache compartido para datos maestros</li>
+</ul>
+<h3 id="eventos">Eventos</h3>
+<ul>
+<li><strong>CloudEvents</strong>: Formato estándar de eventos internos</li>
+<li><strong>AWS EventBridge</strong>: Bus de eventos para publicación externa</li>
+<li><strong>Event Catalog</strong>: Catálogo central de eventos</li>
+</ul>
+<h3 id="identificadores">Identificadores</h3>
+<ul>
+<li><strong>ULID</strong>: Para FUID (ordenable, único, compatible con UUID)</li>
+</ul>
+<h3 id="observabilidad">Observabilidad</h3>
+<ul>
+<li><strong>OpenTelemetry</strong>: Traces distribuidos</li>
+<li><strong>CloudWatch</strong>: Logs y métricas</li>
+<li><strong>Grafana</strong>: Dashboards</li>
+</ul>
+<hr>
+<h2 id="resumen-de-dominios-y-tablas">Resumen de Dominios y Tablas</h2>
+<h3 id="tabla-resumen-completa">Tabla Resumen Completa</h3>
+<table>
+<thead>
+<tr>
+<th>Dominio</th>
+<th>Prefijo</th>
+<th># Tablas</th>
+<th>Responsabilidad Principal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>🎯 Flight Orchestrator</strong></td>
+<td>-</td>
+<td>3</td>
+<td>Identificación única, FUID, enrutamiento, mensajes</td>
+</tr>
+<tr>
+<td><strong>📍 Resources</strong></td>
+<td><code>fh_resource_</code></td>
+<td>1</td>
+<td>Recursos aeroportuarios (gates, stands, runways, belts)</td>
+</tr>
+<tr>
+<td><strong>⏰ Timeline</strong></td>
+<td><code>fh_timeline_</code></td>
+<td>4</td>
+<td>Tiempos operacionales (departure, arrival, CDM, checkin)</td>
+</tr>
+<tr>
+<td><strong>⚠️ Delays</strong></td>
+<td><code>fh_delay_</code></td>
+<td>1-2</td>
+<td>Retrasos y códigos de delay</td>
+</tr>
+<tr>
+<td><strong>👨‍✈️ Crew</strong></td>
+<td><code>fh_crew_</code></td>
+<td>1</td>
+<td>Tripulación técnica y de cabina</td>
+</tr>
+<tr>
+<td><strong>🚨 Alerts</strong></td>
+<td><code>fh_alert_</code></td>
+<td>2</td>
+<td>Alarmas operacionales y desvíos</td>
+</tr>
+<tr>
+<td><strong>👥 Passengers</strong></td>
+<td><code>fh_pax_</code></td>
+<td>3</td>
+<td>Pasajeros, capacidad, cabinas, check-in</td>
+</tr>
+<tr>
+<td><strong>🎒 Baggage</strong></td>
+<td><code>fh_bag_</code></td>
+<td>3</td>
+<td>Equipaje, carga, correo</td>
+</tr>
+<tr>
+<td><strong>⛽ Fuel</strong></td>
+<td><code>fh_fuel_</code></td>
+<td>4</td>
+<td>Combustible y repostaje</td>
+</tr>
+<tr>
+<td><strong>✈️ Aircraft</strong></td>
+<td><code>fh_aircraft_</code></td>
+<td>2</td>
+<td>Aeronaves y configuraciones</td>
+</tr>
+<tr>
+<td><strong>📅 Schedules</strong></td>
+<td><code>fh_schedule_</code></td>
+<td>1</td>
+<td>Programación SSIM y servicio</td>
+</tr>
+<tr>
+<td><strong>🔄 Onward Flights</strong></td>
+<td><code>fh_onward_</code></td>
+<td>1</td>
+<td>Vuelos de continuación</td>
+</tr>
+<tr>
+<td><strong>🤝 Codeshare</strong></td>
+<td><code>fh_codeshare_</code></td>
+<td>1</td>
+<td>Vuelos compartidos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="conteo-total-de-tablas">Conteo Total de Tablas</h3>
+<pre class="hljs"><code><div>🎯 Flight Orchestrator:  3 tablas
+📍 Resources:            1 tabla
+⏰ Timeline:             4 tablas
+⚠️ Delays:               1 tabla (+ 1 opcional normalizada)
+👨‍✈️ Crew:                1 tabla
+🚨 Alerts:               2 tablas
+👥 Passengers:           3 tablas
+🎒 Baggage:              3 tablas
+⛽ Fuel:                 4 tablas
+✈️ Aircraft:             2 tablas
+📅 Schedules:            1 tabla
+🔄 Onward Flights:       1 tabla
+🤝 Codeshare:            1 tabla
+─────────────────────────────────
+TOTAL:                  27 tablas
+</div></code></pre>
+<h3 id="comparaci%C3%B3n-antes-vs-despu%C3%A9s">Comparación: Antes vs Después</h3>
+<p><strong>ANTES (Sistema Legacy):</strong></p>
+<ul>
+<li>❌ 20+ tablas <code>flight_*</code> mezclando responsabilidades</li>
+<li>❌ <code>flight_departure_info</code> con 100+ campos mezclados (4 dominios)</li>
+<li>❌ Queries complejas con múltiples JOINs</li>
+<li>❌ Difícil de escalar y mantener</li>
+<li>❌ 7 formatos diferentes de Flight ID</li>
+</ul>
+<p><strong>DESPUÉS (Nueva Arquitectura):</strong></p>
+<ul>
+<li>✅ 27 tablas especializadas en 13 dominios granulares</li>
+<li>✅ Cada dominio tiene 1-4 tablas enfocadas</li>
+<li>✅ Sin JOINs: 6 campos replicados en cada tabla</li>
+<li>✅ Escalado independiente por dominio</li>
+<li>✅ FUID único en todo el sistema</li>
+<li>✅ Prefijos consistentes (<code>fh_</code> + dominio)</li>
+</ul>
+<hr>
+<h2 id="beneficios-de-la-nueva-arquitectura">Beneficios de la Nueva Arquitectura</h2>
+<ol>
+<li>✅ <strong>Escalabilidad independiente</strong>: Cada dominio escala según su carga</li>
+<li>✅ <strong>Deploys independientes</strong>: Sin riesgo de romper otros dominios</li>
+<li>✅ <strong>Ownership claro</strong>: Cada equipo es dueño de su dominio</li>
+<li>✅ <strong>Identificación única</strong>: FUID en todo el sistema</li>
+<li>✅ <strong>Matching flexible</strong>: Soporta todos los formatos actuales</li>
+<li>✅ <strong>Precedencias configurables</strong>: Sin código hardcoded</li>
+<li>✅ <strong>Auditoría completa</strong>: Todos los mensajes en <code>message_log</code></li>
+<li>✅ <strong>Granularidad</strong>: 32 tablas especializadas vs mezcla actual</li>
+<li>✅ <strong>Resiliencia</strong>: Fallos aislados por dominio</li>
+<li>✅ <strong>Evolución</strong>: Fácil agregar nuevos dominios</li>
+</ol>
+
+</body>
+</html>

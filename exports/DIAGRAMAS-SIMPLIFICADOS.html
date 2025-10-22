@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>DIAGRAMAS-SIMPLIFICADOS.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="2-nueva-arquitectura-basada-en-dominios">2. Nueva Arquitectura (Basada en Dominios)</h2>
+<pre><code class="language-mermaid"><div class="mermaid">graph TB
+    subgraph Fuentes["Fuentes Externas"]
+        SITA["Red SITA<br/>Telex Messages"]
+        AENA["AENA CDM"]
+        SFTP["SFTP"]
+        CKI["Check-in"]
+        NIMBUS["Nimbus"]
+    end
+
+    subgraph InServices["Servicios IN"]
+        TELEX_IN["telex-in<br/>Recibe SITA"]
+        NIMBUS_IN["nimbus-in<br/>Recibe Nimbus"]
+        AENA_IN["aena-in<br/>Recibe CDM"]
+        CKI_IN["cki-in<br/>Recibe GAUD"]
+        SSIM_IN["ssim-in<br/>Recibe SSIM"]
+    end
+
+    subgraph Parsers["Parsers (con BD propia)"]
+        subgraph TELEXP["Telex Parser"]
+            TELEX_P["telex-parser<br/>21 tipos de mensajes"]
+            TELEX_MSG_DB[("fh_telex_messages<br/>raw messages")]
+            TELEX_DB[("fh_telex<br/>parsed data")]
+        end
+        subgraph NIMBUSP["Nimbus Parser"]
+            NIMBUS_P["nimbus-parser<br/>Fuel data"]
+            NIMBUS_MSG_DB[("fh_nimbus_messages<br/>raw messages")]
+            NIMBUS_DB[("fh_nimbus<br/>parsed data")]
+        end
+        subgraph AENAP["AENA Parser"]
+            AENA_P["aena-parser<br/>CDM"]
+            AENA_MSG_DB[("fh_aena_messages<br/>raw messages")]
+            AENA_DB[("fh_aena<br/>parsed data")]
+        end
+        subgraph CKIP["CKI Parser"]
+            CKI_P["cki-parser<br/>GAUD"]
+            CKI_MSG_DB[("fh_cki_messages<br/>raw messages")]
+            CKI_DB[("fh_cki<br/>parsed data")]
+        end
+        subgraph SSIMP["SSIM Parser"]
+            SSIM_P["ssim-parser<br/>Schedules"]
+            SSIM_MSG_DB[("fh_ssim_messages<br/>raw messages")]
+            SSIM_DB[("fh_ssim<br/>parsed data")]
+        end
+    end
+
+    subgraph OrchQueue["Orchestrator Queue"]
+        ORCH_Q["orchestrator_queue.fifo<br/>Orden FIFO garantizado por SQS"]
+    end
+
+    subgraph Orchestrator["Flight Orchestrator"]
+        ORCH["Flight Orchestrator<br/>-----------<br/>* Recibe datos parseados<br/>* Extrae FUID + 6 campos<br/>* Entrada específica por tipo<br/>* Flexible matching<br/>* Precedence management<br/>* Domain routing"]
+        ORCH_DB[("fh_orchestrator<br/>-----------<br/>flights (identifiers)<br/>message_log (audit)")]
+    end
+
+    subgraph DomainQueues["Domain Event Queues (FIFO) - 13 Dominios"]
+        Q_RES["resources_events.fifo"]
+        Q_TIME["timeline_events.fifo"]
+        Q_DELAY["delays_events.fifo"]
+        Q_CREW["crew_events.fifo"]
+        Q_ALERT["alerts_events.fifo"]
+        Q_PAX["passengers_events.fifo"]
+        Q_BAG["baggage_events.fifo"]
+        Q_FUEL["fuel_events.fifo"]
+        Q_AIR["aircraft_events.fifo"]
+        Q_SCH["schedules_events.fifo"]
+        Q_ONWARD["onward_events.fifo"]
+        Q_CODE["codeshare_events.fifo"]
+    end
+
+    subgraph Domains["Dominios de Negocio (13 Dominios)"]
+        subgraph Resources["Resources Domain"]
+            RES_SVC["Resources Service"]
+            RES_DB[("fh_resource")]
+        end
+
+        subgraph Timeline["Timeline Domain"]
+            TIME_SVC["Timeline Service"]
+            TIME_DB[("fh_timeline")]
+        end
+
+        subgraph Delays["Delays Domain"]
+            DELAY_SVC["Delays Service"]
+            DELAY_DB[("fh_delay")]
+        end
+
+        subgraph Crew["Crew Domain"]
+            CREW_SVC["Crew Service"]
+            CREW_DB[("fh_crew")]
+        end
+
+        subgraph Alerts["Alerts Domain"]
+            ALERT_SVC["Alerts Service"]
+            ALERT_DB[("fh_alert")]
+        end
+
+        subgraph Passengers["Passengers Domain"]
+            PAX_SVC["Passengers Service"]
+            PAX_DB[("fh_pax")]
+        end
+
+        subgraph Baggage["Baggage Domain"]
+            BAG_SVC["Baggage Service"]
+            BAG_DB[("fh_bag")]
+        end
+
+        subgraph Fuel["Fuel Domain"]
+            FUEL_SVC["Fuel Service"]
+            FUEL_DB[("fh_fuel")]
+        end
+
+        subgraph Aircraft["Aircraft Domain"]
+            AIR_SVC["Aircraft Service"]
+            AIR_DB[("fh_aircraft")]
+        end
+
+        subgraph Schedules["Schedules Domain"]
+            SCH_SVC["Schedules Service"]
+            SCH_DB[("fh_schedule")]
+        end
+
+        subgraph OnwardFlights["Onward Flights Domain"]
+            ONWARD_SVC["Onward Flights Service"]
+            ONWARD_DB[("fh_onward")]
+        end
+
+        subgraph Codeshare["Codeshare Domain"]
+            CODE_SVC["Codeshare Service"]
+            CODE_DB[("fh_codeshare")]
+        end
+    end
+
+    subgraph Publisher["Event Publisher"]
+        PUB_SVC["Event Publisher<br/>-----------<br/>* FUID → External ID<br/>* 6 campos únicos<br/>* Payload adaptation<br/>* EventBridge publishing"]
+        PUB_CACHE[("Redis Cache<br/>Flight mappings")]
+    end
+
+    subgraph External["Sistemas Externos"]
+        SNS["AWS EventBridge<br/>flight-events-bus"]
+        CONSUMERS["Consumers<br/>Mobile Apps<br/>Web<br/>Partners"]
+    end
+
+    SITA --> TELEX_IN
+    NIMBUS --> NIMBUS_IN
+    AENA --> AENA_IN
+    CKI --> CKI_IN
+    SFTP --> SSIM_IN
+
+    TELEX_IN --> TELEX_MSG_DB
+    TELEX_MSG_DB --> TELEX_IN
+    TELEX_IN --> TELEX_P
+    TELEX_P --> TELEX_MSG_DB
+    TELEX_MSG_DB --> TELEX_P
+    TELEX_P --> TELEX_DB
+    TELEX_DB --> TELEX_P
+
+    NIMBUS_IN --> NIMBUS_MSG_DB
+    NIMBUS_MSG_DB --> NIMBUS_IN
+    NIMBUS_IN --> NIMBUS_P
+    NIMBUS_P --> NIMBUS_MSG_DB
+    NIMBUS_MSG_DB --> NIMBUS_P
+    NIMBUS_P --> NIMBUS_DB
+    NIMBUS_DB --> NIMBUS_P
+
+    AENA_IN --> AENA_MSG_DB
+    AENA_MSG_DB --> AENA_IN
+    AENA_IN --> AENA_P
+    AENA_P --> AENA_MSG_DB
+    AENA_MSG_DB --> AENA_P
+    AENA_P --> AENA_DB
+    AENA_DB --> AENA_P
+
+    CKI_IN --> CKI_MSG_DB
+    CKI_MSG_DB --> CKI_IN
+    CKI_IN --> CKI_P
+    CKI_P --> CKI_MSG_DB
+    CKI_MSG_DB --> CKI_P
+    CKI_P --> CKI_DB
+    CKI_DB --> CKI_P
+
+    SSIM_IN --> SSIM_MSG_DB
+    SSIM_MSG_DB --> SSIM_IN
+    SSIM_IN --> SSIM_P
+    SSIM_P --> SSIM_MSG_DB
+    SSIM_MSG_DB --> SSIM_P
+    SSIM_P --> SSIM_DB
+    SSIM_DB --> SSIM_P
+
+    TELEX_P --> ORCH_Q
+    NIMBUS_P --> ORCH_Q
+    AENA_P --> ORCH_Q
+    CKI_P --> ORCH_Q
+    SSIM_P --> ORCH_Q
+
+    ORCH_Q --> ORCH
+    ORCH --> ORCH_DB
+    ORCH_DB --> ORCH
+
+    ORCH --> Q_RES
+    ORCH --> Q_TIME
+    ORCH --> Q_DELAY
+    ORCH --> Q_CREW
+    ORCH --> Q_ALERT
+    ORCH --> Q_PAX
+    ORCH --> Q_BAG
+    ORCH --> Q_FUEL
+    ORCH --> Q_AIR
+    ORCH --> Q_SCH
+    ORCH --> Q_ONWARD
+    ORCH --> Q_CODE
+
+    Q_RES --> RES_SVC
+    RES_SVC --> RES_DB
+    RES_DB --> RES_SVC
+
+    Q_TIME --> TIME_SVC
+    TIME_SVC --> TIME_DB
+    TIME_DB --> TIME_SVC
+
+    Q_DELAY --> DELAY_SVC
+    DELAY_SVC --> DELAY_DB
+    DELAY_DB --> DELAY_SVC
+
+    Q_CREW --> CREW_SVC
+    CREW_SVC --> CREW_DB
+    CREW_DB --> CREW_SVC
+
+    Q_ALERT --> ALERT_SVC
+    ALERT_SVC --> ALERT_DB
+    ALERT_DB --> ALERT_SVC
+
+    Q_PAX --> PAX_SVC
+    PAX_SVC --> PAX_DB
+    PAX_DB --> PAX_SVC
+
+    Q_BAG --> BAG_SVC
+    BAG_SVC --> BAG_DB
+    BAG_DB --> BAG_SVC
+
+    Q_FUEL --> FUEL_SVC
+    FUEL_SVC --> FUEL_DB
+    FUEL_DB --> FUEL_SVC
+
+    Q_AIR --> AIR_SVC
+    AIR_SVC --> AIR_DB
+    AIR_DB --> AIR_SVC
+
+    Q_SCH --> SCH_SVC
+    SCH_SVC --> SCH_DB
+    SCH_DB --> SCH_SVC
+
+    Q_ONWARD --> ONWARD_SVC
+    ONWARD_SVC --> ONWARD_DB
+    ONWARD_DB --> ONWARD_SVC
+
+    Q_CODE --> CODE_SVC
+    CODE_SVC --> CODE_DB
+    CODE_DB --> CODE_SVC
+
+    RES_SVC --> PUB_SVC
+    TIME_SVC --> PUB_SVC
+    DELAY_SVC --> PUB_SVC
+    CREW_SVC --> PUB_SVC
+    ALERT_SVC --> PUB_SVC
+    PAX_SVC --> PUB_SVC
+    BAG_SVC --> PUB_SVC
+    FUEL_SVC --> PUB_SVC
+    AIR_SVC --> PUB_SVC
+    SCH_SVC --> PUB_SVC
+    ONWARD_SVC --> PUB_SVC
+    CODE_SVC --> PUB_SVC
+
+    PUB_SVC --> PUB_CACHE
+    PUB_CACHE --> PUB_SVC
+    ORCH_DB -.->|Lookup FUID| PUB_SVC
+
+    PUB_SVC --> SNS
+    SNS --> CONSUMERS
+</div></code></pre>
+<p><strong>Beneficios Clave</strong>:</p>
+<ul>
+<li>✅ <strong>Arquitectura IN → Parser → Orchestrator</strong>: Flujo claro y separado (telex-in → telex-parser, nimbus-in → nimbus-parser, etc.)</li>
+<li>✅ <strong>Servicios IN dedicados</strong>: Cada fuente tiene su servicio de ingesta (telex-in, nimbus-in, aena-in, cki-in, ssim-in)</li>
+<li>✅ <strong>Parsers con BD propia</strong>: Cada parser guarda en su base de datos (fh_telex, fh_nimbus, fh_aena, fh_cki, fh_ssim)</li>
+<li>✅ <strong>Telex Parser unificado</strong>: Un solo parser procesa los 21+ tipos de mensajes telex</li>
+<li>✅ <strong>Auditoría completa</strong>: Todos los mensajes parseados se guardan antes de enviar al orchestrator</li>
+<li>✅ <strong>Cola única del orchestrator</strong>: <code>orchestrator_queue.fifo</code> recibe de TODOS los parsers</li>
+<li>✅ <strong>Flight Orchestrator</strong>: Extrae FUID + 6 campos con entrada específica por tipo de dato</li>
+<li>✅ <strong>13 dominios granulares</strong>: Resources, Timeline, Delays, Crew, Alerts, Passengers, Baggage, Fuel, Aircraft, Schedules, Onward Flights, Codeshare</li>
+<li>✅ <strong>Dominios independientes</strong> con sus propias tablas o bases de datos</li>
+<li>✅ <strong>FUID único</strong> (ULID) para uso interno</li>
+<li>✅ <strong>6 campos de identificación</strong> se guardan en cada tabla de dominio</li>
+<li>✅ <strong>Event Publisher</strong> usa solo los 6 campos (NO publica FUID a EventBridge)</li>
+<li>✅ <strong>Prefijos consistentes</strong>: <code>fh_resource_</code>, <code>fh_timeline_</code>, <code>fh_delay_</code>, <code>fh_crew_</code>, <code>fh_alert_</code>, <code>fh_pax_</code>, <code>fh_bag_</code>, <code>fh_fuel_</code>, etc.</li>
+<li>✅ Escalado independiente por parser y por dominio</li>
+<li>✅ Deploys independientes</li>
+<li>✅ Matching flexible (IATA/ICAO)</li>
+</ul>
+<hr>
+<h2 id="3-flujo-de-datos-mensaje-mvt-completo">3. Flujo de Datos: Mensaje MVT Completo</h2>
+<pre><code class="language-mermaid"><div class="mermaid">sequenceDiagram
+    participant SRC as SITA Network
+    participant TIN as telex-in
+    participant TPARSER as telex-parser
+    participant TELMSGDB as fh_telex_messages DB
+    participant TELDB as fh_telex DB
+    participant ORCHQ as orchestrator_queue.fifo
+    participant ORC as Flight Orchestrator
+    participant DB as fh_orchestrator
+    participant Q1 as passengers_events.fifo
+    participant Q2 as fuel_events.fifo
+    participant Q3 as onward_events.fifo
+    participant PAX as Passengers Service
+    participant FUEL as Fuel Service
+    participant ONWARD as Onward Flights Service
+    participant PUB as Event Publisher
+    participant EB as AWS EventBridge
+
+    SRC->>TIN: Telex Message (raw)
+    Note over TIN: Recibe mensaje raw
+    TIN->>TELMSGDB: Guarda mensaje raw<br/>en fh_telex_messages
+    TELMSGDB-->>TIN: Message ID
+    TIN->>TPARSER: Notifica nuevo mensaje
+
+    Note over TPARSER: 1. Lee mensaje de fh_telex_messages
+    TELMSGDB->>TPARSER: Mensaje raw
+    Note over TPARSER: 2. Detecta tipo/subtipo<br/>usando regex patterns<br/>type='MVT', subtype='AA'
+    Note over TPARSER: 3. Parsea el mensaje MVT-AA<br/>Extrae todos los campos
+    TPARSER->>TELDB: Guarda datos parseados<br/>en fh_telex
+    TELDB-->>TPARSER: UUID generado
+    Note over TPARSER: 4. Envuelve datos parseados<br/>en CloudEvents
+    TPARSER->>ORCHQ: CloudEvent<br/>{type:'MVT', subtype:'AA',<br/>parsedData: {...}}
+
+    ORCHQ->>ORC: Consume (orden FIFO garantizado por SQS)
+
+    Note over ORC: Recibe datos parseados<br/>Extrae FUID + 6 campos<br/>según tipo de mensaje MVT
+    ORC->>DB: Verificar/Guardar FUID + 6 campos
+    DB-->>ORC: FUID confirmado
+
+    Note over ORC: Extract domain data from MVT
+    Note over ORC: MVT contains:<br/>* Passengers: 180<br/>* Fuel: 12500 kg<br/>* Times: ATD 08:30
+
+    ORC->>Q1: PassengerEvent (FUID + 6 campos + data)
+    ORC->>Q2: FuelEvent (FUID + 6 campos + data)
+    ORC->>Q3: OnwardFlightEvent (FUID + 6 campos + data)
+
+    Q1->>PAX: Consume
+    Note over PAX: UPSERT passenger_summary<br/>SET fuid = '01HQZ8X9...',<br/>operationDate = '2025-01-14',<br/>flightDesignator = '347',<br/>airlineDesignator = 'IB',<br/>...
+    PAX->>PUB: passengers.updated (FUID + 6 campos)
+
+    Q2->>FUEL: Consume
+    Note over FUEL: UPSERT fuel_summary<br/>Guarda FUID + 6 campos + data
+    FUEL->>PUB: fuel.updated (FUID + 6 campos)
+
+    Q3->>ONWARD: Consume
+    Note over ONWARD: UPSERT fh_onward_flight<br/>Guarda FUID + 6 campos + data
+    ONWARD->>PUB: onward_flight.updated (FUID + 6 campos)
+
+    Note over PUB: Los 6 campos ya vienen<br/>en cada evento de dominio.<br/>FUID NO se publica a EventBridge
+
+    Note over PUB: Build external payload<br/>SOLO con los 6 campos<br/>(sin FUID)
+
+    PUB->>EB: Publish external event
+    Note over EB: Topic: flight.updated<br/>Payload includes:<br/>flightIdentifier (6 campos)<br/>passengers, fuel, times<br/>(NO incluye FUID)
+</div></code></pre>
+<hr>
+<h2 id="4-identificadores-fuid--6-campos-de-identificaci%C3%B3n">4. Identificadores: FUID + 6 Campos de Identificación</h2>
+<pre><code class="language-mermaid"><div class="mermaid">graph TB
+    subgraph TelexParsing4["TELEX PARSING"]
+        TIN4["telex-in<br/>Recibe SITA"]
+        TPARSER4["telex-parser<br/>-----------<br/>Detecta tipo/subtipo (21+)<br/>Parsea mensaje<br/>Guarda en fh_telex_messages y fh_telex"]
+        TELEX_MSG_DB4[("fh_telex_messages<br/>raw")]
+        TELEX_DB4[("fh_telex<br/>parsed")]
+    end
+
+    subgraph NimbusParsing4["NIMBUS PARSING"]
+        NIN4["nimbus-in<br/>Recibe Nimbus"]
+        NPARSER4["nimbus-parser<br/>Parsea fuel data"]
+        NIMBUS_MSG_DB4[("fh_nimbus_messages<br/>raw")]
+        NIMBUS_DB4[("fh_nimbus<br/>parsed")]
+    end
+
+    subgraph AENAParsing4["AENA PARSING"]
+        AIN4["aena-in<br/>Recibe AENA"]
+        AENA_P4["aena-parser<br/>Parsea AENA data"]
+        AENA_MSG_DB4[("fh_aena_messages<br/>raw")]
+        AENA_DB4[("fh_aena<br/>parsed")]
+    end
+
+    subgraph CKIParsing4["CKI PARSING"]
+        CIN4["cki-in<br/>Recibe CKI"]
+        CKI_P4["cki-parser<br/>Parsea CKI data"]
+        CKI_MSG_DB4[("fh_cki_messages<br/>raw")]
+        CKI_DB4[("fh_cki<br/>parsed")]
+    end
+
+    subgraph SSIMParsing4["SSIM PARSING"]
+        SSIM_S3_4["S3 Bucket<br/>SSIM files"]
+        SSIM_P4["ssim-parser<br/>Lee de S3<br/>Parsea schedules"]
+        SSIM_MSG_DB4[("fh_ssim_messages<br/>raw")]
+        SSIM_DB4[("fh_ssim<br/>parsed")]
+    end
+
+    subgraph OrchQueue4["ORCHESTRATOR QUEUE"]
+        ORCHQ4["orchestrator_queue.fifo<br/>Recibe de TODOS los parsers"]
+    end
+
+    subgraph Orchestrator["ORCHESTRATOR (Extracción)"]
+        ORCH_EXT["Flight Orchestrator<br/>-----------<br/>Extrae del mensaje:<br/>* FUID (de DB o nuevo ULID)<br/>* operationDate<br/>* flightDesignator<br/>* operationalSuffix<br/>* airlineDesignator<br/>* departureAirport<br/>* departureNumber<br/><br/>Entrada específica por tipo"]
+    end
+
+    subgraph Internal["USO INTERNO (Dominios)"]
+        FUID["FUID (ULID)<br/>-----------<br/>01HQZ8X9Y1K2M3N4P5Q6R7S8T9<br/><br/>* Único en todo el sistema<br/>* Inmutable<br/>* 26 caracteres<br/>* Ordenable<br/>* Extraído por Orchestrator"]
+
+        CAMPOS["6 Campos de Identificación<br/>-----------<br/>operationDate: 2025-01-14<br/>flightDesignator: 347<br/>operationalSuffix: (empty)<br/>airlineDesignator: IB<br/>departureAirport: MAD<br/>departureNumber: 1<br/><br/>* Se guardan en CADA tabla<br/>* Permiten queries sin joins"]
+
+        ORCH_INT["Flight Orchestrator<br/>extrae y envía FUID + 6 campos"]
+        RES_INT["Resources Service<br/>guarda FUID + 6 campos"]
+        TIME_INT["Timeline Service<br/>guarda FUID + 6 campos"]
+        PAX_INT["Passengers Service<br/>guarda FUID + 6 campos"]
+        FUEL_INT["Fuel Service<br/>guarda FUID + 6 campos"]
+
+        FUID --> ORCH_INT
+        CAMPOS --> ORCH_INT
+        ORCH_INT --> RES_INT
+        ORCH_INT --> TIME_INT
+        ORCH_INT --> PAX_INT
+        ORCH_INT --> FUEL_INT
+    end
+
+    subgraph External["PUBLICACIÓN EXTERNA"]
+        PUB_MAP["Event Publisher<br/>-----------<br/>Los 6 campos YA VIENEN<br/>en cada evento de dominio.<br/>Solo necesita formatear."]
+
+        EXT_ID["External ID (6 campos)<br/>-----------<br/>airlineDesignator: IB<br/>flightDesignator: 347<br/>operationalSuffix: (empty)<br/>departureAirport: MAD<br/>operationDate: 2025-01-14<br/>departureNumber: 1<br/><br/>* NO incluye FUID<br/>* Estándar aeronáutico<br/>* Compatible con externos"]
+
+        EB_EXT["AWS EventBridge<br/>-----------<br/>flight-events-bus<br/><br/>Consumidores se suscriben:<br/>* Mobile Apps<br/>* Web Dashboard<br/>* Partner Systems"]
+
+        EXT_ID --> EB_EXT
+    end
+
+    TIN4 --> TELEX_MSG_DB4
+    TELEX_MSG_DB4 --> TIN4
+    TIN4 --> TPARSER4
+    TPARSER4 --> TELEX_MSG_DB4
+    TELEX_MSG_DB4 --> TPARSER4
+    TPARSER4 --> TELEX_DB4
+    TELEX_DB4 --> TPARSER4
+
+    NIN4 --> NIMBUS_MSG_DB4
+    NIMBUS_MSG_DB4 --> NIN4
+    NIN4 --> NPARSER4
+    NPARSER4 --> NIMBUS_MSG_DB4
+    NIMBUS_MSG_DB4 --> NPARSER4
+    NPARSER4 --> NIMBUS_DB4
+    NIMBUS_DB4 --> NPARSER4
+
+    AIN4 --> AENA_MSG_DB4
+    AENA_MSG_DB4 --> AIN4
+    AIN4 --> AENA_P4
+    AENA_P4 --> AENA_MSG_DB4
+    AENA_MSG_DB4 --> AENA_P4
+    AENA_P4 --> AENA_DB4
+    AENA_DB4 --> AENA_P4
+
+    CIN4 --> CKI_MSG_DB4
+    CKI_MSG_DB4 --> CIN4
+    CIN4 --> CKI_P4
+    CKI_P4 --> CKI_MSG_DB4
+    CKI_MSG_DB4 --> CKI_P4
+    CKI_P4 --> CKI_DB4
+    CKI_DB4 --> CKI_P4
+
+    SSIM_S3_4 --> SSIM_P4
+    SSIM_P4 --> SSIM_MSG_DB4
+    SSIM_MSG_DB4 --> SSIM_P4
+    SSIM_P4 --> SSIM_DB4
+    SSIM_DB4 --> SSIM_P4
+
+    TPARSER4 --> ORCHQ4
+    NPARSER4 --> ORCHQ4
+    AENA_P4 --> ORCHQ4
+    CKI_P4 --> ORCHQ4
+    SSIM_P4 --> ORCHQ4
+
+    ORCHQ4 --> ORCH_EXT
+    ORCH_EXT --> ORCH_INT
+
+    RES_INT --> PUB_MAP
+    TIME_INT --> PUB_MAP
+    PAX_INT --> PUB_MAP
+    FUEL_INT --> PUB_MAP
+
+    PUB_MAP --> EXT_ID
+</div></code></pre>
+<hr>
+<p>Comparación: Tabla flight_departure_info</p>
+<h3 id="arquitectura-actual-monol%C3%ADtica">Arquitectura Actual (Monolítica)</h3>
+<pre><code class="language-mermaid"><div class="mermaid">graph TB
+    subgraph Monolito["flight_departure_info (100+ campos mezclados)"]
+        TABLA["Una sola tabla con TODO mezclado<br/>-----------"]
+
+        PAX_FIELDS["PASAJEROS:<br/>total_passengers<br/>checked_in_passengers<br/>boarded_passengers<br/>adults<br/>children<br/>infants"]
+
+        BAG_FIELDS["EQUIPAJE:<br/>baggage_pieces<br/>baggage_weight<br/>cargo_weight<br/>mail_weight"]
+
+        FUEL_FIELDS["COMBUSTIBLE:<br/>fuel_uplift<br/>fuel_planned<br/>fuel_remaining<br/>fuel_density"]
+
+        TIME_FIELDS["TIEMPOS:<br/>std, etd, atd<br/>sta, eta, ata<br/>gate_departure<br/>gate_arrival"]
+
+        CREW_FIELDS["TRIPULACIÓN:<br/>crew_count<br/>cockpit_crew<br/>cabin_crew"]
+
+        OPS_FIELDS["OPERACIONES:<br/>flight_status<br/>delay_code<br/>cancellation_reason"]
+
+        TABLA --> PAX_FIELDS
+        TABLA --> BAG_FIELDS
+        TABLA --> FUEL_FIELDS
+        TABLA --> TIME_FIELDS
+        TABLA --> CREW_FIELDS
+        TABLA --> OPS_FIELDS
+    end
+
+    PROBLEM["❌ PROBLEMAS:<br/>* Imposible escalar dominios<br/>* Deploys todo-o-nada<br/>* Ownership difuso<br/>* Queries complejas<br/>* Locking contention"]
+</div></code></pre>
+<h3 id="nueva-arquitectura-separada-por-dominios">Nueva Arquitectura (Separada por Dominios)</h3>
+<pre><code class="language-mermaid"><div class="mermaid">graph TB
+    subgraph Nueva["13 Dominios Separados"]
+        subgraph D1["Resources Domain"]
+            RES_TAB["gate_assignments<br/>stand_assignments<br/>belt_assignments<br/>-----------<br/>fuid (PK)<br/>+ 6 campos"]
+        end
+
+        subgraph D2["Timeline Domain"]
+            TIME_TAB["flight_times<br/>-----------<br/>fuid (PK)<br/>std, etd, atd<br/>sta, eta, ata<br/>+ 6 campos"]
+        end
+
+        subgraph D3["Delays Domain"]
+            DELAY_TAB["flight_delays<br/>delay_codes<br/>-----------<br/>fuid (PK)<br/>delay_code<br/>delay_minutes<br/>+ 6 campos"]
+        end
+
+        subgraph D4["Crew Domain"]
+            CREW_TAB["crew_manifest<br/>-----------<br/>fuid (PK)<br/>total_crew<br/>cockpit<br/>cabin<br/>+ 6 campos"]
+        end
+
+        subgraph D5["Alerts Domain"]
+            ALERT_TAB["flight_alerts<br/>-----------<br/>fuid (PK)<br/>alert_type<br/>severity<br/>+ 6 campos"]
+        end
+
+        subgraph D6["Passengers Domain"]
+            PAX_TAB["passenger_summary<br/>-----------<br/>fuid (PK)<br/>total_passengers<br/>checked_in<br/>boarded<br/>+ 6 campos"]
+        end
+
+        subgraph D7["Baggage Domain"]
+            BAG_TAB["baggage_summary<br/>-----------<br/>fuid (PK)<br/>pieces<br/>weight<br/>+ 6 campos"]
+        end
+
+        subgraph D8["Fuel Domain"]
+            FUEL_TAB["fuel_summary<br/>-----------<br/>fuid (PK)<br/>uplift<br/>planned<br/>+ 6 campos"]
+        end
+
+        subgraph D9["Aircraft Domain"]
+            AIR_TAB["aircraft_info<br/>-----------<br/>fuid (PK)<br/>tail_number<br/>aircraft_type<br/>+ 6 campos"]
+        end
+
+        subgraph D10["Schedules Domain"]
+            SCH_TAB["flight_schedules<br/>-----------<br/>fuid (PK)<br/>scheduled_times<br/>+ 6 campos"]
+        end
+
+        subgraph D11["Onward Flights Domain"]
+            ONWARD_TAB["onward_flights<br/>-----------<br/>fuid (PK)<br/>connection_type<br/>+ 6 campos"]
+        end
+
+        subgraph D12["Codeshare Domain"]
+            CODE_TAB["codeshare_flights<br/>-----------<br/>fuid (PK)<br/>operating_carrier<br/>+ 6 campos"]
+        end
+
+        subgraph D13["Event Publisher"]
+            PUB["Convierte FUID<br/>a 6 campos externos<br/>y publica"]
+        end
+    end
+
+    BENEFITS["✅ BENEFICIOS:<br/>* Escalado independiente<br/>* Deploy por dominio<br/>* Ownership claro<br/>* Queries simples<br/>* Sin contention<br/>* 13 dominios especializados"]
+</div></code></pre>
+<hr>
+<h2 id="6-los-6-campos-de-identificaci%C3%B3n-en-cada-tabla">6. Los 6 Campos de Identificación en Cada Tabla</h2>
+<p>Cada tabla de dominio guarda estos 6 campos para permitir queries directas sin joins:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">interface</span> FlightIdentifiers {
+  operationDate: <span class="hljs-built_in">Date</span>; <span class="hljs-comment">// 2025-01-14</span>
+  flightDesignator: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// "347"</span>
+  operationalSuffix: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// "" o "A", "B"</span>
+  airlineDesignator: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// "IB"</span>
+  departureAirport: <span class="hljs-built_in">string</span>; <span class="hljs-comment">// "MAD"</span>
+  departureNumber: <span class="hljs-built_in">number</span>; <span class="hljs-comment">// 1, 2, 3... (turnarounds)</span>
+}
+</div></code></pre>
+<p><strong>Ejemplo en tabla <code>passenger_summary</code>:</strong></p>
+<pre class="hljs"><code><div><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> passenger_summary (
+  <span class="hljs-keyword">id</span> <span class="hljs-keyword">UUID</span> PRIMARY <span class="hljs-keyword">KEY</span>,
+  fuid <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">26</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+
+  <span class="hljs-comment">-- Los 6 campos de identificación</span>
+  operation_date <span class="hljs-built_in">DATE</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  flight_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">10</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  operational_suffix <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">DEFAULT</span> <span class="hljs-string">''</span>,
+  airline_designator <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_airport <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">3</span>) <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span>,
+  departure_number <span class="hljs-built_in">INTEGER</span> <span class="hljs-keyword">NOT</span> <span class="hljs-literal">NULL</span> <span class="hljs-keyword">DEFAULT</span> <span class="hljs-number">1</span>,
+
+  <span class="hljs-comment">-- Datos de pasajeros</span>
+  total_passengers <span class="hljs-built_in">INTEGER</span>,
+  checked_in_passengers <span class="hljs-built_in">INTEGER</span>,
+  boarded_passengers <span class="hljs-built_in">INTEGER</span>,
+  <span class="hljs-comment">-- ...</span>
+
+  <span class="hljs-comment">-- Índices</span>
+  <span class="hljs-keyword">INDEX</span> idx_fuid (fuid),
+  <span class="hljs-keyword">INDEX</span> idx_flight_id (airline_designator, flight_designator, operation_date, departure_airport)
+);
+</div></code></pre>
+<p><strong>Beneficios:</strong></p>
+<ul>
+<li>✅ Queries sin joins: <code>SELECT * FROM passenger_summary WHERE airline_designator='IB' AND flight_designator='347' AND operation_date='2025-01-14'</code></li>
+<li>✅ Cada dominio es independiente</li>
+<li>✅ Event Publisher recibe los 6 campos directamente en cada evento</li>
+</ul>
+<hr>
+<h2 id="7-onward-flights-y-departurenumber">7. Onward Flights y departureNumber</h2>
+<pre><code class="language-mermaid"><div class="mermaid">graph LR
+    subgraph Scenario["Escenario: Vuelo IB347 despega 2 veces (Return to Base)"]
+        E1["Primer Despegue<br/>08:30 MAD→BCN"]
+        E2["Return to Base<br/>10:00 BCN→MAD<br/>(problemas técnicos)"]
+        E3["Segundo Despegue<br/>14:00 MAD→BCN"]
+    end
+
+    subgraph OrchDB["orchestrator.flights"]
+        F1["FUID: 01HQZ8X9...<br/>-----------<br/>airline_designator: IB<br/>flight_designator: 347<br/>operation_date: 2025-01-14<br/>departure_airport: MAD<br/>departure_number: 1<br/>active: true"]
+
+        F2["FUID: 01HQZ8X9... (mismo)<br/>-----------<br/>airline_designator: IB<br/>flight_designator: 347<br/>operation_date: 2025-01-14<br/>departure_airport: MAD<br/>departure_number: 2<br/>active: true<br/>fuid_flight_principal: 01HQZ8X9..."]
+    end
+
+    subgraph OnwardFlights["fh_onward_flight"]
+        OF1["id: uuid-1<br/>-----------<br/>inbound_fuid: 01HQZ8X9...<br/>onward_airline: IB<br/>onward_flight: 347<br/>onward_date: 2025-01-14<br/>connection_type: RETURN_TO_BASE<br/>turnaround_time: 330 min"]
+    end
+
+    subgraph Events["Eventos Publicados a EventBridge"]
+        EV1["Event 1:<br/>flightIdentifier:<br/>  departureNumber: 1<br/>eventType: flight.departed"]
+
+        EV2["Event 2:<br/>flightIdentifier:<br/>  departureNumber: 2<br/>eventType: flight.departed"]
+    end
+
+    E1 --> F1
+    F1 --> EV1
+    F1 --> OF1
+
+    E2 --> F2
+    F2 --> EV2
+
+    F1 -.->|mismo vuelo| F2
+</div></code></pre>
+<p><strong>Explicación</strong>:</p>
+<ul>
+<li>El FUID permanece <strong>igual</strong> (mismo vuelo)</li>
+<li>El <code>departure_number</code> se <strong>incrementa</strong> (1 → 2)</li>
+<li>El dominio <strong>Onward Flights</strong> registra la relación entre el vuelo entrante y el siguiente</li>
+<li>Los eventos externos incluyen <code>departureNumber</code> para diferenciar</li>
+<li>El campo <code>fuid_flight_principal</code> referencia al vuelo principal</li>
+</ul>
+<hr>
+<h2 id="resumen-de-componentes">Resumen de Componentes</h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Responsabilidad</th>
+<th>Base de Datos</th>
+<th>Identificador Usado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>telex-in</strong></td>
+<td>Recibir y guardar mensajes raw desde SITA</td>
+<td>fh_telex_messages</td>
+<td>Mensaje raw</td>
+</tr>
+<tr>
+<td><strong>nimbus-in</strong></td>
+<td>Recibir y guardar mensajes raw desde Nimbus</td>
+<td>fh_nimbus_messages</td>
+<td>Mensaje raw</td>
+</tr>
+<tr>
+<td><strong>aena-in</strong></td>
+<td>Recibir y guardar mensajes CDM</td>
+<td>fh_aena_messages</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>cki-in</strong></td>
+<td>Recibir y guardar mensajes GAUD</td>
+<td>fh_cki_messages</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>ssim-in</strong></td>
+<td>Recibir y guardar archivos SSIM</td>
+<td>fh_ssim_messages</td>
+<td>Mensaje raw</td>
+</tr>
+<tr>
+<td><strong>Telex Parser</strong></td>
+<td>Lee de fh_telex_messages, parsea y guarda en fh_telex</td>
+<td>fh_telex</td>
+<td>Datos parseados solamente</td>
+</tr>
+<tr>
+<td><strong>Nimbus Parser</strong></td>
+<td>Lee de fh_nimbus_messages, parsea y guarda en fh_nimbus</td>
+<td>fh_nimbus</td>
+<td>Datos parseados solamente</td>
+</tr>
+<tr>
+<td><strong>AENA Parser</strong></td>
+<td>Lee de fh_aena_messages, parsea y guarda en fh_aena</td>
+<td>fh_aena</td>
+<td>Datos parseados solamente</td>
+</tr>
+<tr>
+<td><strong>CKI Parser</strong></td>
+<td>Lee de fh_cki_messages, parsea y guarda en fh_cki</td>
+<td>fh_cki</td>
+<td>Datos parseados solamente</td>
+</tr>
+<tr>
+<td><strong>SSIM Parser</strong></td>
+<td>Lee de fh_ssim_messages, parsea y guarda en fh_ssim</td>
+<td>fh_ssim</td>
+<td>Datos parseados solamente</td>
+</tr>
+<tr>
+<td><strong>Orchestrator Queue</strong></td>
+<td>Cola FIFO para todos los parsers</td>
+<td>N/A</td>
+<td>CloudEvents (orden FIFO por SQS)</td>
+</tr>
+<tr>
+<td><strong>Flight Orchestrator</strong></td>
+<td>Extraer FUID + 6 campos, routing, precedencias</td>
+<td>fh_orchestrator</td>
+<td>FUID + 6 campos</td>
+</tr>
+<tr>
+<td><strong>Domain Services</strong> (13)</td>
+<td>Lógica de negocio por dominio</td>
+<td>fh_resource, fh_timeline, fh_delay, fh_crew, fh_alert, fh_pax, fh_bag, fh_fuel, fh_aircraft, fh_schedule, fh_onward, fh_codeshare</td>
+<td>FUID + 6 campos (guardan ambos)</td>
+</tr>
+<tr>
+<td><strong>Event Publisher</strong></td>
+<td>Formatear y publicar (sin FUID)</td>
+<td>Redis Cache</td>
+<td>Solo 6 campos (NO FUID)</td>
+</tr>
+<tr>
+<td><strong>Consumers Externos</strong></td>
+<td>Recibir eventos</td>
+<td>N/A</td>
+<td>External ID (6 campos, sin FUID)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Clave</strong>:</p>
+<ul>
+<li><strong>Flujo IN → Parser → Orchestrator</strong>: Separación clara de responsabilidades</li>
+<li><strong>Servicios IN</strong>: Reciben y guardan mensajes raw en fh_[nombre]_messages, luego notifican al parser</li>
+<li><strong>Parsers</strong>: Cada parser lee de fh_[nombre]<em>messages, parsea y guarda en fh</em>[nombre] antes de publicar al orchestrator
+<ul>
+<li>telex-in → fh_telex_messages (raw)</li>
+<li>telex-parser → fh_telex (parsed) - 21+ tipos</li>
+<li>nimbus-in → fh_nimbus_messages (raw)</li>
+<li>nimbus-parser → fh_nimbus (parsed)</li>
+<li>aena-in → fh_aena_messages (raw)</li>
+<li>aena-parser → fh_aena (parsed)</li>
+<li>cki-in → fh_cki_messages (raw)</li>
+<li>cki-parser → fh_cki (parsed)</li>
+<li>ssim-in → fh_ssim_messages (raw)</li>
+<li>ssim-parser → fh_ssim (parsed)</li>
+</ul>
+</li>
+<li><strong>Cola única del orchestrator</strong>: <code>orchestrator_queue.fifo</code> recibe de TODOS los parsers</li>
+<li><strong>Flight Orchestrator</strong> extrae FUID + 6 campos con entrada específica por tipo de dato</li>
+<li><strong>6 campos en cada tabla</strong>: Cada dominio guarda FUID + 6 campos</li>
+<li><strong>Event Publisher</strong> recibe los 6 campos ya en cada evento, NO publica FUID a EventBridge</li>
+<li><strong>Queries sin joins</strong>: Los 6 campos permiten buscar vuelos en cualquier tabla de dominio</li>
+<li><strong>Escalabilidad por parser</strong>: Cada parser escala según su carga específica</li>
+<li><strong>Auditoría completa</strong>: Todos los mensajes parseados se guardan antes del orchestrator</li>
+</ul>
+
+</body>
+</html>
