@@ -390,6 +390,27 @@ graph TB
         NIMBUS_DB4[("fh_nimbus<br/>parsed")]
     end
 
+    subgraph AENAParsing4["AENA PARSING"]
+        AIN4["aena-in<br/>Recibe AENA"]
+        AENA_P4["aena-parser<br/>Parsea AENA data"]
+        AENA_MSG_DB4[("fh_aena_messages<br/>raw")]
+        AENA_DB4[("fh_aena<br/>parsed")]
+    end
+
+    subgraph CKIParsing4["CKI PARSING"]
+        CIN4["cki-in<br/>Recibe CKI"]
+        CKI_P4["cki-parser<br/>Parsea CKI data"]
+        CKI_MSG_DB4[("fh_cki_messages<br/>raw")]
+        CKI_DB4[("fh_cki<br/>parsed")]
+    end
+
+    subgraph SSIMParsing4["SSIM PARSING"]
+        SSIM_S3_4["S3 Bucket<br/>SSIM files"]
+        SSIM_P4["ssim-parser<br/>Lee de S3<br/>Parsea schedules"]
+        SSIM_MSG_DB4[("fh_ssim_messages<br/>raw")]
+        SSIM_DB4[("fh_ssim<br/>parsed")]
+    end
+
     subgraph OrchQueue4["ORCHESTRATOR QUEUE"]
         ORCHQ4["orchestrator_queue.fifo<br/>Recibe de TODOS los parsers"]
     end
@@ -443,16 +464,23 @@ graph TB
     NPARSER4 --> NIMBUS_DB4
     NIMBUS_DB4 --> NPARSER4
 
+    AIN4 --> AENA_MSG_DB4
+    AENA_MSG_DB4 --> AIN4
+    AIN4 --> AENA_P4
     AENA_P4 --> AENA_MSG_DB4
     AENA_MSG_DB4 --> AENA_P4
     AENA_P4 --> AENA_DB4
     AENA_DB4 --> AENA_P4
 
+    CIN4 --> CKI_MSG_DB4
+    CKI_MSG_DB4 --> CIN4
+    CIN4 --> CKI_P4
     CKI_P4 --> CKI_MSG_DB4
     CKI_MSG_DB4 --> CKI_P4
     CKI_P4 --> CKI_DB4
     CKI_DB4 --> CKI_P4
 
+    SSIM_S3_4 --> SSIM_P4
     SSIM_P4 --> SSIM_MSG_DB4
     SSIM_MSG_DB4 --> SSIM_P4
     SSIM_P4 --> SSIM_DB4
@@ -513,33 +541,61 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph Nueva["Dominios Separados"]
-        subgraph D1["Passengers Domain"]
-            PAX_TAB["passenger_summary<br/>-----------<br/>fuid (PK)<br/>total_passengers<br/>checked_in<br/>boarded<br/>adults<br/>children<br/>infants"]
+    subgraph Nueva["13 Dominios Separados"]
+        subgraph D1["Resources Domain"]
+            RES_TAB["gate_assignments<br/>stand_assignments<br/>belt_assignments<br/>-----------<br/>fuid (PK)<br/>+ 6 campos"]
         end
 
-        subgraph D2["Baggage Domain"]
-            BAG_TAB["baggage_summary<br/>-----------<br/>fuid (PK)<br/>pieces<br/>weight<br/>cargo_weight<br/>mail_weight"]
+        subgraph D2["Timeline Domain"]
+            TIME_TAB["flight_times<br/>-----------<br/>fuid (PK)<br/>std, etd, atd<br/>sta, eta, ata<br/>+ 6 campos"]
         end
 
-        subgraph D3["Fuel Domain"]
-            FUEL_TAB["fuel_summary<br/>-----------<br/>fuid (PK)<br/>uplift<br/>planned<br/>remaining<br/>density"]
+        subgraph D3["Delays Domain"]
+            DELAY_TAB["flight_delays<br/>delay_codes<br/>-----------<br/>fuid (PK)<br/>delay_code<br/>delay_minutes<br/>+ 6 campos"]
         end
 
-        subgraph D4["Operations Domain"]
-            TIME_TAB["flight_times<br/>-----------<br/>fuid (PK)<br/>std, etd, atd<br/>sta, eta, ata"]
-
-            GATE_TAB["gate_assignments<br/>-----------<br/>fuid (PK)<br/>departure_gate<br/>arrival_gate"]
-
-            STATUS_TAB["flight_status<br/>-----------<br/>fuid (PK)<br/>status<br/>delay_code"]
+        subgraph D4["Crew Domain"]
+            CREW_TAB["crew_manifest<br/>-----------<br/>fuid (PK)<br/>total_crew<br/>cockpit<br/>cabin<br/>+ 6 campos"]
         end
 
-        subgraph D5["Crew Domain"]
-            CREW_TAB["crew_manifest<br/>-----------<br/>fuid (PK)<br/>total_crew<br/>cockpit<br/>cabin"]
+        subgraph D5["Alerts Domain"]
+            ALERT_TAB["flight_alerts<br/>-----------<br/>fuid (PK)<br/>alert_type<br/>severity<br/>+ 6 campos"]
+        end
+
+        subgraph D6["Passengers Domain"]
+            PAX_TAB["passenger_summary<br/>-----------<br/>fuid (PK)<br/>total_passengers<br/>checked_in<br/>boarded<br/>+ 6 campos"]
+        end
+
+        subgraph D7["Baggage Domain"]
+            BAG_TAB["baggage_summary<br/>-----------<br/>fuid (PK)<br/>pieces<br/>weight<br/>+ 6 campos"]
+        end
+
+        subgraph D8["Fuel Domain"]
+            FUEL_TAB["fuel_summary<br/>-----------<br/>fuid (PK)<br/>uplift<br/>planned<br/>+ 6 campos"]
+        end
+
+        subgraph D9["Aircraft Domain"]
+            AIR_TAB["aircraft_info<br/>-----------<br/>fuid (PK)<br/>tail_number<br/>aircraft_type<br/>+ 6 campos"]
+        end
+
+        subgraph D10["Schedules Domain"]
+            SCH_TAB["flight_schedules<br/>-----------<br/>fuid (PK)<br/>scheduled_times<br/>+ 6 campos"]
+        end
+
+        subgraph D11["Onward Flights Domain"]
+            ONWARD_TAB["onward_flights<br/>-----------<br/>fuid (PK)<br/>connection_type<br/>+ 6 campos"]
+        end
+
+        subgraph D12["Codeshare Domain"]
+            CODE_TAB["codeshare_flights<br/>-----------<br/>fuid (PK)<br/>operating_carrier<br/>+ 6 campos"]
+        end
+
+        subgraph D13["Event Publisher"]
+            PUB["Convierte FUID<br/>a 6 campos externos<br/>y publica"]
         end
     end
 
-    BENEFITS["✅ BENEFICIOS:<br/>* Escalado independiente<br/>* Deploy por dominio<br/>* Ownership claro<br/>* Queries simples<br/>* Sin contention"]
+    BENEFITS["✅ BENEFICIOS:<br/>* Escalado independiente<br/>* Deploy por dominio<br/>* Ownership claro<br/>* Queries simples<br/>* Sin contention<br/>* 13 dominios especializados"]
 ```
 
 ---
