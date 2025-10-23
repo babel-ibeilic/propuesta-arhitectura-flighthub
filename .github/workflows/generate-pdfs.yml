@@ -1,0 +1,92 @@
+name: Generate Documentation PDFs
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'ARQUITECTURA.md'
+      - 'DATABASE-DOMAINS-STRUCTURE.md'
+      - 'DIAGRAMAS-SIMPLIFICADOS.md'
+      - 'exports/schema.sql'
+      - '.github/workflows/generate-pdfs.yml'
+  workflow_dispatch: # Permite ejecutar manualmente el workflow
+
+permissions:
+  contents: write
+
+jobs:
+  generate-pdfs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install md-to-pdf
+        run: npm install -g md-to-pdf
+
+      - name: Generate ARQUITECTURA.pdf
+        run: |
+          md-to-pdf ARQUITECTURA.md \
+            --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
+            --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css" \
+            --output exports/ARQUITECTURA.pdf
+        continue-on-error: false
+
+      - name: Generate DATABASE-DOMAINS-STRUCTURE.pdf
+        run: |
+          md-to-pdf DATABASE-DOMAINS-STRUCTURE.md \
+            --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
+            --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css" \
+            --output exports/DATABASE-DOMAINS-STRUCTURE.pdf
+        continue-on-error: false
+
+      - name: Generate DIAGRAMAS-SIMPLIFICADOS.pdf
+        run: |
+          md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md \
+            --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
+            --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css" \
+            --output exports/DIAGRAMAS-SIMPLIFICADOS.pdf
+        continue-on-error: false
+
+      - name: Check if there are changes
+        id: check_changes
+        run: |
+          git diff --quiet exports/*.pdf || echo "changes=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push PDFs
+        if: steps.check_changes.outputs.changes == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add exports/*.pdf
+          git commit -m "docs: update generated PDFs [skip ci]"
+          git push
+
+      - name: Summary
+        run: |
+          echo "## PDF Generation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Successfully generated PDFs:" >> $GITHUB_STEP_SUMMARY
+          echo "- ARQUITECTURA.pdf" >> $GITHUB_STEP_SUMMARY
+          echo "- DATABASE-DOMAINS-STRUCTURE.pdf" >> $GITHUB_STEP_SUMMARY
+          echo "- DIAGRAMAS-SIMPLIFICADOS.pdf" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f exports/ARQUITECTURA.pdf ]; then
+            echo "📄 ARQUITECTURA.pdf size: $(du -h exports/ARQUITECTURA.pdf | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -f exports/DATABASE-DOMAINS-STRUCTURE.pdf ]; then
+            echo "📄 DATABASE-DOMAINS-STRUCTURE.pdf size: $(du -h exports/DATABASE-DOMAINS-STRUCTURE.pdf | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          fi
+          if [ -f exports/DIAGRAMAS-SIMPLIFICADOS.pdf ]; then
+            echo "📄 DIAGRAMAS-SIMPLIFICADOS.pdf size: $(du -h exports/DIAGRAMAS-SIMPLIFICADOS.pdf | cut -f1)" >> $GITHUB_STEP_SUMMARY
+          fi
