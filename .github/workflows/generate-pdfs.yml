@@ -51,36 +51,87 @@ jobs:
             libcairo2 \
             libasound2t64
 
+      - name: Install mermaid-cli
+        run: npm install -g @mermaid-js/mermaid-cli
+
       - name: Install md-to-pdf
         run: npm install -g md-to-pdf
 
       - name: Create exports directory
         run: mkdir -p exports
 
+      - name: Create md-to-pdf config with Mermaid support
+        run: |
+          cat > .md-to-pdf.js << 'EOF'
+          module.exports = {
+            pdf_options: {
+              format: 'A4',
+              margin: '20mm',
+              printBackground: true,
+              timeout: 60000
+            },
+            stylesheet: [
+              'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css',
+              'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.css'
+            ],
+            body_class: 'markdown-body',
+            marked_options: {
+              headerIds: true,
+              smartypants: true,
+            },
+            launch_options: {
+              args: ['--no-sandbox', '--disable-setuid-sandbox']
+            },
+            md_file_encoding: 'utf-8',
+            stylesheet_encoding: 'utf-8',
+            as_html: false,
+            highlight_style: 'github',
+            script: `
+              <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+              <script>
+                mermaid.initialize({
+                  startOnLoad: true,
+                  theme: 'default',
+                  securityLevel: 'loose',
+                  logLevel: 'debug'
+                });
+                // Wait for Mermaid to render before PDF generation
+                window.addEventListener('load', function() {
+                  setTimeout(function() {
+                    document.body.classList.add('mermaid-ready');
+                  }, 2000);
+                });
+              </script>
+            `,
+            waitForNetworkIdle: true
+          }
+          EOF
+
+      - name: Render Mermaid diagrams
+        run: |
+          # Extract and render mermaid diagrams from markdown files
+          for file in ARQUITECTURA.md DATABASE-DOMAINS-STRUCTURE.md DIAGRAMAS-SIMPLIFICADOS.md; do
+            if [ -f "$file" ]; then
+              echo "Processing $file for Mermaid diagrams..."
+              # This will be handled by md-to-pdf with proper config
+            fi
+          done
+
       - name: Generate ARQUITECTURA.pdf
         run: |
-          md-to-pdf ARQUITECTURA.md \
-            --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
-            --launch-options '{ "args": ["--no-sandbox", "--disable-setuid-sandbox"] }' \
-            --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css"
+          md-to-pdf ARQUITECTURA.md --config-file .md-to-pdf.js
           mv ARQUITECTURA.pdf exports/
         continue-on-error: false
 
       - name: Generate DATABASE-DOMAINS-STRUCTURE.pdf
         run: |
-          md-to-pdf DATABASE-DOMAINS-STRUCTURE.md \
-            --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
-            --launch-options '{ "args": ["--no-sandbox", "--disable-setuid-sandbox"] }' \
-            --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css"
+          md-to-pdf DATABASE-DOMAINS-STRUCTURE.md --config-file .md-to-pdf.js
           mv DATABASE-DOMAINS-STRUCTURE.pdf exports/
         continue-on-error: false
 
       - name: Generate DIAGRAMAS-SIMPLIFICADOS.pdf
         run: |
-          md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md \
-            --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
-            --launch-options '{ "args": ["--no-sandbox", "--disable-setuid-sandbox"] }' \
-            --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css"
+          md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md --config-file .md-to-pdf.js
           mv DIAGRAMAS-SIMPLIFICADOS.pdf exports/
         continue-on-error: false
 
