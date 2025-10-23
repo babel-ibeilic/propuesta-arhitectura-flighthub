@@ -43,43 +43,25 @@ Schema SQL completo listo para importar:
 ## 📦 Carpeta Exports
 
 La carpeta `exports/` contiene:
-- ✅ PDFs generados automáticamente de los documentos principales
+- ✅ PDFs de los documentos principales
 - ✅ Schema SQL exportado
 - ✅ Archivos listos para distribución
-
-## 🤖 Generación Automática de PDFs
-
-Los PDFs se generan **automáticamente** mediante GitHub Actions cuando:
-- Se hace push a las ramas `main` o `master`
-- Se modifican los archivos de documentación markdown
-- Se ejecuta manualmente el workflow
-
-### Ejecutar manualmente en GitHub
-
-1. Ve a la pestaña **Actions** en GitHub
-2. Selecciona **"Generate Documentation PDFs"**
-3. Haz clic en **"Run workflow"**
-4. Los PDFs se actualizarán automáticamente
 
 ## 📁 Estructura del Proyecto
 
 ```
 docs/
-├── .github/
-│   ├── workflows/
-│   │   └── generate-pdfs.yml       # GitHub Action para PDFs
-│   └── README.md                   # Documentación de workflows
 ├── exports/
-│   ├── ARQUITECTURA.pdf            # ✅ Auto-generado
-│   ├── DATABASE-DOMAINS-STRUCTURE.pdf  # ✅ Auto-generado
-│   ├── DIAGRAMAS-SIMPLIFICADOS.pdf # ✅ Auto-generado
-│   └── schema.sql                  # Schema SQL exportado
-├── diagrams/                       # Diagramas fuente
-├── images/                         # Imágenes de documentación
-├── ARQUITECTURA.md                 # 📄 Fuente
-├── DATABASE-DOMAINS-STRUCTURE.md   # 📄 Fuente
-├── DIAGRAMAS-SIMPLIFICADOS.md      # 📄 Fuente
-└── README.md                       # Este archivo
+│   ├── ARQUITECTURA.pdf
+│   ├── DATABASE-DOMAINS-STRUCTURE.pdf
+│   ├── DIAGRAMAS-SIMPLIFICADOS.pdf
+│   └── schema.sql
+├── diagrams/
+├── images/
+├── ARQUITECTURA.md
+├── DATABASE-DOMAINS-STRUCTURE.md
+├── DIAGRAMAS-SIMPLIFICADOS.md
+└── README.md
 ```
 
 ## 🔧 Dominios del Sistema
@@ -130,33 +112,11 @@ Todas las tablas incluyen:
 - **0 JOINs** necesarios entre dominios
 - **6 campos** de identificación replicados
 
-## 🔄 Workflow de Actualización
-
-1. **Editar** archivos markdown (`*.md`)
-2. **Commit & Push** a GitHub
-3. **GitHub Actions** genera PDFs automáticamente
-4. **PDFs actualizados** disponibles en `exports/`
-
-## 📝 Contribuir
-
-Para contribuir a la documentación:
-
-1. Edita los archivos markdown fuente
-2. Crea un pull request
-3. Los PDFs se generarán automáticamente al merge
-
-## 🛠️ Herramientas
-
-- **md-to-pdf**: Conversión de Markdown a PDF
-- **GitHub Actions**: Automatización CI/CD
-- **GitHub Markdown CSS**: Estilos consistentes
-
 ## 📞 Soporte
 
 Para más información sobre el sistema FlightHub, consulta los documentos principales o contacta al equipo de desarrollo.
 
 ---
 
-**Última actualización**: Automático mediante GitHub Actions
 **Versión**: 2.0
 **Mantenido por**: Equipo FlightHub
