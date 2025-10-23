@@ -52,72 +52,41 @@ jobs:
             libcairo2 \
             libasound2t64
 
-      - name: Install md-to-pdf
-        run: npm install -g md-to-pdf
+      - name: Install markdown-pdf with Mermaid support
+        run: |
+          npm install -g mdpdf
+          npm install -g @mermaid-js/mermaid-cli
 
       - name: Create exports directory
         run: mkdir -p exports
 
-      - name: Create md-to-pdf config with Mermaid support
-        run: |
-          cat > .md-to-pdf.js << 'EOF'
-          module.exports = {
-            pdf_options: {
-              format: 'A4',
-              margin: '20mm',
-              printBackground: true,
-              timeout: 60000
-            },
-            stylesheet: 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css',
-            body_class: 'markdown-body',
-            launch_options: {
-              headless: true,
-              args: [
-                '--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-dev-shm-usage',
-                '--disable-gpu',
-                '--no-first-run',
-                '--no-zygote',
-                '--single-process'
-              ]
-            },
-            script: [
-              { url: 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js' },
-              {
-                content: `
-                  mermaid.initialize({
-                    startOnLoad: true,
-                    theme: 'default',
-                    securityLevel: 'loose'
-                  });
-                `
-              }
-            ]
-          }
-          EOF
-
       - name: Generate PDFs with Mermaid support
         run: |
           echo "Generating ARQUITECTURA.pdf..."
-          md-to-pdf ARQUITECTURA.md --config-file .md-to-pdf.js
-          mv ARQUITECTURA.pdf exports/
+          mdpdf ARQUITECTURA.md exports/ARQUITECTURA.pdf \
+            --format=A4 \
+            --border=20mm
           echo "✓ ARQUITECTURA.pdf created: $(ls -lh exports/ARQUITECTURA.pdf)"
 
           echo "Generating DATABASE-DOMAINS-STRUCTURE.pdf..."
-          md-to-pdf DATABASE-DOMAINS-STRUCTURE.md --config-file .md-to-pdf.js
-          mv DATABASE-DOMAINS-STRUCTURE.pdf exports/
+          mdpdf DATABASE-DOMAINS-STRUCTURE.md exports/DATABASE-DOMAINS-STRUCTURE.pdf \
+            --format=A4 \
+            --border=20mm
           echo "✓ DATABASE-DOMAINS-STRUCTURE.pdf created: $(ls -lh exports/DATABASE-DOMAINS-STRUCTURE.pdf)"
 
           echo "Generating DIAGRAMAS-SIMPLIFICADOS.pdf..."
-          md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md --config-file .md-to-pdf.js
-          mv DIAGRAMAS-SIMPLIFICADOS.pdf exports/
+          mdpdf DIAGRAMAS-SIMPLIFICADOS.md exports/DIAGRAMAS-SIMPLIFICADOS.pdf \
+            --format=A4 \
+            --border=20mm
           echo "✓ DIAGRAMAS-SIMPLIFICADOS.pdf created: $(ls -lh exports/DIAGRAMAS-SIMPLIFICADOS.pdf)"
 
           echo ""
           echo "All PDFs in exports/:"
           ls -lh exports/
         continue-on-error: false
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'false'
+          PUPPETEER_EXECUTABLE_PATH: '/usr/bin/chromium-browser'
 
       - name: Commit and push PDFs
         run: |
