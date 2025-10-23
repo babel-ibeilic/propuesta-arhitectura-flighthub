@@ -68,42 +68,23 @@ jobs:
               format: 'A4',
               margin: '20mm',
               printBackground: true,
-              timeout: 60000
+              timeout: 120000
             },
-            stylesheet: [
-              'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css',
-              'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.css'
-            ],
+            stylesheet: 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css',
             body_class: 'markdown-body',
-            marked_options: {
-              headerIds: true,
-              smartypants: true,
-            },
             launch_options: {
               args: ['--no-sandbox', '--disable-setuid-sandbox']
             },
-            md_file_encoding: 'utf-8',
-            stylesheet_encoding: 'utf-8',
-            as_html: false,
-            highlight_style: 'github',
             script: `
               <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
               <script>
                 mermaid.initialize({
                   startOnLoad: true,
                   theme: 'default',
-                  securityLevel: 'loose',
-                  logLevel: 'debug'
-                });
-                // Wait for Mermaid to render before PDF generation
-                window.addEventListener('load', function() {
-                  setTimeout(function() {
-                    document.body.classList.add('mermaid-ready');
-                  }, 2000);
+                  securityLevel: 'loose'
                 });
               </script>
-            `,
-            waitForNetworkIdle: true
+            `
           }
           EOF
 
@@ -119,20 +100,38 @@ jobs:
 
       - name: Generate ARQUITECTURA.pdf
         run: |
-          md-to-pdf ARQUITECTURA.md --config-file .md-to-pdf.js
-          mv ARQUITECTURA.pdf exports/
+          md-to-pdf ARQUITECTURA.md --config-file .md-to-pdf.js --devtools
+          if [ -f ARQUITECTURA.pdf ]; then
+            mv ARQUITECTURA.pdf exports/
+            echo "✓ ARQUITECTURA.pdf generated successfully"
+          else
+            echo "✗ Failed to generate ARQUITECTURA.pdf"
+            exit 1
+          fi
         continue-on-error: false
 
       - name: Generate DATABASE-DOMAINS-STRUCTURE.pdf
         run: |
-          md-to-pdf DATABASE-DOMAINS-STRUCTURE.md --config-file .md-to-pdf.js
-          mv DATABASE-DOMAINS-STRUCTURE.pdf exports/
+          md-to-pdf DATABASE-DOMAINS-STRUCTURE.md --config-file .md-to-pdf.js --devtools
+          if [ -f DATABASE-DOMAINS-STRUCTURE.pdf ]; then
+            mv DATABASE-DOMAINS-STRUCTURE.pdf exports/
+            echo "✓ DATABASE-DOMAINS-STRUCTURE.pdf generated successfully"
+          else
+            echo "✗ Failed to generate DATABASE-DOMAINS-STRUCTURE.pdf"
+            exit 1
+          fi
         continue-on-error: false
 
       - name: Generate DIAGRAMAS-SIMPLIFICADOS.pdf
         run: |
-          md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md --config-file .md-to-pdf.js
-          mv DIAGRAMAS-SIMPLIFICADOS.pdf exports/
+          md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md --config-file .md-to-pdf.js --devtools
+          if [ -f DIAGRAMAS-SIMPLIFICADOS.pdf ]; then
+            mv DIAGRAMAS-SIMPLIFICADOS.pdf exports/
+            echo "✓ DIAGRAMAS-SIMPLIFICADOS.pdf generated successfully"
+          else
+            echo "✗ Failed to generate DIAGRAMAS-SIMPLIFICADOS.pdf"
+            exit 1
+          fi
         continue-on-error: false
 
       - name: Check if there are changes
