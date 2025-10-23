@@ -52,41 +52,120 @@ jobs:
             libcairo2 \
             libasound2t64
 
-      - name: Install markdown-pdf with Mermaid support
+      - name: Install dependencies
         run: |
-          npm install -g mdpdf
-          npm install -g @mermaid-js/mermaid-cli
+          npm install -g marked puppeteer
 
       - name: Create exports directory
         run: mkdir -p exports
 
+      - name: Create PDF generator script with Mermaid support
+        run: |
+          cat > generate-pdf.js << 'ENDOFFILE'
+          const fs = require('fs');
+          const { marked } = require('marked');
+          const puppeteer = require('puppeteer');
+
+          async function generatePDF(mdFile, pdfFile) {
+            console.log(`Converting ${mdFile} to ${pdfFile}...`);
+
+            const markdown = fs.readFileSync(mdFile, 'utf8');
+            const html = marked.parse(markdown);
+
+            const fullHtml = `
+              <!DOCTYPE html>
+              <html>
+              <head>
+                <meta charset="UTF-8">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+                <style>
+                  body {
+                    box-sizing: border-box;
+                    min-width: 200px;
+                    max-width: 980px;
+                    margin: 0 auto;
+                    padding: 45px;
+                  }
+                  .markdown-body {
+                    font-size: 14px;
+                    line-height: 1.6;
+                  }
+                  @media print {
+                    body { padding: 20mm; }
+                  }
+                </style>
+              </head>
+              <body class="markdown-body">
+                ${html}
+                <script>
+                  mermaid.initialize({
+                    startOnLoad: true,
+                    theme: 'default',
+                    securityLevel: 'loose'
+                  });
+                </script>
+              </body>
+              </html>
+            `;
+
+            const browser = await puppeteer.launch({
+              headless: true,
+              args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu'
+              ]
+            });
+
+            const page = await browser.newPage();
+            await page.setContent(fullHtml, { waitUntil: 'networkidle0' });
+
+            // Wait for Mermaid to render
+            await page.waitForTimeout(3000);
+
+            await page.pdf({
+              path: pdfFile,
+              format: 'A4',
+              margin: { top: '20mm', right: '20mm', bottom: '20mm', left: '20mm' },
+              printBackground: true
+            });
+
+            await browser.close();
+            console.log(`✓ ${pdfFile} generated successfully`);
+          }
+
+          const args = process.argv.slice(2);
+          if (args.length !== 2) {
+            console.error('Usage: node generate-pdf.js <input.md> <output.pdf>');
+            process.exit(1);
+          }
+
+          generatePDF(args[0], args[1]).catch(err => {
+            console.error('Error:', err);
+            process.exit(1);
+          });
+          ENDOFFILE
+
       - name: Generate PDFs with Mermaid support
         run: |
           echo "Generating ARQUITECTURA.pdf..."
-          mdpdf ARQUITECTURA.md exports/ARQUITECTURA.pdf \
-            --format=A4 \
-            --border=20mm
+          node generate-pdf.js ARQUITECTURA.md exports/ARQUITECTURA.pdf
           echo "✓ ARQUITECTURA.pdf created: $(ls -lh exports/ARQUITECTURA.pdf)"
 
           echo "Generating DATABASE-DOMAINS-STRUCTURE.pdf..."
-          mdpdf DATABASE-DOMAINS-STRUCTURE.md exports/DATABASE-DOMAINS-STRUCTURE.pdf \
-            --format=A4 \
-            --border=20mm
+          node generate-pdf.js DATABASE-DOMAINS-STRUCTURE.md exports/DATABASE-DOMAINS-STRUCTURE.pdf
           echo "✓ DATABASE-DOMAINS-STRUCTURE.pdf created: $(ls -lh exports/DATABASE-DOMAINS-STRUCTURE.pdf)"
 
           echo "Generating DIAGRAMAS-SIMPLIFICADOS.pdf..."
-          mdpdf DIAGRAMAS-SIMPLIFICADOS.md exports/DIAGRAMAS-SIMPLIFICADOS.pdf \
-            --format=A4 \
-            --border=20mm
+          node generate-pdf.js DIAGRAMAS-SIMPLIFICADOS.md exports/DIAGRAMAS-SIMPLIFICADOS.pdf
           echo "✓ DIAGRAMAS-SIMPLIFICADOS.pdf created: $(ls -lh exports/DIAGRAMAS-SIMPLIFICADOS.pdf)"
 
           echo ""
           echo "All PDFs in exports/:"
           ls -lh exports/
         continue-on-error: false
-        env:
-          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'false'
-          PUPPETEER_EXECUTABLE_PATH: '/usr/bin/chromium-browser'
 
       - name: Commit and push PDFs
         run: |
