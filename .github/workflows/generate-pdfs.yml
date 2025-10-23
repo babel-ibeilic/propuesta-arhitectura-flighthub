@@ -102,31 +102,59 @@ jobs:
           echo "Generating ARQUITECTURA.pdf..."
           md-to-pdf ARQUITECTURA.md --config-file .md-to-pdf.js
           mv ARQUITECTURA.pdf exports/
+          echo "✓ ARQUITECTURA.pdf created: $(ls -lh exports/ARQUITECTURA.pdf)"
 
           echo "Generating DATABASE-DOMAINS-STRUCTURE.pdf..."
           md-to-pdf DATABASE-DOMAINS-STRUCTURE.md --config-file .md-to-pdf.js
           mv DATABASE-DOMAINS-STRUCTURE.pdf exports/
+          echo "✓ DATABASE-DOMAINS-STRUCTURE.pdf created: $(ls -lh exports/DATABASE-DOMAINS-STRUCTURE.pdf)"
 
           echo "Generating DIAGRAMAS-SIMPLIFICADOS.pdf..."
           md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md --config-file .md-to-pdf.js
           mv DIAGRAMAS-SIMPLIFICADOS.pdf exports/
+          echo "✓ DIAGRAMAS-SIMPLIFICADOS.pdf created: $(ls -lh exports/DIAGRAMAS-SIMPLIFICADOS.pdf)"
 
-          echo "✓ All PDFs generated successfully"
+          echo ""
+          echo "All PDFs in exports/:"
+          ls -lh exports/
         continue-on-error: false
 
-      - name: Check if there are changes
-        id: check_changes
-        run: |
-          git diff --quiet exports/*.pdf || echo "changes=true" >> $GITHUB_OUTPUT
-
       - name: Commit and push PDFs
-        if: steps.check_changes.outputs.changes == 'true'
         run: |
+          echo "Git status before adding:"
+          git status
+
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+
+          echo ""
+          echo "Adding PDFs to git..."
           git add exports/*.pdf
-          git commit -m "docs: update generated PDFs [skip ci]"
-          git push
+
+          echo ""
+          echo "Git status after adding:"
+          git status
+
+          echo ""
+          echo "Staged changes:"
+          git diff --staged --name-only
+
+          # Check if there are changes to commit
+          if git diff --staged --quiet; then
+            echo ""
+            echo "ℹ️ No changes to commit (PDFs are identical to existing ones)"
+          else
+            echo ""
+            echo "Committing changes..."
+            git commit -m "docs: update generated PDFs [skip ci]"
+
+            echo ""
+            echo "Pushing to remote..."
+            git push
+
+            echo ""
+            echo "✓ PDFs committed and pushed successfully"
+          fi
 
       - name: Summary
         run: |
