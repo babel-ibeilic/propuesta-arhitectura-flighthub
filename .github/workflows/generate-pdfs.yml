@@ -19,6 +19,7 @@ permissions:
 jobs:
   generate-pdfs:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     steps:
       - name: Checkout repository
@@ -51,9 +52,6 @@ jobs:
             libcairo2 \
             libasound2t64
 
-      - name: Install mermaid-cli
-        run: npm install -g @mermaid-js/mermaid-cli
-
       - name: Install md-to-pdf
         run: npm install -g md-to-pdf
 
@@ -68,7 +66,7 @@ jobs:
               format: 'A4',
               margin: '20mm',
               printBackground: true,
-              timeout: 120000
+              timeout: 60000
             },
             stylesheet: 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css',
             body_class: 'markdown-body',
@@ -99,50 +97,21 @@ jobs:
           }
           EOF
 
-      - name: Render Mermaid diagrams
+      - name: Generate PDFs with Mermaid support
         run: |
-          # Extract and render mermaid diagrams from markdown files
-          for file in ARQUITECTURA.md DATABASE-DOMAINS-STRUCTURE.md DIAGRAMAS-SIMPLIFICADOS.md; do
-            if [ -f "$file" ]; then
-              echo "Processing $file for Mermaid diagrams..."
-              # This will be handled by md-to-pdf with proper config
-            fi
-          done
+          echo "Generating ARQUITECTURA.pdf..."
+          md-to-pdf ARQUITECTURA.md --config-file .md-to-pdf.js
+          mv ARQUITECTURA.pdf exports/
 
-      - name: Generate ARQUITECTURA.pdf
-        run: |
-          md-to-pdf ARQUITECTURA.md --config-file .md-to-pdf.js --devtools
-          if [ -f ARQUITECTURA.pdf ]; then
-            mv ARQUITECTURA.pdf exports/
-            echo "✓ ARQUITECTURA.pdf generated successfully"
-          else
-            echo "✗ Failed to generate ARQUITECTURA.pdf"
-            exit 1
-          fi
-        continue-on-error: false
+          echo "Generating DATABASE-DOMAINS-STRUCTURE.pdf..."
+          md-to-pdf DATABASE-DOMAINS-STRUCTURE.md --config-file .md-to-pdf.js
+          mv DATABASE-DOMAINS-STRUCTURE.pdf exports/
 
-      - name: Generate DATABASE-DOMAINS-STRUCTURE.pdf
-        run: |
-          md-to-pdf DATABASE-DOMAINS-STRUCTURE.md --config-file .md-to-pdf.js --devtools
-          if [ -f DATABASE-DOMAINS-STRUCTURE.pdf ]; then
-            mv DATABASE-DOMAINS-STRUCTURE.pdf exports/
-            echo "✓ DATABASE-DOMAINS-STRUCTURE.pdf generated successfully"
-          else
-            echo "✗ Failed to generate DATABASE-DOMAINS-STRUCTURE.pdf"
-            exit 1
-          fi
-        continue-on-error: false
+          echo "Generating DIAGRAMAS-SIMPLIFICADOS.pdf..."
+          md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md --config-file .md-to-pdf.js
+          mv DIAGRAMAS-SIMPLIFICADOS.pdf exports/
 
-      - name: Generate DIAGRAMAS-SIMPLIFICADOS.pdf
-        run: |
-          md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md --config-file .md-to-pdf.js --devtools
-          if [ -f DIAGRAMAS-SIMPLIFICADOS.pdf ]; then
-            mv DIAGRAMAS-SIMPLIFICADOS.pdf exports/
-            echo "✓ DIAGRAMAS-SIMPLIFICADOS.pdf generated successfully"
-          else
-            echo "✗ Failed to generate DIAGRAMAS-SIMPLIFICADOS.pdf"
-            exit 1
-          fi
+          echo "✓ All PDFs generated successfully"
         continue-on-error: false
 
       - name: Check if there are changes
