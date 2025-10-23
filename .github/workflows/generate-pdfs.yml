@@ -31,6 +31,25 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libnss3 \
+            libatk1.0-0 \
+            libatk-bridge2.0-0 \
+            libcups2 \
+            libdrm2 \
+            libxkbcommon0 \
+            libxcomposite1 \
+            libxdamage1 \
+            libxfixes3 \
+            libxrandr2 \
+            libgbm1 \
+            libpango-1.0-0 \
+            libcairo2 \
+            libasound2
+
       - name: Install md-to-pdf
         run: npm install -g md-to-pdf
 
@@ -41,6 +60,7 @@ jobs:
         run: |
           md-to-pdf ARQUITECTURA.md \
             --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
+            --launch-options '{ "args": ["--no-sandbox", "--disable-setuid-sandbox"] }' \
             --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css"
           mv ARQUITECTURA.pdf exports/
         continue-on-error: false
@@ -49,6 +69,7 @@ jobs:
         run: |
           md-to-pdf DATABASE-DOMAINS-STRUCTURE.md \
             --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
+            --launch-options '{ "args": ["--no-sandbox", "--disable-setuid-sandbox"] }' \
             --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css"
           mv DATABASE-DOMAINS-STRUCTURE.pdf exports/
         continue-on-error: false
@@ -57,6 +78,7 @@ jobs:
         run: |
           md-to-pdf DIAGRAMAS-SIMPLIFICADOS.md \
             --pdf-options '{ "format": "A4", "margin": "20mm", "printBackground": true }' \
+            --launch-options '{ "args": ["--no-sandbox", "--disable-setuid-sandbox"] }' \
             --stylesheet "https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css"
           mv DIAGRAMAS-SIMPLIFICADOS.pdf exports/
         continue-on-error: false
