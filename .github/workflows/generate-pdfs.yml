@@ -73,7 +73,16 @@ jobs:
             stylesheet: 'https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/5.5.1/github-markdown.min.css',
             body_class: 'markdown-body',
             launch_options: {
-              args: ['--no-sandbox', '--disable-setuid-sandbox']
+              headless: true,
+              args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-dev-shm-usage',
+                '--disable-gpu',
+                '--no-first-run',
+                '--no-zygote',
+                '--single-process'
+              ]
             },
             script: `
               <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
