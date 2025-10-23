@@ -52,9 +52,10 @@ jobs:
             libcairo2 \
             libasound2t64
 
-      - name: Install dependencies
+      - name: Install dependencies locally
         run: |
-          npm install -g marked puppeteer
+          npm init -y
+          npm install marked puppeteer
 
       - name: Create exports directory
         run: mkdir -p exports
